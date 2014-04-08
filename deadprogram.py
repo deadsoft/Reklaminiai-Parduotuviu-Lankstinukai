@@ -21,17 +21,13 @@
 
 '''pyinstaller --clean --hidden-import=PyQt5.QtPrintSupport --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/dontuse11-qt5.py'''
 
-import urllib, sys, os, urllib, json
+import urllib, sys, os, json, shutil
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
-import shutil
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
-import pdf2images
-import oldpdfdeleter
-import linkparser
+import pdf2images, oldpdfdeleter, linkparser
 
 version = 0.001
-
 
 dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
 if not os.path.exists(userdir + '/.cache/'):
@@ -50,12 +46,12 @@ for item in dirs:
     if not os.path.exists(userdir + '/.cache/deadprogram/' + '/pdfs/' + item):
         os.mkdir(userdir + '/.cache/deadprogram/' + '/pdfs/' + item)
 if not os.path.exists(userdir + '/.cache/deadprogram/' + 'build'):
-	shutil.copytree('/usr/share/deadprogram/build', userdir + '/.cache/deadprogram/' + 'build')
+    shutil.copytree('/usr/share/deadprogram/build', userdir + '/.cache/deadprogram/' + 'build')
 if not os.path.exists(userdir + '/.cache/deadprogram/' + 'icons'):
-	shutil.copytree('/usr/share/deadprogram/icons', userdir + '/.cache/deadprogram/' + 'icons')
+    shutil.copytree('/usr/share/deadprogram/icons', userdir + '/.cache/deadprogram/' + 'icons')
 if not os.path.exists(userdir + '/.cache/deadprogram/' + 'web'):
-	shutil.copytree('/usr/share/deadprogram/web', userdir + '/.cache/deadprogram/' + 'web')
-	
+    shutil.copytree('/usr/share/deadprogram/web', userdir + '/.cache/deadprogram/' + 'web')
+        
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -677,13 +673,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton_9.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_9.installEventFilter(self)
         self.comboBox.setDuplicatesEnabled(False)
-#        self.comboBox.editTextChanged.connect(self.comboBoxindexeschanged)
         self.comboBoxview = self.comboBox.view()
         self.comboBoxview.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
-        #self.comboBoxview.setDefaultDropAction
-#        self.comboBoxview.setDragDropOverwriteMode(False)
-#        self.comboBoxview.setDropIndicatorShown(True)
-#        self.comboBoxview.pressed.connect(self.comboBoxindexeschanged)
         
         for item in self.combolist:
             index = item.currentIndex()
@@ -697,9 +688,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
             item.addItems(pdfss)
                     
         if self.loadpdfjs:
-			self.webView_2.load(QtCore.QUrl('file:///home/neon/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
         else:
-			self.webView_2.load(QtCore.QUrl('about:blank'))
+            self.webView_2.load(QtCore.QUrl('about:blank'))
 
         
         settings = self.webView.settings()
@@ -745,12 +736,12 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.downloadlist = []
         self.show()
         self.readSettings()
-        if not self.loadpdfjs:
-			self.threads = []
-			b = pdf2images.imagesFromPdf()
-			self.threads.append(b)
-			self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
-			b.start()
+        if not self.loadpdfjs:            
+            self.threads = []
+            b = pdf2images.imagesFromPdf()
+            self.threads.append(b)
+            self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
+            b.start()
         
         
         self.downloader = QtWebKit.QWebView()
@@ -759,57 +750,53 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
         
-    def comboBoxindexeschanged(self, a):
-		print a
-		self.comboBoxview.update()
-        
     def comboboxlasthighlighted(self, num):
         self.combohighlighted = num
         
     def eventFilter(self, source, event):        
-		#help(QtCore.QEvent)
+        #help(QtCore.QEvent)
         #print event.type(), event, source
         if (event.type() == 60 and source is self.comboBox):
-			event.accept()				
+            event.accept()				
         if (event.type() == 63 and source is self.comboBox):
-			if event.mimeData().hasFormat('text/plain'):
-				event.accept()
-				source.addItem(event.mimeData().text())
+            if event.mimeData().hasFormat('text/plain'):
+                event.accept()
+                source.addItem(event.mimeData().text())
         if (event.type() == 60 and source is self.pushButton_9):
-			if not event.mimeData().hasFormat('text/plain'):
-				event.accept()
+            if not event.mimeData().hasFormat('text/plain'):
+                event.accept()
         if (event.type() == 63 and source is self.pushButton_9):
-			if not event.mimeData().hasFormat('text/plain'):
-				event.accept()
-				self.comboBox.removeItem(self.combohighlighted)
+            if not event.mimeData().hasFormat('text/plain'):
+                event.accept()
+                self.comboBox.removeItem(self.combohighlighted)
         if (event.type() == 60 and source is self.lineEdit):
-			event.ignore()
-			
+            event.ignore()
+
         return QtGui.QWidget.eventFilter(self, source, event)
         
     def pageloadprogress(self, n):
         self.progressBar_2.setProperty("value", n) 
         
     def loadsite(self):
-		self.webView.load(QtCore.QUrl(self.comboBox.currentText()))
+        self.webView.load(QtCore.QUrl(self.comboBox.currentText()))
 
     def savebrowserurls(self):
-		lst = []
-		for n in range(self.comboBox.count()):
-			lst.append(('Site title', str(self.comboBox.itemText(n))))
-		f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'w')
-		json.dump(lst, f,  indent=4)
-		f.close()
+        lst = []
+        for n in range(self.comboBox.count()):
+            lst.append(('Site title', str(self.comboBox.itemText(n))))
+        f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'w')
+        json.dump(lst, f,  indent=4)
+        f.close()
 
 
     def addbrowserurls(self):
-		try:
-			f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'r')
-			lst = json.load(f)
-			for tpl in lst:
-				self.comboBox.addItem(tpl[1])
-		except:
-			pass
+        try:
+            f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'r')
+            lst = json.load(f)
+            for tpl in lst:
+                self.comboBox.addItem(tpl[1])
+        except:
+                pass
         
     def closeEvent(self, event):
 #        if self.maybeSave():
@@ -827,19 +814,19 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 item.setChecked(True)
         self.tabWidget.setCurrentIndex(settings.value("activetab").toInt()[0])
         if settings.value("pdfjs").toBool():
-			self.checkBox.setChecked(True)
-			self.loadpdfjs = True
+            self.checkBox.setChecked(True)
+            self.loadpdfjs = True
         if settings.value("autodelpdfstime").toInt()[1]:
-			self.spinBox.setValue(settings.value("autodelpdfstime").toInt()[0])
+            self.spinBox.setValue(settings.value("autodelpdfstime").toInt()[0])
         if settings.value("autoupdatepdfs").toBool():
-			self.checkBox_4.setChecked(True)
-			self.updatepdfs()
+            self.checkBox_4.setChecked(True)
+            self.updatepdfs()
         if settings.value("checkprogramforupdates").toBool():
-			self.checkBox_2.setChecked(True)
-			self.checkforprogramupdates()
+            self.checkBox_2.setChecked(True)
+            self.checkforprogramupdates()
         if settings.value("autodelpdfs").toBool():
-			self.checkBox_3.setChecked(True)
-			b = self.deleteoldpdfs()
+            self.checkBox_3.setChecked(True)
+            b = self.deleteoldpdfs()
         c = self.addbrowserurls()
            
     def writeSettings(self):
@@ -857,59 +844,60 @@ class Ui_MainWindow(QtGui.QMainWindow):
         a = self.savebrowserurls()        
         
     def deleteoldpdfs(self):
-		self.threads = []
-		a = oldpdfdeleter.OldPdfDeleter(self.spinBox.value())
-		self.threads.append(a)
-		self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
-		a.start()
+        self.threads = []
+        a = oldpdfdeleter.OldPdfDeleter(self.spinBox.value())
+        self.threads.append(a)
+        self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
+        a.start()
             
     def checkforprogramupdates(self):
-		self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
-		self.plainTextEdit.appendPlainText(unicode('Nebaigtas rašyt programos kodas', "utf-8"))
+        self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
+        #'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'
+        self.plainTextEdit.appendPlainText(unicode('Nebaigtas rašyt programos kodas', "utf-8"))
  
     def loadpdf(self, combobox):
         index = combobox.currentIndex()
         if index != 0:
-			if self.loadpdfjs:
-				pdf = userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/' + combobox.itemText(index)
-				if os.path.exists(userdir + '/.cache/deadprogram/web/pdftoload.pdf'):
-					os.remove(userdir + '/.cache/deadprogram/web/pdftoload.pdf')
-				os.link(pdf, userdir + '/.cache/deadprogram/web/pdftoload.pdf')
-				self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
-				for item in self.combolist:
-					index = item.currentIndex()
-					shop = item.itemText(index)
-					if shop != combobox.itemText(combobox.currentIndex()):
-						item.setCurrentIndex(0)
-			else:
-				html = 'file://' + userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
-				self.webView_2.load(QtCore.QUrl(html))
-				for item in self.combolist:
-					index = item.currentIndex()
-					shop = item.itemText(index)
-					if shop != combobox.itemText(combobox.currentIndex()):
-						item.setCurrentIndex(0)
+            if self.loadpdfjs:
+                pdf = userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/' + combobox.itemText(index)
+                if os.path.exists(userdir + '/.cache/deadprogram/web/pdftoload.pdf'):
+                    os.remove(userdir + '/.cache/deadprogram/web/pdftoload.pdf')
+                os.link(pdf, userdir + '/.cache/deadprogram/web/pdftoload.pdf')
+                self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+                for item in self.combolist:
+                    index = item.currentIndex()
+                    shop = item.itemText(index)
+                    if shop != combobox.itemText(combobox.currentIndex()):
+                        item.setCurrentIndex(0)
+            else:
+                html = 'file://' + userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
+                self.webView_2.load(QtCore.QUrl(html))
+                for item in self.combolist:
+                    index = item.currentIndex()
+                    shop = item.itemText(index)
+                    if shop != combobox.itemText(combobox.currentIndex()):
+                        item.setCurrentIndex(0)
                 
     def updatepdfs(self):
-		if not self.checkforpdfupdates:
-			self.checkforpdfupdates = True
-			queue_list = []
-			for item in self.checkboxlist:
-				if item.isChecked():
-					queue_list.append(str(item.text()))
-			self.threads = []
-			a = linkparser.LinkParser(queue_list)
-			self.threads.append(a)
-			self.threads[len(self.threads)-1].addtext.connect(self.addtxt)
-			self.threads[len(self.threads)-1].url.connect(self.addurltodwnlist)
-			self.threads[len(self.threads)-1].finishedurlparsing.connect(self.downloadpdfs)
-			a.start()
+        if not self.checkforpdfupdates:
+            self.checkforpdfupdates = True
+            queue_list = []
+            for item in self.checkboxlist:
+                if item.isChecked():
+                    queue_list.append(str(item.text()))
+            self.threads = []
+            a = linkparser.LinkParser(queue_list)
+            self.threads.append(a)
+            self.threads[len(self.threads)-1].addtext.connect(self.addtxt)
+            self.threads[len(self.threads)-1].url.connect(self.addurltodwnlist)
+            self.threads[len(self.threads)-1].finishedurlparsing.connect(self.downloadpdfs)
+            a.start()
         
     def addurltodwnlist(self, shop, url):
-		self.downloadlist.append((str(shop), str(url)))
+        self.downloadlist.append((str(shop), str(url)))
 
     def addtxt(self, txt):
-		self.plainTextEdit.appendPlainText(unicode(txt, "utf-8"))
+        self.plainTextEdit.appendPlainText(unicode(txt, "utf-8"))
 
     def updatelineedit(self):
         self.lineEdit.clear()
@@ -935,17 +923,15 @@ class Ui_MainWindow(QtGui.QMainWindow):
         return
                 
     def downloadpdfs(self):
-		if not self.downloading:
-			self.downloading = True
-			for shop, url in self.downloadlist:
-				self.downloadlist.remove((shop, url))
-				self.shop = str(shop)
-				self.url = str(url)
-				if not os.path.exists(userdir + '/.cache/deadprogram/pdfs/' + self.shop + '/' + os.path.basename(self.url).split('?utm_source')[0]):
-					self.downloader.load(QtCore.QUrl(self.url))
-					break
-				
-				
+        if not self.downloading:
+            self.downloading = True
+            for shop, url in self.downloadlist:
+                self.downloadlist.remove((shop, url))
+                self.shop = str(shop)
+                self.url = str(url)
+                if not os.path.exists(userdir + '/.cache/deadprogram/pdfs/' + self.shop + '/' + os.path.basename(self.url).split('?utm_source')[0]):
+                    self.downloader.load(QtCore.QUrl(self.url))
+                    break
 
     def downloadstart(self, reply):
         self.request = reply.request()
@@ -967,9 +953,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.downloading = False
         self.downloadpdfs()
         if len(self.downloadlist) == 0:
-			self.checkforpdfupdates = False
-			self.plainTextEdit.appendPlainText(unicode('Lankstinukų atsiuntimas baigtas'), "utf-8")
-			self.plainTextEdit.appendPlainText(unicode('Paspausk mygtuką "Perkrauti programą"'), "utf-8")
+            self.checkforpdfupdates = False
+            self.plainTextEdit.appendPlainText(unicode('Lankstinukų atsiuntimas baigtas'), "utf-8")
+            self.plainTextEdit.appendPlainText(unicode('Paspausk mygtuką "Perkrauti programą"'), "utf-8")
 
 
     def retranslateUi(self, MainWindow):
