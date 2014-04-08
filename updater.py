@@ -56,7 +56,7 @@ class Updater(QtCore.QThread):
         for item in lst:
             for item2 in lst2:
                 if item[1] <  item2[1]:
-                    self.foundupdate.emit('Radau atnaujinimą: ' + item2[0])
+                    self.foundupdate.emit('Radau atnaujinimą')
                     url = item2[2]
                     filename = item2[0]
                     response = urllib.urlopen(url)
