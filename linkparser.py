@@ -21,7 +21,7 @@ from PyQt4.QtCore import QObject, pyqtSlot
 import os
 
 userdir = os.path.expanduser('~')
-version = 0.001
+version = 0.002
 
 class LinkParser(QtCore.QThread):
     addtext = QtCore.pyqtSignal(str)

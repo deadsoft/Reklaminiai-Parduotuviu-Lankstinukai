@@ -76,20 +76,19 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE, DAMMIT.
 
 """
-version = 0.001
 from __future__ import generators
 
 __author__ = "Leonard Richardson (leonardr@segfault.org)"
-__version__ = "3.2.0"
+__version__ = 3.2.0
 __copyright__ = "Copyright (c) 2004-2010 Leonard Richardson"
 __license__ = "New-style BSD"
-
 from sgmllib import SGMLParser, SGMLParseError
 import codecs
 import markupbase
 import types
 import re
 import sgmllib
+
 try:
   from htmlentitydefs import name2codepoint
 except ImportError:

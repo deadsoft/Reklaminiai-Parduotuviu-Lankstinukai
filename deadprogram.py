@@ -25,7 +25,7 @@ import urllib, sys, os, json, shutil
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
-import pdf2images, oldpdfdeleter, linkparser
+import pdf2images, oldpdfdeleter, linkparser, updater
 
 version = 0.001
 
@@ -852,8 +852,12 @@ class Ui_MainWindow(QtGui.QMainWindow):
             
     def checkforprogramupdates(self):
         self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
-        #'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'
-        self.plainTextEdit.appendPlainText(unicode('Nebaigtas rašyt programos kodas', "utf-8"))
+        self.threads = []
+        b = updater.Updater()
+        self.threads.append(b)
+        self.threads[len(self.threads)-1].foundupdate.connect(self.addtxt)
+        self.threads[len(self.threads)-1].updated.connect(self.addtxt)
+        b.start()
  
     def loadpdf(self, combobox):
         index = combobox.currentIndex()

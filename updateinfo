@@ -1,7 +1,7 @@
 [
     [
         "linkparser.py", 
-        0.001, 
+        0.002, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py"
     ], 
     [
@@ -21,7 +21,7 @@
     ], 
     [
         "BeautifulSoup.py", 
-        0.001, 
+        3.2.0, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py"
     ], 
     [
