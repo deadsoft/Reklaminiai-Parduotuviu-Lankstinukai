@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=Network;
+Comment=
+Exec=/usr/lib/deadprogram/deadprogram.py
+GenericName=DeadProgram
+Icon=/usr/share/deadprogram/icons/image.png
+MimeType=
+Name=Reklaminiai Parduotuvių Lankstinukai
+Type=Application
+X-KDE-StartupNotify=false
+X-Desktop-File-Install-Version=0.21
