@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-lst = [('linkparser.py', 0.002, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'), ('pdf2images.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py'), ('oldpdfdeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py'), ('deadprogram.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py'), ('BeautifulSoup.py', 3.2, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py'), ('updater.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py')]
+#lst = [('linkparser.py', 0.002, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'), ('pdf2images.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py'), ('oldpdfdeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py'), ('deadprogram.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py'), ('BeautifulSoup.py', 3.2, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py'), ('updater.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py')]
 
 version = 0.001
 
@@ -24,17 +24,15 @@ import urllib, os, sys, json
 from PyQt4 import QtCore
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
-import pdf2images, oldpdfdeleter, linkparser, deadprogram
-from BeautifulSoup import __version__
+import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup
 
 vpdf2images = pdf2images.version
 voldpdfdeleter = oldpdfdeleter.version
 vlinkparser = linkparser.version
-vBeautifulSoup = __version__
+vBeautifulSoup = BeautifulSoup.version
 vdeadprogram = deadprogram.version
-vversion = version
 
-lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('version', version)]
+lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version)]
 
 class Updater(QtCore.QThread):
     foundupdate = QtCore.pyqtSignal(str)
