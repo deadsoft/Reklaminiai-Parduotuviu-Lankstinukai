@@ -636,11 +636,6 @@ class Ui_MainWindow(object):
         spacerItem7 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_12.addItem(spacerItem7)
         self.verticalLayout.addLayout(self.horizontalLayout_12)
-        self.progressBar = QtGui.QProgressBar(self.tab)
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setTextDirection(QtGui.QProgressBar.TopToBottom)
-        self.progressBar.setObjectName(_fromUtf8("progressBar"))
-        self.verticalLayout.addWidget(self.progressBar)
         spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem8)
         self.plainTextEdit = QtGui.QPlainTextEdit(self.tab)
@@ -658,6 +653,11 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setBackgroundVisible(False)
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
         self.verticalLayout.addWidget(self.plainTextEdit)
+        self.progressBar = QtGui.QProgressBar(self.tab)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setTextDirection(QtGui.QProgressBar.TopToBottom)
+        self.progressBar.setObjectName(_fromUtf8("progressBar"))
+        self.verticalLayout.addWidget(self.progressBar)
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -1113,4 +1113,3 @@ class Ui_MainWindow(object):
             self.checkforpdfupdates = False
             if not self.loadpdfjs and self.downlopdedpdfs:
                 self.createhtmlfrompdf()
-
