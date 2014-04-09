@@ -20,7 +20,7 @@
 version = 0.001
 
 import urllib, sys, os, json, shutil, time
-from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
+from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork, Qt
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
 import pdf2images, oldpdfdeleter, linkparser, updater
@@ -484,6 +484,23 @@ class Ui_MainWindow(object):
         self.checkBoxrimi.setFocusPolicy(QtCore.Qt.NoFocus)
         self.checkBoxrimi.setObjectName(_fromUtf8("checkBoxrimi"))
         self.verticalLayout_11.addWidget(self.checkBoxrimi)
+        self.horizontalLayout_8 = QtGui.QHBoxLayout()
+        self.horizontalLayout_8.setSpacing(0)
+        self.horizontalLayout_8.setContentsMargins(-1, 0, -1, 0)
+        self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
+        self.pushButtondownloadpdf = QtGui.QPushButton(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButtondownloadpdf.sizePolicy().hasHeightForWidth())
+        self.pushButtondownloadpdf.setSizePolicy(sizePolicy)
+        self.pushButtondownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
+        self.pushButtondownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButtondownloadpdf.setObjectName(_fromUtf8("pushButtondownloadpdf"))
+        self.horizontalLayout_8.addWidget(self.pushButtondownloadpdf)
+        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem3)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_8)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
         self.horizontalLayout_6.setSpacing(0)
         self.horizontalLayout_6.setContentsMargins(-1, 2, -1, 2)
@@ -505,8 +522,8 @@ class Ui_MainWindow(object):
         self.label_5 = QtGui.QLabel(self.tab)
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.horizontalLayout_6.addWidget(self.label_5)
-        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem3)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem4)
         self.verticalLayout_11.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setSpacing(0)
@@ -551,36 +568,9 @@ class Ui_MainWindow(object):
         self.pushButton_8.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_8.setObjectName(_fromUtf8("pushButton_8"))
         self.horizontalLayout_3.addWidget(self.pushButton_8)
-        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem4)
-        self.verticalLayout_11.addLayout(self.horizontalLayout_3)
-        self.horizontalLayout_12 = QtGui.QHBoxLayout()
-        self.horizontalLayout_12.setSpacing(0)
-        self.horizontalLayout_12.setContentsMargins(0, 2, 0, 2)
-        self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
-        self.pushButtondownloadpdf = QtGui.QPushButton(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButtondownloadpdf.sizePolicy().hasHeightForWidth())
-        self.pushButtondownloadpdf.setSizePolicy(sizePolicy)
-        self.pushButtondownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
-        self.pushButtondownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.pushButtondownloadpdf.setObjectName(_fromUtf8("pushButtondownloadpdf"))
-        self.horizontalLayout_12.addWidget(self.pushButtondownloadpdf)
-        self.pushButtoncanceldownloadpdf = QtGui.QPushButton(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButtoncanceldownloadpdf.sizePolicy().hasHeightForWidth())
-        self.pushButtoncanceldownloadpdf.setSizePolicy(sizePolicy)
-        self.pushButtoncanceldownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
-        self.pushButtoncanceldownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.pushButtoncanceldownloadpdf.setObjectName(_fromUtf8("pushButtoncanceldownloadpdf"))
-        self.horizontalLayout_12.addWidget(self.pushButtoncanceldownloadpdf)
         spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_12.addItem(spacerItem5)
-        self.verticalLayout_11.addLayout(self.horizontalLayout_12)
+        self.horizontalLayout_3.addItem(spacerItem5)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_3)
         self.line = QtGui.QFrame(self.tab)
         self.line.setFrameShape(QtGui.QFrame.HLine)
         self.line.setFrameShadow(QtGui.QFrame.Sunken)
@@ -629,8 +619,30 @@ class Ui_MainWindow(object):
         self.line_6.setFrameShadow(QtGui.QFrame.Sunken)
         self.line_6.setObjectName(_fromUtf8("line_6"))
         self.verticalLayout.addWidget(self.line_6)
-        spacerItem7 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem7)
+        self.horizontalLayout_12 = QtGui.QHBoxLayout()
+        self.horizontalLayout_12.setSpacing(0)
+        self.horizontalLayout_12.setContentsMargins(0, 2, 0, 2)
+        self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
+        self.pushButtoncanceldownloadpdf = QtGui.QPushButton(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButtoncanceldownloadpdf.sizePolicy().hasHeightForWidth())
+        self.pushButtoncanceldownloadpdf.setSizePolicy(sizePolicy)
+        self.pushButtoncanceldownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
+        self.pushButtoncanceldownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButtoncanceldownloadpdf.setObjectName(_fromUtf8("pushButtoncanceldownloadpdf"))
+        self.horizontalLayout_12.addWidget(self.pushButtoncanceldownloadpdf)
+        spacerItem7 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_12.addItem(spacerItem7)
+        self.verticalLayout.addLayout(self.horizontalLayout_12)
+        self.progressBar = QtGui.QProgressBar(self.tab)
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setTextDirection(QtGui.QProgressBar.TopToBottom)
+        self.progressBar.setObjectName(_fromUtf8("progressBar"))
+        self.verticalLayout.addWidget(self.progressBar)
+        spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem8)
         self.plainTextEdit = QtGui.QPlainTextEdit(self.tab)
         self.plainTextEdit.setFocusPolicy(QtCore.Qt.NoFocus)
         self.plainTextEdit.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
@@ -646,11 +658,6 @@ class Ui_MainWindow(object):
         self.plainTextEdit.setBackgroundVisible(False)
         self.plainTextEdit.setObjectName(_fromUtf8("plainTextEdit"))
         self.verticalLayout.addWidget(self.plainTextEdit)
-        self.progressBar = QtGui.QProgressBar(self.tab)
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setTextDirection(QtGui.QProgressBar.TopToBottom)
-        self.progressBar.setObjectName(_fromUtf8("progressBar"))
-        self.verticalLayout.addWidget(self.progressBar)
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -661,8 +668,8 @@ class Ui_MainWindow(object):
         self.checkBox = QtGui.QCheckBox(self.tab_2)
         self.checkBox.setObjectName(_fromUtf8("checkBox"))
         self.verticalLayout_5.addWidget(self.checkBox)
-        spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem8)
+        spacerItem9 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem9)
         self.pushButton_6 = QtGui.QPushButton(self.tab_2)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -681,8 +688,42 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addLayout(self.gridLayout)
         MainWindow.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(self)
-        QtCore.QMetaObject.connectSlotsByName(self)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        MainWindow.setWindowTitle(_translate("MainWindow", "Reklaminiai Parduotuvių Lankstinukai", None))
+        self.comboBox_2.setItemText(0, _translate("MainWindow", "Maxima", None))
+        self.comboBox_3.setItemText(0, _translate("MainWindow", "Norfa", None))
+        self.comboBox_4.setItemText(0, _translate("MainWindow", "Iki", None))
+        self.comboBox_6.setItemText(0, _translate("MainWindow", "Rimi", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.pdftab), _translate("MainWindow", "Lankstinukai", None))
+        self.Intbuttonmaxima.setText(_translate("MainWindow", "Maxima", None))
+        self.Intbuttonnorfa.setText(_translate("MainWindow", "Norfa", None))
+        self.Intbuttoniki.setText(_translate("MainWindow", "Iki", None))
+        self.Intbuttonrimi.setText(_translate("MainWindow", "Rimi", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Internettab), _translate("MainWindow", "Internetas", None))
+        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-weight:600;\">Lankstinukų atnaujinimas</span><br/></p></body></html>", None))
+        self.checkboxmaxima.setText(_translate("MainWindow", "Maxima", None))
+        self.checkBoxnorfa.setText(_translate("MainWindow", "Norfa", None))
+        self.checkBoxiki.setText(_translate("MainWindow", "Iki", None))
+        self.checkBoxrimi.setText(_translate("MainWindow", "Rimi", None))
+        self.pushButtondownloadpdf.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
+        self.checkBox_4.setText(_translate("MainWindow", "Automatiškai tikrinti ar yra naujų lankstinukų kas  ", None))
+        self.label_5.setText(_translate("MainWindow", "  dienų  ", None))
+        self.checkBox_3.setText(_translate("MainWindow", "Automatiškai trinti senus lankstinukus po  ", None))
+        self.label_2.setText(_translate("MainWindow", "  dienų    ", None))
+        self.pushButton_8.setText(_translate("MainWindow", "Trinti dabar", None))
+        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-weight:600;\">Programos atnaujinimas</span><br/></p></body></html>", None))
+        self.checkBox_2.setText(_translate("MainWindow", "Automatiškai tikrinti įjungiant programą kas  ", None))
+        self.label_4.setText(_translate("MainWindow", "  dienų  ", None))
+        self.pushButton_7.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
+        self.pushButtoncanceldownloadpdf.setText(_translate("MainWindow", "Perkrauti programą", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Naujinimas", None))
+        self.checkBox.setText(_translate("MainWindow", "Naudoti pdf.js", None))
+        self.pushButton_6.setText(_translate("MainWindow", "Perkrauti programą", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Nustatymai", None))
+
         
         self.downloadlist = []
         self.threads = []
@@ -722,7 +763,7 @@ class Ui_MainWindow(object):
         self.comboBox_3.activated.connect(lambda: self.loadpdf(self.comboBox_3))
         self.comboBox_4.activated.connect(lambda: self.loadpdf(self.comboBox_4))
         self.comboBox_6.activated.connect(lambda: self.loadpdf(self.comboBox_6))
-        self.combolist = [self.comboBox_2, self.comboBox_3, self.comboBox_4, self.comboBox_6]
+        self.combolist = [('Maxima', self.comboBox_2), ('Rimi', self.comboBox_6), ('Iki', self.comboBox_4), ('Norfa', self.comboBox_3)]
         self.checkboxlist = [self.checkboxmaxima, self.checkBoxrimi, self.checkBoxiki, self.checkBoxnorfa]
         self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttonnorfa, self.Intbuttoniki, self.Intbuttonrimi]
         
@@ -736,23 +777,6 @@ class Ui_MainWindow(object):
         self.comboBox.setDuplicatesEnabled(False)
         self.comboBoxview = self.comboBox.view()
         self.comboBoxview.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
-        
-        for item in self.combolist:
-            index = item.currentIndex()
-            shop = item.itemText(index)
-#            pdfsinshopsdir = os.listdir(userdir + '/.cache/deadprogram/pdfs/' + shop + '/')
-            pdfsinshopsdir = sorted(os.listdir(userdir + '/.cache/deadprogram/pdfs/' + str(shop) + '/'), key=lambda p: os.path.getctime(os.path.join(userdir + '/.cache/deadprogram/pdfs/' + str(shop) + '/', p)))
-            pdfss = []
-            for pdf in pdfsinshopsdir:
-                if not pdf.startswith('dir_'):
-                    pdfss.append(pdf)
-            item.addItems(pdfss)
-                    
-        if self.loadpdfjs:
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
-        else:
-            self.webView_2.load(QtCore.QUrl('about:blank'))
-
         
         settings = self.webView.settings()
         settings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
@@ -789,18 +813,20 @@ class Ui_MainWindow(object):
         settings_2.setMaximumPagesInCache(20)
         settings_2.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
 #        settings_2.userStyleSheetUrl(QtCore.QUrl(curentdir  + '/css'))
-
-
+        
         self.readSettings()
         self.addbrowserbookmarks()
-
+        self.loadpdfcomboboxes()
         
-        if not self.loadpdfjs and self.downlopdedpdfs:            
-            b = pdf2images.imagesFromPdf()
-            self.threads.append(b)
-            self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
-            b.start()
-        
+#       if not self.loadpdfjs and self.downlopdedpdfs
+        if not self.loadpdfjs:
+            self.downlopdedpdfs = True            
+            self.createhtmlfrompdf()
+            
+        if self.loadpdfjs:
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+        else:
+            self.webView_2.load(QtCore.QUrl('about:blank'))        
         
         self.downloader = QtWebKit.QWebView()
         self.downloader.page().setForwardUnsupportedContent(True)
@@ -808,6 +834,31 @@ class Ui_MainWindow(object):
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
 
+    def loadpdfcomboboxes(self):
+        for item in self.combolist:
+            shop = item[0]
+#            pdfsinshopsdir = os.listdir(userdir + '/.cache/deadprogram/pdfs/' + shop + '/')
+            pdfsinshopsdir = sorted(os.listdir(userdir + '/.cache/deadprogram/pdfs/' + shop + '/'), key=lambda p: os.path.getctime(os.path.join(userdir + '/.cache/deadprogram/pdfs/' + shop + '/', p)))
+            pdfss = []
+            for pdf in pdfsinshopsdir:
+                if not pdf.startswith('dir_'):
+                    pdfss.append(pdf)
+            item[1].clear()
+            item[1].addItem(shop)
+            item[1].addItems(pdfss)
+
+    def createhtmlfrompdf(self):
+        b = pdf2images.imagesFromPdf()
+        self.threads.append(b)
+        self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
+        self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.loadpdfcomboboxes)
+        self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.downlopdedpdfsfalse)
+        b.start()
+        
+
+    def downlopdedpdfsfalse(self):
+        self.downlopdedpdfs = False
+        
     def loadurlfromlineedit(self):
         url = str(self.lineEdit.displayText())
         if url.startswith('http://'):
@@ -868,10 +919,26 @@ class Ui_MainWindow(object):
                 self.comboBox.addItem(tpl[1])
         except:
                 pass
+
+    def infobox(self, text):
+        box = QtGui.QMessageBox()
+        box.setText(unicode(text, "utf-8"))
+#        box.setAutoFillBackground(True)
+#        box.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+#        box.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+#        box.setBackgroundRole(QtGui.QPalette.Base)
+#        box.setFocusPolicy(QtCore.Qt.StrongFocus)
+#        box.setWindowOpacity(0.5)
+        box.exec_()
         
     def closeEvent(self, event):
-        self.writeSettings()
-        event.accept()
+        if self.downlopdedpdfs:
+            event.ignore()
+            self.infobox('Apdirbu lankstinukus ir išsijungt kolkas negaliu       \nTiesiog palauk kažkiek...')
+        else:
+            self.writeSettings()
+            event.accept()
+            
 
     def readSettings(self):
         settings = QtCore.QSettings("deadprogram", "lankstukai")
@@ -957,18 +1024,16 @@ class Ui_MainWindow(object):
                 os.link(pdf, userdir + '/.cache/deadprogram/web/pdftoload.pdf')
                 self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
                 for item in self.combolist:
-                    index = item.currentIndex()
-                    shop = item.itemText(index)
-                    if shop != combobox.itemText(combobox.currentIndex()):
-                        item.setCurrentIndex(0)
+                    shop = item[0]
+                    if shop != str(combobox.itemText(combobox.currentIndex())):
+                        item[1].setCurrentIndex(0)
             else:
                 html = 'file://' + userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
                 self.webView_2.load(QtCore.QUrl(html))
                 for item in self.combolist:
-                    index = item.currentIndex()
-                    shop = item.itemText(index)
+                    shop = item[0]
                     if shop != combobox.itemText(combobox.currentIndex()):
-                        item.setCurrentIndex(0)
+                        item[1].setCurrentIndex(0)
                 
     def updatepdfs(self):
         if not self.checkforpdfupdates:
@@ -1046,39 +1111,6 @@ class Ui_MainWindow(object):
         if len(self.downloadlist) == 0:
             self.downlopdedpdfs = True
             self.checkforpdfupdates = False
-            self.plainTextEdit.appendPlainText(unicode('Lankstinukų atsiuntimas baigtas'), "utf-8")
-            self.plainTextEdit.appendPlainText(unicode('Paspausk mygtuką "Perkrauti programą"'), "utf-8")
+            if not self.loadpdfjs and self.downlopdedpdfs:
+                self.createhtmlfrompdf()
 
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "Reklaminiai Parduotuvių Lankstinukai", None))
-        self.comboBox_2.setItemText(0, _translate("MainWindow", "Maxima", None))
-        self.comboBox_3.setItemText(0, _translate("MainWindow", "Norfa", None))
-        self.comboBox_4.setItemText(0, _translate("MainWindow", "Iki", None))
-        self.comboBox_6.setItemText(0, _translate("MainWindow", "Rimi", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.pdftab), _translate("MainWindow", "Lankstinukai", None))
-        self.Intbuttonmaxima.setText(_translate("MainWindow", "Maxima", None))
-        self.Intbuttonnorfa.setText(_translate("MainWindow", "Norfa", None))
-        self.Intbuttoniki.setText(_translate("MainWindow", "Iki", None))
-        self.Intbuttonrimi.setText(_translate("MainWindow", "Rimi", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.Internettab), _translate("MainWindow", "Internetas", None))
-        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-weight:600;\">Lankstinukų atnaujinimas</span><br/></p></body></html>", None))
-        self.checkboxmaxima.setText(_translate("MainWindow", "Maxima", None))
-        self.checkBoxnorfa.setText(_translate("MainWindow", "Norfa", None))
-        self.checkBoxiki.setText(_translate("MainWindow", "Iki", None))
-        self.checkBoxrimi.setText(_translate("MainWindow", "Rimi", None))
-        self.checkBox_4.setText(_translate("MainWindow", "Automatiškai tikrinti ar yra naujų lankstinukų kas  ", None))
-        self.label_5.setText(_translate("MainWindow", "  dienų", None))
-        self.checkBox_3.setText(_translate("MainWindow", "Automatiškai trinti senus lankstinukus po  ", None))
-        self.label_2.setText(_translate("MainWindow", "  dienų    ", None))
-        self.pushButton_8.setText(_translate("MainWindow", "Trinti dabar", None))
-        self.pushButtondownloadpdf.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
-        self.pushButtoncanceldownloadpdf.setText(_translate("MainWindow", "Perkrauti programą", None))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-weight:600;\">Programos atnaujinimas</span><br/></p></body></html>", None))
-        self.checkBox_2.setText(_translate("MainWindow", "Automatiškai tikrinti įjungiant programą kas  ", None))
-        self.label_4.setText(_translate("MainWindow", "  dienų  ", None))
-        self.pushButton_7.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Naujinimas", None))
-        self.checkBox.setText(_translate("MainWindow", "Naudoti pdf.js", None))
-        self.pushButton_6.setText(_translate("MainWindow", "Perkrauti programą", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Nustatymai", None))

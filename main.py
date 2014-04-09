@@ -32,6 +32,8 @@ class MyApp(QtGui.QMainWindow, Ui_MainWindow):
         QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+#        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+ #       self.setAutoFillBackground(True)
 
 if __name__ == "__main__":
 #    QtGui.QApplication.setStyle(QtGui.QStyleFactory.create("Plastique"))

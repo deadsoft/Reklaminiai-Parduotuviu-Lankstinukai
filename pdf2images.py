@@ -27,6 +27,7 @@ userdir = os.path.expanduser('~')
 
 class imagesFromPdf(QtCore.QThread):
     FinishedExtractingImages = QtCore.pyqtSignal(str)
+    reloadcomboboxes = QtCore.pyqtSignal()
     
     def __init__(self):
         QtCore.QThread.__init__(self)
@@ -82,7 +83,7 @@ body {
                     page = doc.page(0)
                     for pagenum in range(numpages):
                         page = doc.page(pagenum)
-                        image = page.renderToImage(200, 200)
+                        image = page.renderToImage(150, 150)
                         pixmap = QtGui.QPixmap.fromImage(image)
                         pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png')
                         htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png"' + ' border="0" alt="" class="img-frame"> \n'
@@ -91,5 +92,6 @@ body {
                     html.close()
                     self.FinishedExtractingImages.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
         self.FinishedExtractingImages.emit('Baigtas lankstinukų atnaujinimų tikrinimas')
+        self.reloadcomboboxes.emit()
         return
 
