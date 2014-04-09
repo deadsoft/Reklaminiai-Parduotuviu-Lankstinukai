@@ -16,13 +16,12 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+version = 0.001
 
 import os, time, shutil
 from PyQt4 import QtCore
 
-
 userdir = os.path.expanduser('~')
-version = 0.001
 
 class OldPdfDeleter(QtCore.QThread):
     TxtInfo = QtCore.pyqtSignal(str)
@@ -31,28 +30,28 @@ class OldPdfDeleter(QtCore.QThread):
         QtCore.QThread.__init__(self)
         self.timedays = timedays
         self.dirs = ['Iki', 'Jysk', 'Maxima', 'Norfa', 'Rimi']
-        
-    def run(self):
-			now = time.time()
-			self.TxtInfo.emit('Trinu senus lankstinukus')
-			for item in self.dirs:
-				dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
-				for filename in os.listdir(dirr):
-					try:
-						if os.stat(os.path.join(dirr, filename)).st_mtime < now - self.timedays * 86400:
-							if os.path.isfile(os.path.join(dirr, filename)):
-								try:
-									os.remove(os.path.join(dirr, filename))
-									shutil.rmtree(dirr + '/dir_' + filename)
-									self.TxtInfo.emit('Ištryniau: ' + filename)
-								except:
-									pass
-					except:
-						pass
-			self.TxtInfo.emit('Baigiau trinti lankstinukus')
-			return	
-#			     now = time.time()
-#                 t -= 5 * 24 * 60 * 60
-			
+
     def __del__(self):
         self.wait()
+        
+    def run(self):
+        time.sleep(1)
+        now = time.time()
+        for item in self.dirs:
+            dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
+            for filename in os.listdir(dirr):
+                try:
+                    if os.stat(os.path.join(dirr, filename)).st_mtime < now - self.timedays * 86400:
+                        if os.path.isfile(os.path.join(dirr, filename)):
+                            try:
+                                os.remove(os.path.join(dirr, filename))
+                                shutil.rmtree(dirr + '/dir_' + filename)
+                                self.TxtInfo.emit('Istryniau lankstinuka: ' + filename)
+                            except:
+                                pass
+                except:
+                    pass
+        return	
+#                 now = time.time()
+#                 t -= 5 * 24 * 60 * 60
+

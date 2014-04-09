@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -18,16 +17,13 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+version = 0.001
 
-'''pyinstaller --clean --hidden-import=PyQt5.QtPrintSupport --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/dontuse11-qt5.py'''
-
-import urllib, sys, os, json, shutil
+import urllib, sys, os, json, shutil, time
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
 import pdf2images, oldpdfdeleter, linkparser, updater
-
-version = 0.001
 
 dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
 if not os.path.exists(userdir + '/.cache/'):
@@ -66,23 +62,22 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
     
-class Ui_MainWindow(QtGui.QMainWindow):
-    def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self, parent)
-        self.setObjectName(_fromUtf8("MainWindow"))
-        self.resize(853, 626)
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.resize(853, 626)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
-        self.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Sans"))
-        self.setFont(font)
+        MainWindow.setFont(font)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/image.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.setWindowIcon(icon)
-        self.centralwidget = QtGui.QWidget(self)
+        MainWindow.setWindowIcon(icon)
+        self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -168,11 +163,15 @@ class Ui_MainWindow(QtGui.QMainWindow):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem)
         self.verticalLayout_4.addLayout(self.horizontalLayout_5)
+        self.line_2 = QtGui.QFrame(self.pdftab)
+        self.line_2.setFrameShape(QtGui.QFrame.HLine)
+        self.line_2.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_2.setObjectName(_fromUtf8("line_2"))
+        self.verticalLayout_4.addWidget(self.line_2)
         self.webView_2 = QtWebKit.QWebView(self.pdftab)
         self.webView_2.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.webView_2.setAutoFillBackground(False)
         self.webView_2.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
-        self.webView_2.setRenderHints(QtGui.QPainter.Antialiasing|QtGui.QPainter.HighQualityAntialiasing|QtGui.QPainter.SmoothPixmapTransform|QtGui.QPainter.TextAntialiasing)
         self.webView_2.setObjectName(_fromUtf8("webView_2"))
         self.verticalLayout_4.addWidget(self.webView_2)
         self.tabWidget.addTab(self.pdftab, _fromUtf8(""))
@@ -272,6 +271,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/user-trash.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_9.setIcon(icon1)
+        self.pushButton_9.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_9.setAutoRepeat(False)
         self.pushButton_9.setFlat(True)
         self.pushButton_9.setObjectName(_fromUtf8("pushButton_9"))
@@ -309,9 +309,11 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton_4.setSizePolicy(sizePolicy)
         self.pushButton_4.setMouseTracking(False)
         self.pushButton_4.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButton_4.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/go-next.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_4.setIcon(icon3)
+        self.pushButton_4.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_4.setCheckable(False)
         self.pushButton_4.setFlat(True)
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
@@ -327,6 +329,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/process-stop.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_3.setIcon(icon4)
+        self.pushButton_3.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_3.setFlat(True)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.horizontalLayout_4.addWidget(self.pushButton_3)
@@ -341,6 +344,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/view-refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton.setIcon(icon5)
+        self.pushButton.setIconSize(QtCore.QSize(24, 24))
         self.pushButton.setFlat(True)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.horizontalLayout_4.addWidget(self.pushButton)
@@ -355,6 +359,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/go-home.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_22.setIcon(icon6)
+        self.pushButton_22.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_22.setFlat(True)
         self.pushButton_22.setObjectName(_fromUtf8("pushButton_22"))
         self.horizontalLayout_4.addWidget(self.pushButton_22)
@@ -381,6 +386,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/go-jump.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_2.setIcon(icon7)
+        self.pushButton_2.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.horizontalLayout_4.addWidget(self.pushButton_2)
@@ -396,13 +402,17 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.progressBar_2.setObjectName(_fromUtf8("progressBar_2"))
         self.horizontalLayout_4.addWidget(self.progressBar_2)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+        self.line_3 = QtGui.QFrame(self.Internettab)
+        self.line_3.setFrameShape(QtGui.QFrame.HLine)
+        self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_3.setObjectName(_fromUtf8("line_3"))
+        self.verticalLayout_3.addWidget(self.line_3)
         self.webView = QtWebKit.QWebView(self.Internettab)
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.PreferAntialias)
         self.webView.setFont(font)
         self.webView.setMouseTracking(False)
         self.webView.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
-        self.webView.setRenderHints(QtGui.QPainter.Antialiasing|QtGui.QPainter.HighQualityAntialiasing|QtGui.QPainter.SmoothPixmapTransform|QtGui.QPainter.TextAntialiasing)
         self.webView.setObjectName(_fromUtf8("webView"))
         self.verticalLayout_3.addWidget(self.webView)
         self.tabWidget.addTab(self.Internettab, _fromUtf8(""))
@@ -411,8 +421,14 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.verticalLayout = QtGui.QVBoxLayout(self.tab)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.verticalLayout_11 = QtGui.QVBoxLayout()
-        self.verticalLayout_11.setSpacing(0)
+        self.verticalLayout_11.setSpacing(2)
+        self.verticalLayout_11.setContentsMargins(-1, 0, 0, -1)
         self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
+        self.line_4 = QtGui.QFrame(self.tab)
+        self.line_4.setFrameShape(QtGui.QFrame.HLine)
+        self.line_4.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_4.setObjectName(_fromUtf8("line_4"))
+        self.verticalLayout_11.addWidget(self.line_4)
         self.label_3 = QtGui.QLabel(self.tab)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -468,34 +484,33 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.checkBoxrimi.setFocusPolicy(QtCore.Qt.NoFocus)
         self.checkBoxrimi.setObjectName(_fromUtf8("checkBoxrimi"))
         self.verticalLayout_11.addWidget(self.checkBoxrimi)
-        self.horizontalLayout_12 = QtGui.QHBoxLayout()
-        self.horizontalLayout_12.setSpacing(0)
-        self.horizontalLayout_12.setMargin(0)
-        self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
-        self.pushButtondownloadpdf = QtGui.QPushButton(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        self.horizontalLayout_6 = QtGui.QHBoxLayout()
+        self.horizontalLayout_6.setSpacing(0)
+        self.horizontalLayout_6.setContentsMargins(-1, 2, -1, 2)
+        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
+        self.checkBox_4 = QtGui.QCheckBox(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButtondownloadpdf.sizePolicy().hasHeightForWidth())
-        self.pushButtondownloadpdf.setSizePolicy(sizePolicy)
-        self.pushButtondownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
-        self.pushButtondownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.pushButtondownloadpdf.setObjectName(_fromUtf8("pushButtondownloadpdf"))
-        self.horizontalLayout_12.addWidget(self.pushButtondownloadpdf)
-        self.pushButtoncanceldownloadpdf = QtGui.QPushButton(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButtoncanceldownloadpdf.sizePolicy().hasHeightForWidth())
-        self.pushButtoncanceldownloadpdf.setSizePolicy(sizePolicy)
-        self.pushButtoncanceldownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
-        self.pushButtoncanceldownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.pushButtoncanceldownloadpdf.setObjectName(_fromUtf8("pushButtoncanceldownloadpdf"))
-        self.horizontalLayout_12.addWidget(self.pushButtoncanceldownloadpdf)
+        sizePolicy.setHeightForWidth(self.checkBox_4.sizePolicy().hasHeightForWidth())
+        self.checkBox_4.setSizePolicy(sizePolicy)
+        self.checkBox_4.setBaseSize(QtCore.QSize(0, 0))
+        self.checkBox_4.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.checkBox_4.setObjectName(_fromUtf8("checkBox_4"))
+        self.horizontalLayout_6.addWidget(self.checkBox_4)
+        self.spinBox_3 = QtGui.QSpinBox(self.tab)
+        self.spinBox_3.setMaximum(30)
+        self.spinBox_3.setObjectName(_fromUtf8("spinBox_3"))
+        self.horizontalLayout_6.addWidget(self.spinBox_3)
+        self.label_5 = QtGui.QLabel(self.tab)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.horizontalLayout_6.addWidget(self.label_5)
         spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_12.addItem(spacerItem3)
-        self.verticalLayout_11.addLayout(self.horizontalLayout_12)
+        self.horizontalLayout_6.addItem(spacerItem3)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_6)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setContentsMargins(-1, 2, -1, 2)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.checkBox_3 = QtGui.QCheckBox(self.tab)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
@@ -539,31 +554,64 @@ class Ui_MainWindow(QtGui.QMainWindow):
         spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem4)
         self.verticalLayout_11.addLayout(self.horizontalLayout_3)
-        self.verticalLayout.addLayout(self.verticalLayout_11)
-        self.horizontalLayout_6 = QtGui.QHBoxLayout()
-        self.horizontalLayout_6.setSpacing(0)
-        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
-        self.checkBox_4 = QtGui.QCheckBox(self.tab)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        self.horizontalLayout_12 = QtGui.QHBoxLayout()
+        self.horizontalLayout_12.setSpacing(0)
+        self.horizontalLayout_12.setContentsMargins(0, 2, 0, 2)
+        self.horizontalLayout_12.setObjectName(_fromUtf8("horizontalLayout_12"))
+        self.pushButtondownloadpdf = QtGui.QPushButton(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.checkBox_4.sizePolicy().hasHeightForWidth())
-        self.checkBox_4.setSizePolicy(sizePolicy)
-        self.checkBox_4.setBaseSize(QtCore.QSize(0, 0))
-        self.checkBox_4.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.checkBox_4.setObjectName(_fromUtf8("checkBox_4"))
-        self.horizontalLayout_6.addWidget(self.checkBox_4)
+        sizePolicy.setHeightForWidth(self.pushButtondownloadpdf.sizePolicy().hasHeightForWidth())
+        self.pushButtondownloadpdf.setSizePolicy(sizePolicy)
+        self.pushButtondownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
+        self.pushButtondownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButtondownloadpdf.setObjectName(_fromUtf8("pushButtondownloadpdf"))
+        self.horizontalLayout_12.addWidget(self.pushButtondownloadpdf)
+        self.pushButtoncanceldownloadpdf = QtGui.QPushButton(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButtoncanceldownloadpdf.sizePolicy().hasHeightForWidth())
+        self.pushButtoncanceldownloadpdf.setSizePolicy(sizePolicy)
+        self.pushButtoncanceldownloadpdf.setMinimumSize(QtCore.QSize(85, 0))
+        self.pushButtoncanceldownloadpdf.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButtoncanceldownloadpdf.setObjectName(_fromUtf8("pushButtoncanceldownloadpdf"))
+        self.horizontalLayout_12.addWidget(self.pushButtoncanceldownloadpdf)
         spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem5)
-        self.verticalLayout.addLayout(self.horizontalLayout_6)
+        self.horizontalLayout_12.addItem(spacerItem5)
+        self.verticalLayout_11.addLayout(self.horizontalLayout_12)
+        self.line = QtGui.QFrame(self.tab)
+        self.line.setFrameShape(QtGui.QFrame.HLine)
+        self.line.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line.setObjectName(_fromUtf8("line"))
+        self.verticalLayout_11.addWidget(self.line)
+        self.verticalLayout.addLayout(self.verticalLayout_11)
         self.label = QtGui.QLabel(self.tab)
         self.label.setObjectName(_fromUtf8("label"))
         self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout_7 = QtGui.QHBoxLayout()
+        self.horizontalLayout_7.setSpacing(0)
+        self.horizontalLayout_7.setContentsMargins(0, 2, 0, 2)
+        self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
         self.checkBox_2 = QtGui.QCheckBox(self.tab)
         self.checkBox_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.checkBox_2.setChecked(False)
         self.checkBox_2.setObjectName(_fromUtf8("checkBox_2"))
-        self.verticalLayout.addWidget(self.checkBox_2)
+        self.horizontalLayout_7.addWidget(self.checkBox_2)
+        self.spinBox_2 = QtGui.QSpinBox(self.tab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.spinBox_2.sizePolicy().hasHeightForWidth())
+        self.spinBox_2.setSizePolicy(sizePolicy)
+        self.spinBox_2.setMinimum(1)
+        self.spinBox_2.setMaximum(30)
+        self.spinBox_2.setObjectName(_fromUtf8("spinBox_2"))
+        self.horizontalLayout_7.addWidget(self.spinBox_2)
+        self.label_4 = QtGui.QLabel(self.tab)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.horizontalLayout_7.addWidget(self.label_4)
         self.pushButton_7 = QtGui.QPushButton(self.tab)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -572,15 +620,23 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton_7.setSizePolicy(sizePolicy)
         self.pushButton_7.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_7.setObjectName(_fromUtf8("pushButton_7"))
-        self.verticalLayout.addWidget(self.pushButton_7)
-        spacerItem6 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem6)
+        self.horizontalLayout_7.addWidget(self.pushButton_7)
+        spacerItem6 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem6)
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+        self.line_6 = QtGui.QFrame(self.tab)
+        self.line_6.setFrameShape(QtGui.QFrame.HLine)
+        self.line_6.setFrameShadow(QtGui.QFrame.Sunken)
+        self.line_6.setObjectName(_fromUtf8("line_6"))
+        self.verticalLayout.addWidget(self.line_6)
+        spacerItem7 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem7)
         self.plainTextEdit = QtGui.QPlainTextEdit(self.tab)
         self.plainTextEdit.setFocusPolicy(QtCore.Qt.NoFocus)
         self.plainTextEdit.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.plainTextEdit.setAcceptDrops(False)
         self.plainTextEdit.setAutoFillBackground(True)
-        self.plainTextEdit.setFrameShape(QtGui.QFrame.Box)
+        self.plainTextEdit.setFrameShape(QtGui.QFrame.StyledPanel)
         self.plainTextEdit.setFrameShadow(QtGui.QFrame.Plain)
         self.plainTextEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.plainTextEdit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
@@ -605,8 +661,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.checkBox = QtGui.QCheckBox(self.tab_2)
         self.checkBox.setObjectName(_fromUtf8("checkBox"))
         self.verticalLayout_5.addWidget(self.checkBox)
-        spacerItem7 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem7)
+        spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem8)
         self.pushButton_6 = QtGui.QPushButton(self.tab_2)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -623,17 +679,21 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.horizontalLayout.addWidget(self.tabWidget)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
         self.verticalLayout_2.addLayout(self.gridLayout)
-        self.setCentralWidget(self.centralwidget)
+        MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
-
-
+        
+        self.downloadlist = []
+        self.threads = []
         self.loadpdfjs = False
         self.downloading = False
         self.checkforpdfupdates = False
         self.deletingoldpdfs = False
+        self.downlopdedpdfs = False
         self.combohighlighted = int
+        self.lastprogramupdatechecktime = 1
+        self.lastpdfupdatechecktime = 1
         
         self.comboBox.highlighted.connect(self.comboboxlasthighlighted)
         self.Intbuttonmaxima.pressed.connect(lambda: self.loadurl(self.Intbuttonmaxima))
@@ -646,14 +706,15 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton_3.clicked.connect(self.webView.stop)
         self.pushButton_4.clicked.connect(self.webView.forward)
         self.pushButton_5.clicked.connect(self.webView.back)
-        self.pushButton_2.clicked.connect(lambda: self.webView.load(QtCore.QUrl("http://" + self.lineEdit.displayText())))
+        self.pushButton_2.clicked.connect(self.loadurlfromlineedit)
         self.pushButton_6.clicked.connect(self.restart)
         self.pushButton_7.clicked.connect(self.checkforprogramupdates)
         self.pushButton_8.clicked.connect(self.deleteoldpdfs)
+        self.pushButton_8.clicked.connect(self.stupidworkaround)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
         self.webView.urlChanged.connect(self.updatelineedit)
-        self.lineEdit.returnPressed.connect(lambda: self.webView.load(QtCore.QUrl("http://" + self.lineEdit.displayText())))
+        self.lineEdit.returnPressed.connect(self.loadurlfromlineedit)
         self.webView.loadProgress.connect(self.pageloadprogress)
         self.pushButtondownloadpdf.clicked.connect(self.updatepdfs)
         self.comboBox.activated.connect(self.loadsite)
@@ -730,14 +791,11 @@ class Ui_MainWindow(QtGui.QMainWindow):
 #        settings_2.userStyleSheetUrl(QtCore.QUrl(curentdir  + '/css'))
 
 
+        self.readSettings()
+        self.addbrowserbookmarks()
 
         
-        
-        self.downloadlist = []
-        self.show()
-        self.readSettings()
-        if not self.loadpdfjs:            
-            self.threads = []
+        if not self.loadpdfjs and self.downlopdedpdfs:            
             b = pdf2images.imagesFromPdf()
             self.threads.append(b)
             self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
@@ -749,6 +807,17 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
+
+    def loadurlfromlineedit(self):
+        url = str(self.lineEdit.displayText())
+        if url.startswith('http://'):
+            self.webView.load(QtCore.QUrl(url))
+        elif url.startswith('www.'):
+            self.webView.load(QtCore.QUrl('http://' + url))
+        elif url.startswith('/'):
+            self.webView.load(QtCore.QUrl('file://' + url))
+        else:
+            self.webView.load(QtCore.QUrl('http://www.' + url))
         
     def comboboxlasthighlighted(self, num):
         self.combohighlighted = num
@@ -778,9 +847,11 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.progressBar_2.setProperty("value", n) 
         
     def loadsite(self):
+        for item in self.pushbuttonlist:
+            item.setChecked(False)
         self.webView.load(QtCore.QUrl(self.comboBox.currentText()))
 
-    def savebrowserurls(self):
+    def savebrowserbookmarks(self):
         lst = []
         for n in range(self.comboBox.count()):
             lst.append(('Site title', str(self.comboBox.itemText(n))))
@@ -789,7 +860,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         f.close()
 
 
-    def addbrowserurls(self):
+    def addbrowserbookmarks(self):
         try:
             f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'r')
             lst = json.load(f)
@@ -799,11 +870,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
                 pass
         
     def closeEvent(self, event):
-#        if self.maybeSave():
         self.writeSettings()
- #           event.accept()
- #       else:
- #           event.ignore()
+        event.accept()
 
     def readSettings(self):
         settings = QtCore.QSettings("deadprogram", "lankstukai")
@@ -816,19 +884,33 @@ class Ui_MainWindow(QtGui.QMainWindow):
         if settings.value("pdfjs").toBool():
             self.checkBox.setChecked(True)
             self.loadpdfjs = True
-        if settings.value("autodelpdfstime").toInt()[1]:
-            self.spinBox.setValue(settings.value("autodelpdfstime").toInt()[0])
-        if settings.value("autoupdatepdfs").toBool():
-            self.checkBox_4.setChecked(True)
-            self.updatepdfs()
+        if settings.value("pdfupdateindays").toInt()[1]:
+            self.lastprogramupdatechecktime = settings.value("pdfupdateindays").toInt()[0]
+        if settings.value("lastprogramupdatechecktime").toInt()[1]:
+            self.lastprogramupdatechecktime = settings.value("lastprogramupdatechecktime").toInt()[0]
         if settings.value("checkprogramforupdates").toBool():
             self.checkBox_2.setChecked(True)
-            self.checkforprogramupdates()
+            if self.lastprogramupdatechecktime <= int(time.strftime("%Y%m%d")) - settings.value("programupdateindays").toInt()[0]:
+                self.checkforprogramupdates()
+                self.lastprogramupdatechecktime = int(time.strftime("%Y%m%d"))
+        if settings.value("programupdateindays").toInt()[1]:
+            self.spinBox_2.setValue(settings.value("programupdateindays").toInt()[0])
+        if settings.value("pdfupdateindays").toInt()[1]:
+            self.spinBox_3.setValue(settings.value("pdfupdateindays").toInt()[0])
+        if settings.value("lastpdfupdatechecktime").toInt()[1]:
+            self.lastpdfupdatechecktime = settings.value("lastpdfupdatechecktime").toInt()[0]
+        if settings.value("autoupdatepdfs").toBool():
+            self.checkBox_4.setChecked(True)
+            if self.lastpdfupdatechecktime <= int(time.strftime("%Y%m%d")) - settings.value("pdfupdateindays").toInt()[0]:
+                self.updatepdfs()
+                self.lastpdfupdatechecktime = int(time.strftime("%Y%m%d"))
         if settings.value("autodelpdfs").toBool():
             self.checkBox_3.setChecked(True)
-            b = self.deleteoldpdfs()
-        c = self.addbrowserurls()
-           
+            self.deleteoldpdfs()
+        if settings.value("autodelpdfstime").toInt()[1]:
+            self.spinBox.setValue(settings.value("autodelpdfstime").toInt()[0])
+        
+        
     def writeSettings(self):
         settings = QtCore.QSettings("deadprogram", "lankstukai")
         settings.setValue("winsize", self.size())
@@ -837,22 +919,28 @@ class Ui_MainWindow(QtGui.QMainWindow):
             settings.setValue(item.text(), item.isChecked())
         settings.setValue("activetab", self.tabWidget.currentIndex())
         settings.setValue("pdfjs", self.checkBox.isChecked())
-        settings.setValue("autodelpdfs", self.checkBox_3.isChecked())
-        settings.setValue("autodelpdfstime", self.spinBox.value())
         settings.setValue("autoupdatepdfs", self.checkBox_4.isChecked())
         settings.setValue("checkprogramforupdates", self.checkBox_2.isChecked())
-        a = self.savebrowserurls()        
+        settings.setValue("lastprogramupdatechecktime", self.lastprogramupdatechecktime)
+        settings.setValue("pdfupdateindays", self.spinBox_3.value())
+        settings.setValue("programupdateindays", self.spinBox_2.value())
+        settings.setValue("lastpdfupdatechecktime", self.lastpdfupdatechecktime)
+        settings.setValue("downlopdedpdfs", self.downlopdedpdfs)
+        settings.setValue("autodelpdfs", self.checkBox_3.isChecked())
+        settings.setValue("autodelpdfstime", self.spinBox.value())
+        self.savebrowserbookmarks()        
         
     def deleteoldpdfs(self):
-        self.threads = []
         a = oldpdfdeleter.OldPdfDeleter(self.spinBox.value())
         self.threads.append(a)
         self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
         a.start()
+
+    def stupidworkaround(self):
+        self.plainTextEdit.appendPlainText(unicode('Jei yra trinu senus lankstinukus', "utf-8"))
             
     def checkforprogramupdates(self):
         self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
-        self.threads = []
         b = updater.Updater()
         self.threads.append(b)
         self.threads[len(self.threads)-1].foundupdate.connect(self.addtxt)
@@ -889,13 +977,12 @@ class Ui_MainWindow(QtGui.QMainWindow):
             for item in self.checkboxlist:
                 if item.isChecked():
                     queue_list.append(str(item.text()))
-            self.threads = []
-            a = linkparser.LinkParser(queue_list)
-            self.threads.append(a)
+            lnk = linkparser.LinkParser(queue_list)
+            self.threads.append(lnk)
             self.threads[len(self.threads)-1].addtext.connect(self.addtxt)
             self.threads[len(self.threads)-1].url.connect(self.addurltodwnlist)
             self.threads[len(self.threads)-1].finishedurlparsing.connect(self.downloadpdfs)
-            a.start()
+            lnk.start()
         
     def addurltodwnlist(self, shop, url):
         self.downloadlist.append((str(shop), str(url)))
@@ -957,6 +1044,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.downloading = False
         self.downloadpdfs()
         if len(self.downloadlist) == 0:
+            self.downlopdedpdfs = True
             self.checkforpdfupdates = False
             self.plainTextEdit.appendPlainText(unicode('Lankstinukų atsiuntimas baigtas'), "utf-8")
             self.plainTextEdit.appendPlainText(unicode('Paspausk mygtuką "Perkrauti programą"'), "utf-8")
@@ -979,21 +1067,18 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.checkBoxnorfa.setText(_translate("MainWindow", "Norfa", None))
         self.checkBoxiki.setText(_translate("MainWindow", "Iki", None))
         self.checkBoxrimi.setText(_translate("MainWindow", "Rimi", None))
-        self.pushButtondownloadpdf.setText(_translate("MainWindow", "Atsiųsti", None))
-        self.pushButtoncanceldownloadpdf.setText(_translate("MainWindow", "Perkrauti programą", None))
+        self.checkBox_4.setText(_translate("MainWindow", "Automatiškai tikrinti ar yra naujų lankstinukų kas  ", None))
+        self.label_5.setText(_translate("MainWindow", "  dienų", None))
         self.checkBox_3.setText(_translate("MainWindow", "Automatiškai trinti senus lankstinukus po  ", None))
         self.label_2.setText(_translate("MainWindow", "  dienų    ", None))
         self.pushButton_8.setText(_translate("MainWindow", "Trinti dabar", None))
-        self.checkBox_4.setText(_translate("MainWindow", "Automatiškai tikrinti ar yra naujų lankstinukų", None))
+        self.pushButtondownloadpdf.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
+        self.pushButtoncanceldownloadpdf.setText(_translate("MainWindow", "Perkrauti programą", None))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-weight:600;\">Programos atnaujinimas</span><br/></p></body></html>", None))
-        self.checkBox_2.setText(_translate("MainWindow", "Automatiškai tikrinti įjungiant programą", None))
-        self.pushButton_7.setText(_translate("MainWindow", "Tikrinti dabar ir atsiųsti", None))
+        self.checkBox_2.setText(_translate("MainWindow", "Automatiškai tikrinti įjungiant programą kas  ", None))
+        self.label_4.setText(_translate("MainWindow", "  dienų  ", None))
+        self.pushButton_7.setText(_translate("MainWindow", "Tikrinti ir atsiųsti dabar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Naujinimas", None))
         self.checkBox.setText(_translate("MainWindow", "Naudoti pdf.js", None))
         self.pushButton_6.setText(_translate("MainWindow", "Perkrauti programą", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Nustatymai", None))
-
-if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
-    ex = Ui_MainWindow()
-    sys.exit(app.exec_())

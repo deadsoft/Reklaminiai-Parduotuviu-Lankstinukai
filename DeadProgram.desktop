@@ -1,7 +1,7 @@
 [Desktop Entry]
 Categories=Network;
 Comment=
-Exec=/usr/lib/deadprogram/deadprogram.py
+Exec=/usr/lib/deadprogram/main.py
 GenericName=DeadProgram
 Icon=/usr/share/deadprogram/icons/image.png
 MimeType=

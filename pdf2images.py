@@ -17,12 +17,13 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import os
+version = 0.001
+
+import os, time
 from PyQt4 import QtCore, QtGui
 import popplerqt4
 
 userdir = os.path.expanduser('~')
-version = 0.001
 
 class imagesFromPdf(QtCore.QThread):
     FinishedExtractingImages = QtCore.pyqtSignal(str)
@@ -53,41 +54,42 @@ body {
 </head>
 
 <body>
-	<div id="myGallery">\n'''
+    <div id="myGallery">\n'''
         self.htmlsp = '''    </div>
 </body>
 </html>
 '''
-
-    def run(self):
-		self.FinishedExtractingImages.emit('Tikrinu ar neatsiųsta lankstinukų atnaujinimų')
-		path = userdir + '/.cache/deadprogram/pdfs'
-		for dirname, dirnames, filenames in os.walk(path):
-			for subdirname in dirnames:
-				pass
-			for filename in filenames:
-				if not os.path.exists(dirname + '/dir_' + filename) and not os.path.basename(dirname).startswith('dir_'):
-					os.mkdir(dirname + '/dir_' + filename)
-					htmlfp = self.htmlfp
-					htmlsp = self.htmlsp
-					html = open(dirname + '/dir_' + filename + '/index.html', 'w')
-					doc = popplerqt4.Poppler.Document.load(dirname + '/' + filename)
-					doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
-					doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
-					numpages = doc.numPages()
-					page = doc.page(0)
-					for pagenum in range(numpages):
-						page = doc.page(pagenum)
-						image = page.renderToImage(200, 200)
-						pixmap = QtGui.QPixmap.fromImage(image)
-						pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png')
-						htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png"' + ' border="0" alt="" class="img-frame"> \n'
-					htmlfp += htmlsp
-					html.write(htmlfp)
-					html.close()
-					self.FinishedExtractingImages.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
-		self.FinishedExtractingImages.emit('Baigtas lankstinukų atnaujinimų tikrinimas')
-		return
-
     def __del__(self):
         self.wait()
+        
+    def run(self):
+        time.sleep(0.5)
+        self.FinishedExtractingImages.emit('Tikrinu ar neatsiųsta lankstinukų atnaujinimų')
+        path = userdir + '/.cache/deadprogram/pdfs'
+        for dirname, dirnames, filenames in os.walk(path):
+            for subdirname in dirnames:
+                pass
+            for filename in filenames:
+                if not os.path.exists(dirname + '/dir_' + filename) and not os.path.basename(dirname).startswith('dir_'):
+                    os.mkdir(dirname + '/dir_' + filename)
+                    htmlfp = self.htmlfp
+                    htmlsp = self.htmlsp
+                    html = open(dirname + '/dir_' + filename + '/index.html', 'w')
+                    doc = popplerqt4.Poppler.Document.load(dirname + '/' + filename)
+                    doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
+                    doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
+                    numpages = doc.numPages()
+                    page = doc.page(0)
+                    for pagenum in range(numpages):
+                        page = doc.page(pagenum)
+                        image = page.renderToImage(200, 200)
+                        pixmap = QtGui.QPixmap.fromImage(image)
+                        pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png')
+                        htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png"' + ' border="0" alt="" class="img-frame"> \n'
+                    htmlfp += htmlsp
+                    html.write(htmlfp)
+                    html.close()
+                    self.FinishedExtractingImages.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
+        self.FinishedExtractingImages.emit('Baigtas lankstinukų atnaujinimų tikrinimas')
+        return
+

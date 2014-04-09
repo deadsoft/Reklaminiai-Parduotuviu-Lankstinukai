@@ -20,7 +20,7 @@
 
 version = 0.001
 
-import urllib, os, sys, json
+import urllib, os, sys, json, time
 from PyQt4 import QtCore
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
@@ -40,8 +40,12 @@ class Updater(QtCore.QThread):
        
     def __init__(self):
         QtCore.QThread.__init__(self)
+
+    def __del__(self):
+        self.wait()
         
     def run(self):
+        time.sleep(2)
         updateinfolink = 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updateinfo'
         response = urllib.urlopen(updateinfolink)
         info = response.read()
@@ -53,7 +57,7 @@ class Updater(QtCore.QThread):
         f2.close()
         for item in lst:
             for item2 in lst2:
-                if item[1] <  item2[1]:
+                if item[1] <  item2[1] and item[0] ==  item2[0]:
                     self.foundupdate.emit('Radau atnaujinimą')
                     url = item2[2]
                     filename = item2[0]
@@ -67,6 +71,3 @@ class Updater(QtCore.QThread):
                     pass
         self.updated.emit('Patikrinau ar nėra programos atnaujinimo')
         return
-
-    def __del__(self):
-        self.wait()
