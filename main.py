@@ -19,7 +19,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-'''pyinstaller --clean --hidden-import=PyQt5.QtPrintSupport --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/dontuse11-qt5.py'''
+'''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
 
 import sys, os
 from PyQt4 import QtGui, QtCore

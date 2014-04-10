@@ -25,11 +25,12 @@ userdir = os.path.expanduser('~')
 
 class OldPdfDeleter(QtCore.QThread):
     TxtInfo = QtCore.pyqtSignal(str)
+    finished = QtCore.pyqtSignal()
     
     def __init__(self, timedays):
         QtCore.QThread.__init__(self)
         self.timedays = timedays
-        self.dirs = ['Iki', 'Jysk', 'Maxima', 'Norfa', 'Rimi']
+        self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
 
     def __del__(self):
         self.wait()
@@ -51,6 +52,7 @@ class OldPdfDeleter(QtCore.QThread):
                                 pass
                 except:
                     pass
+        self.finished.emit()
         return	
 #                 now = time.time()
 #                 t -= 5 * 24 * 60 * 60

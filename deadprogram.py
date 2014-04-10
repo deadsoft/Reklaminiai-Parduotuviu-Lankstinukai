@@ -32,6 +32,10 @@ if not os.path.exists(userdir + '/.cache/deadprogram/'):
     os.mkdir(userdir + '/.cache/deadprogram/')
 if not os.path.exists(userdir + '/.cache/deadprogram/modules/'):
     os.mkdir(userdir + '/.cache/deadprogram/modules')
+if not os.path.exists(userdir + '/.cache/deadprogram/css/'):
+    os.mkdir(userdir + '/.cache/deadprogram/css')
+if not os.path.exists(userdir + '/.cache/deadprogram/modules/custom.css'):
+    open(userdir + '/.cache/deadprogram/modules/custom.css', 'a').close()
 if not os.path.exists(userdir + '/.cache/deadprogram/modules/__init__.py'):
     open(userdir + '/.cache/deadprogram/modules/__init__.py', 'a').close()
 if not os.path.exists(userdir + '/.cache/deadprogram/cache'):
@@ -735,7 +739,9 @@ class Ui_MainWindow(object):
         self.combohighlighted = int
         self.lastprogramupdatechecktime = 1
         self.lastpdfupdatechecktime = 1
-        
+
+        self.tabWidget.currentChanged.connect(self.tabchangedwindowtitle)
+        self.checkBox.stateChanged.connect(self.pdfjscheckboxstatechanged)
         self.comboBox.highlighted.connect(self.comboboxlasthighlighted)
         self.Intbuttonmaxima.pressed.connect(lambda: self.loadurl(self.Intbuttonmaxima))
         self.Intbuttonnorfa.clicked.connect(lambda: self.loadurl(self.Intbuttonnorfa))
@@ -755,6 +761,9 @@ class Ui_MainWindow(object):
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
         self.webView.urlChanged.connect(self.updatelineedit)
+        self.webView.linkClicked.connect(self.webviewlinkclicked)
+        self.webView.statusBarMessage.connect(self.webviewstatusbarmessage)
+        self.webView.titleChanged.connect(self.webviewtitlechanged)
         self.lineEdit.returnPressed.connect(self.loadurlfromlineedit)
         self.webView.loadProgress.connect(self.pageloadprogress)
         self.pushButtondownloadpdf.clicked.connect(self.updatepdfs)
@@ -774,45 +783,55 @@ class Ui_MainWindow(object):
         self.comboBox.setAcceptDrops(True)
         self.pushButton_9.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_9.installEventFilter(self)
-        self.comboBox.setDuplicatesEnabled(False)
         self.comboBoxview = self.comboBox.view()
         self.comboBoxview.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
         
         settings = self.webView.settings()
+        webpage = self.webView.page()
+        webpage.unsupportedContent.connect(self.webpageunsupportedcontent)
+        webpage.linkHovered.connect(self.webpagelinkhovered)
+        webpage.setForwardUnsupportedContent(True)
+        webpage.setLinkDelegationPolicy(QtWebKit.QWebPage.DontDelegateLinks)
         settings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
         settings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, True)
         settings.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
         settings.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
         settings.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
         settings.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
-        settings.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, False)
+        settings.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
+        settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
+        settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, False)
+        settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
         settings.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
-        settings.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, True)
-        settings.setAttribute(QtWebKit.QWebSettings.JavaEnabled, True)
-        settings.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, True)
+        settings.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, False)
+        settings.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
+        settings.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
         settings.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, True)
         settings.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
         settings.setMaximumPagesInCache(20)
         settings.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
-#        settings.userStyleSheetUrl(QtCore.QUrl(curentdir  + '/css'))
+        settings.setUserStyleSheetUrl(QtCore.QUrl(userdir  + '/.cache/deadprogram/css/custom.css'))
         
         settings_2 = self.webView_2.settings()
-        settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
+#        settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
         settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, True)
         settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
+#        settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
         settings_2.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
+        settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, False)
         settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
+        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
+        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, True)
+        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
         settings_2.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavaEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, True)
+        settings_2.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, False)
+        settings_2.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
+        settings_2.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
+        settings_2.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, False)
         settings_2.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
         settings_2.setMaximumPagesInCache(20)
         settings_2.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
-#        settings_2.userStyleSheetUrl(QtCore.QUrl(curentdir  + '/css'))
+        settings_2.setUserStyleSheetUrl(QtCore.QUrl(userdir  + '/.cache/deadprogram/css/custom.css'))
         
         self.readSettings()
         self.addbrowserbookmarks()
@@ -833,6 +852,32 @@ class Ui_MainWindow(object):
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
+
+    def tabchangedwindowtitle(self, i):
+        self.setWindowTitle(self.tabWidget.tabText(i))
+
+    def pdfjscheckboxstatechanged(self, state):
+        if state == 2:
+            self.loadpdfjs = True
+        elif state == 0:
+            self.loadpdfjs = False
+            self.downlopdedpdfs = True
+            self.createhtmlfrompdf()
+
+    def webpagelinkhovered(self, url):
+        pass
+
+    def webpageunsupportedcontent(self, url):
+        pass
+
+    def webviewtitlechanged(self, title):
+        self.setWindowTitle('Interneto puslapis:' + title)
+
+    def webviewstatusbarmessage(self, txt):
+        pass
+
+    def webviewlinkclicked(self, url):
+        pass
 
     def loadpdfcomboboxes(self):
         for item in self.combolist:
@@ -901,7 +946,8 @@ class Ui_MainWindow(object):
         for item in self.pushbuttonlist:
             item.setChecked(False)
         self.webView.load(QtCore.QUrl(self.comboBox.currentText()))
-
+        self.setWindowTitle('Internetas: ' + self.comboBox.currentText())
+        
     def savebrowserbookmarks(self):
         lst = []
         for n in range(self.comboBox.count()):
@@ -1001,6 +1047,7 @@ class Ui_MainWindow(object):
         a = oldpdfdeleter.OldPdfDeleter(self.spinBox.value())
         self.threads.append(a)
         self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
+        self.threads[len(self.threads)-1].finished.connect(self.loadpdfcomboboxes)
         a.start()
 
     def stupidworkaround(self):
@@ -1034,7 +1081,7 @@ class Ui_MainWindow(object):
                     shop = item[0]
                     if shop != combobox.itemText(combobox.currentIndex()):
                         item[1].setCurrentIndex(0)
-                
+        self.setWindowTitle('Lankstinukas ' + combobox.itemText(0) + ': ' + combobox.itemText(index))        
     def updatepdfs(self):
         if not self.checkforpdfupdates:
             self.checkforpdfupdates = True
@@ -1068,6 +1115,7 @@ class Ui_MainWindow(object):
         for item in urllist:
             if item[0] == button.text():
                self.webView.load(QtCore.QUrl(item[1]))
+               self.setWindowTitle('Internetas: ' + item[0])
         for item in self.pushbuttonlist:
             if item.text() != button.text():
                 item.setChecked(False)
@@ -1111,5 +1159,5 @@ class Ui_MainWindow(object):
         if len(self.downloadlist) == 0:
             self.downlopdedpdfs = True
             self.checkforpdfupdates = False
-            if not self.loadpdfjs and self.downlopdedpdfs:
+            if not self.loadpdfjs:
                 self.createhtmlfrompdf()

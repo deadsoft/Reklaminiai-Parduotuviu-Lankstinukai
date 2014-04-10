@@ -38,7 +38,7 @@ class imagesFromPdf(QtCore.QThread):
 <title> </title>
 <style media="screen" type="text/css">
 .img-frame {
-    background:#3c3c3c;
+    background:#303030;
     padding:8px;
     width:98%;
 }
