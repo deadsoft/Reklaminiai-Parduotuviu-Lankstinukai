@@ -33,5 +33,10 @@
         "gui.py", 
         0.001, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py"
+    ], 
+    [
+        "imagedeleter.py", 
+        0.001, 
+        "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py"
     ]
 ]

@@ -16,41 +16,28 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+
 version = 0.001
 
-import os, time, shutil
+import os, shutil
 from PyQt4 import QtCore
 
 userdir = os.path.expanduser('~')
 
-class OldPdfDeleter(QtCore.QThread):
-    TxtInfo = QtCore.pyqtSignal(str)
-    finished = QtCore.pyqtSignal()
+class ImageDeleter(QtCore.QThread):
+    finished = QtCore.pyqtSignal(str)
     
-    def __init__(self, timedays):
+    def __init__(self):
         QtCore.QThread.__init__(self)
-        self.timedays = timedays
         self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
 
     def __del__(self):
         self.wait()
         
     def run(self):
-        time.sleep(1)
-        now = time.time()
         for item in self.dirs:
             dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
             for filename in os.listdir(dirr):
-                    if os.path.isfile(os.path.join(dirr, filename)):
-                        if os.stat(os.path.join(dirr, filename)).st_mtime < now - self.timedays * 86400:
-                            try:
-                                os.remove(os.path.join(dirr, filename))
-                                shutil.rmtree(dirr + '/dir_' + filename)
-                                self.TxtInfo.emit('Ištryniau lankstinuką: ' + filename)
-                            except:
-                                self.TxtInfo.emit('Nepavyko ištrinti lankstinuko: '  + filename)
-        self.finished.emit()
-        return	
-#                 now = time.time()
-#                 t -= 5 * 24 * 60 * 60
-
+                if os.path.exists(os.path.join(dirr + '/dir_' + filename)):
+                    shutil.rmtree(dirr + '/dir_' + filename)
+        self.finished.emit('Ištryniau paveikslėlius')

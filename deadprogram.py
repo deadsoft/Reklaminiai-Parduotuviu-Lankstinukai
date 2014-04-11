@@ -29,7 +29,7 @@ import urllib, sys, os, json, shutil, time
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
 
-import pdf2images, oldpdfdeleter, linkparser, updater
+import pdf2images, oldpdfdeleter, linkparser, updater, imagedeleter
 
 dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
 if not os.path.exists(userdir + '/.cache/'):
@@ -74,9 +74,10 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.checkforpdfupdates = False
         self.deletingoldpdfs = False
         self.downlopdedpdfs = False
-        self.combohighlighted = int
+        self.combohighlighted = 0
         self.lastprogramupdatechecktime = 1
         self.lastpdfupdatechecktime = 1
+        self.pdftoimagesdpi = 150
 
         self.tabWidget.currentChanged.connect(self.tabchangedwindowtitle)
         self.checkBox.stateChanged.connect(self.pdfjscheckboxstatechanged)
@@ -85,17 +86,16 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.Intbuttonnorfa.clicked.connect(lambda: self.loadurl(self.Intbuttonnorfa))
         self.Intbuttoniki.clicked.connect(lambda: self.loadurl(self.Intbuttoniki))
         self.Intbuttonrimi.clicked.connect(lambda: self.loadurl(self.Intbuttonrimi))
-        self.pushButtoncanceldownloadpdf.clicked.connect(self.restart)
         self.pushButton_22.clicked.connect(lambda: self.webView.load(QtCore.QUrl("about:blank")))
         self.pushButton.clicked.connect(self.webView.reload)
         self.pushButton_3.clicked.connect(self.webView.stop)
         self.pushButton_4.clicked.connect(self.webView.forward)
         self.pushButton_5.clicked.connect(self.webView.back)
         self.pushButton_2.clicked.connect(self.loadurlfromlineedit)
-        self.pushButton_6.clicked.connect(self.restart)
         self.pushButton_7.clicked.connect(self.checkforprogramupdates)
-        self.pushButton_8.clicked.connect(self.deleteoldpdfs)
+        self.pushButton_8.clicked.connect(lambda: self.deleteoldpdfs(self.spinBox.value()))
         self.pushButton_8.clicked.connect(self.stupidworkaround)
+        self.pushButton_10.clicked.connect(self.deleteimages)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
         self.webView.urlChanged.connect(self.updatelineedit)
@@ -191,6 +191,14 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
 
+    def deleteimages(self):
+        a = imagedeleter.ImageDeleter()
+        self.threads.append(a)
+        self.threads[len(self.threads)-1].finished.connect(self.addtxt)
+        a.start()
+        self.downlopdedpdfs = True
+        self.createhtmlfrompdf()
+        
     def tabchangedwindowtitle(self, i):
         self.setWindowTitle(self.tabWidget.tabText(i))
 
@@ -199,8 +207,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.loadpdfjs = True
         elif state == 0:
             self.loadpdfjs = False
-            self.downlopdedpdfs = True
-            self.createhtmlfrompdf()
+            if not self.downlopdedpdfs:
+                self.downlopdedpdfs = True
+                self.createhtmlfrompdf()
 
     def webpagelinkhovered(self, url):
         pass
@@ -231,7 +240,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             item[1].addItems(pdfss)
 
     def createhtmlfrompdf(self):
-        b = pdf2images.imagesFromPdf(150)
+        b = pdf2images.imagesFromPdf(self.pdftoimagesdpi)
         self.threads.append(b)
         self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
         self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.loadpdfcomboboxes)
@@ -357,9 +366,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.lastpdfupdatechecktime = int(time.strftime("%Y%m%d"))
         if settings.value("autodelpdfs").toBool():
             self.checkBox_3.setChecked(True)
-            self.deleteoldpdfs()
+            self.deleteoldpdfs(self.spinBox.value())
         if settings.value("autodelpdfstime").toInt()[1]:
             self.spinBox.setValue(settings.value("autodelpdfstime").toInt()[0])
+        if settings.value("pdftoimagesdpi").toInt()[1]:
+            self.spinBox_4.setValue(settings.value("pdftoimagesdpi").toInt()[0])
+            self.pdftoimagesdpi = settings.value("pdftoimagesdpi").toInt()[0]
         
         
     def writeSettings(self):
@@ -379,10 +391,11 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setValue("downlopdedpdfs", self.downlopdedpdfs)
         settings.setValue("autodelpdfs", self.checkBox_3.isChecked())
         settings.setValue("autodelpdfstime", self.spinBox.value())
+        settings.setValue("pdftoimagesdpi", self.spinBox_4.value())
         self.savebrowserbookmarks()        
         
-    def deleteoldpdfs(self):
-        a = oldpdfdeleter.OldPdfDeleter(self.spinBox.value())
+    def deleteoldpdfs(self, days):
+        a = oldpdfdeleter.OldPdfDeleter(days)
         self.threads.append(a)
         self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
         self.threads[len(self.threads)-1].finished.connect(self.loadpdfcomboboxes)
@@ -419,7 +432,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                     shop = item[0]
                     if shop != combobox.itemText(combobox.currentIndex()):
                         item[1].setCurrentIndex(0)
-        self.setWindowTitle('Lankstinukas ' + combobox.itemText(0) + ': ' + combobox.itemText(index))        
+        self.setWindowTitle('Lankstinukas ' + combobox.itemText(0) + ': ' + combobox.itemText(index))
+             
     def updatepdfs(self):
         if not self.checkforpdfupdates:
             self.checkforpdfupdates = True
