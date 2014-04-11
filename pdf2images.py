@@ -29,8 +29,9 @@ class imagesFromPdf(QtCore.QThread):
     FinishedExtractingImages = QtCore.pyqtSignal(str)
     reloadcomboboxes = QtCore.pyqtSignal()
     
-    def __init__(self):
+    def __init__(self, dpi):
         QtCore.QThread.__init__(self)
+        self.dpi = dpi
         self.htmlfp = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -83,7 +84,7 @@ body {
                     page = doc.page(0)
                     for pagenum in range(numpages):
                         page = doc.page(pagenum)
-                        image = page.renderToImage(150, 150)
+                        image = page.renderToImage(self.dpi, self.dpi)
                         pixmap = QtGui.QPixmap.fromImage(image)
                         pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png')
                         htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png"' + ' border="0" alt="" class="img-frame"> \n'

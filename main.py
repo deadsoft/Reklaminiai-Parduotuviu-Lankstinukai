@@ -21,25 +21,21 @@
 
 '''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
 
-import sys, os
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui
+import os, sys
+
 userdir = os.path.expanduser('~')
 sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
-from deadprogram import Ui_MainWindow
+import deadprogram
 
-class MyApp(QtGui.QMainWindow, Ui_MainWindow):
+class Start(deadprogram.DeadProgram):
     def __init__(self):
-        QtGui.QMainWindow.__init__(self)
-        Ui_MainWindow.__init__(self)
-        self.setupUi(self)
-#        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
- #       self.setAutoFillBackground(True)
+        deadprogram.DeadProgram.__init__(self)
+
 
 if __name__ == "__main__":
-#    QtGui.QApplication.setStyle(QtGui.QStyleFactory.create("Plastique"))
-#    QtGui.QApplication.setPalette(QtGui.QApplication.style().standardPalette())
     app = QtGui.QApplication(sys.argv)
-#    app.setDesktopSettingsAware(True)
-    window = MyApp()
-    window.show()
+    a = Start()
+    a.show()
     sys.exit(app.exec_())
+        
