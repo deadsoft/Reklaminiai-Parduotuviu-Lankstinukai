@@ -226,6 +226,41 @@
                 </property>
                </spacer>
               </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_5">
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string>Didinimas</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="decimals">
+                 <number>2</number>
+                </property>
+                <property name="minimum">
+                 <double>0.500000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>1.500000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.050000000000000</double>
+                </property>
+                <property name="value">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
@@ -1480,7 +1515,7 @@
                 <item>
                  <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>Nespausk, jei nežinai ką daro.</string>
+                   <string>Nespausk. Rimtai ;)</string>
                   </property>
                  </widget>
                 </item>
@@ -1533,182 +1568,5 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton_5</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>back()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>37</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Intbuttonnorfa</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>reload()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>141</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>stop()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>133</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_4</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>forward()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>85</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>reload()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>181</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Intbuttonmaxima</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>reload()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>56</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_22</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>back()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>229</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Intbuttoniki</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>reload()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>226</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>Intbuttonrimi</sender>
-   <signal>clicked()</signal>
-   <receiver>webView</receiver>
-   <slot>reload()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>396</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>webView</sender>
-   <signal>urlChanged(QUrl)</signal>
-   <receiver>lineEdit</receiver>
-   <slot>paste()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>390</x>
-     <y>339</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>433</x>
-     <y>86</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>lineEdit</receiver>
-   <slot>copy()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>637</x>
-     <y>86</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>433</x>
-     <y>86</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -22,6 +22,8 @@
 
 version = 0.001
 
+from base64 import b64encode
+from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 from gui import Ui_MainWindow
 import urllib, sys, os, json, shutil, time
@@ -38,10 +40,6 @@ if not os.path.exists(userdir + '/.cache/deadprogram/'):
     os.mkdir(userdir + '/.cache/deadprogram/')
 if not os.path.exists(userdir + '/.cache/deadprogram/modules/'):
     os.mkdir(userdir + '/.cache/deadprogram/modules')
-if not os.path.exists(userdir + '/.cache/deadprogram/css/'):
-    os.mkdir(userdir + '/.cache/deadprogram/css')
-if not os.path.exists(userdir + '/.cache/deadprogram/modules/custom.css'):
-    open(userdir + '/.cache/deadprogram/modules/custom.css', 'a').close()
 if not os.path.exists(userdir + '/.cache/deadprogram/modules/__init__.py'):
     open(userdir + '/.cache/deadprogram/modules/__init__.py', 'a').close()
 if not os.path.exists(userdir + '/.cache/deadprogram/cache'):
@@ -74,13 +72,16 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.checkforpdfupdates = False
         self.deletingoldpdfs = False
         self.downlopdedpdfs = False
+        self.usecssscale = False
         self.combohighlighted = 0
         self.lastprogramupdatechecktime = 1
         self.lastpdfupdatechecktime = 1
         self.pdftoimagesdpi = 150
-
+        
+        self.doubleSpinBox.valueChanged.connect(self.setzoomincss)
         self.tabWidget.currentChanged.connect(self.tabchangedwindowtitle)
         self.checkBox.stateChanged.connect(self.pdfjscheckboxstatechanged)
+        self.checkBox_5.stateChanged.connect(self.cssscalecheckboxstatechanged)
         self.comboBox.highlighted.connect(self.comboboxlasthighlighted)
         self.Intbuttonmaxima.pressed.connect(lambda: self.loadurl(self.Intbuttonmaxima))
         self.Intbuttonnorfa.clicked.connect(lambda: self.loadurl(self.Intbuttonnorfa))
@@ -96,6 +97,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_8.clicked.connect(lambda: self.deleteoldpdfs(self.spinBox.value()))
         self.pushButton_8.clicked.connect(self.stupidworkaround)
         self.pushButton_10.clicked.connect(self.deleteimages)
+        self.pushButton_10.setEnabled(False)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
         self.webView.urlChanged.connect(self.updatelineedit)
@@ -148,29 +150,30 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
         settings.setMaximumPagesInCache(20)
         settings.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
-        settings.setUserStyleSheetUrl(QtCore.QUrl(userdir  + '/.cache/deadprogram/css/custom.css'))
         
-        settings_2 = self.webView_2.settings()
-#        settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
-#        settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, True)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
-        settings_2.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, False)
-        settings_2.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
-        settings_2.setMaximumPagesInCache(20)
-        settings_2.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
-        settings_2.setUserStyleSheetUrl(QtCore.QUrl(userdir  + '/.cache/deadprogram/css/custom.css'))
-        
+        self.webView_2.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.HighQualityAntialiasing)
+        self.webView.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.HighQualityAntialiasing)
+
+        self.settings_2 = self.webView_2.settings()
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.WebGLEnabled, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, False)
+        self.settings_2.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
+        self.settings_2.setMaximumPagesInCache(20)
+        self.settings_2.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
+
         self.readSettings()
         self.addbrowserbookmarks()
         self.loadpdfcomboboxes()
@@ -181,15 +184,32 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.createhtmlfrompdf()
             
         if self.loadpdfjs:
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+            self.webView_2.load(QtCore.QUrl(userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
         else:
-            self.webView_2.load(QtCore.QUrl('about:blank'))        
-        
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
+            
         self.downloader = QtWebKit.QWebView()
         self.downloader.page().setForwardUnsupportedContent(True)
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
+
+    def cssscalecheckboxstatechanged(self, state):
+        if state == 2:
+            self.loadcustomcss()
+        elif state == 0:
+            self.settings_2.setUserStyleSheetUrl(QtCore.QUrl(''))
+            self.usecssscale = False
+
+    def loadcustomcss(self):
+        css = b64encode('img {zoom: 0.75 !important;}')
+        self.settings_2.setUserStyleSheetUrl(QtCore.QUrl('data:text/css;charset=utf-8;base64,' + css ))
+        self.usecssscale = True
+
+    def setzoomincss(self, value):
+        if self.usecssscale:
+            css = b64encode('img{zoom:' + str(value) + '  !important;}')
+            self.settings_2.setUserStyleSheetUrl(QtCore.QUrl('data:text/css;charset=utf-8;base64,' + css ))
 
     def deleteimages(self):
         a = imagedeleter.ImageDeleter()
@@ -198,6 +218,20 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         a.start()
         self.downlopdedpdfs = True
         self.createhtmlfrompdf()
+
+    def deletecssscalingfromhtmls(self):
+        dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
+        for item in dirs:
+            dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
+            for filename in os.listdir(dirr):
+                if os.path.exists(os.path.join(dirr + '/dir_' + filename)):                   
+                        f = open(dirr + '/dir_' + filename + '/index.html', 'r')
+                        data = f.read()
+                        f.close()
+                        newfiledata = data.replace('    width:98%;', ' ')
+                        f = open(dirr + '/dir_' + filename + '/index.html', 'w')
+                        f.write(newfiledata)
+                        f.close()
         
     def tabchangedwindowtitle(self, i):
         self.setWindowTitle(self.tabWidget.tabText(i))
@@ -205,8 +239,14 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def pdfjscheckboxstatechanged(self, state):
         if state == 2:
             self.loadpdfjs = True
+            self.doubleSpinBox.setEnabled(False)
+            self.checkBox_5.setEnabled(False)
+            self.webView_2.load(QtCore.QUrl(userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
         elif state == 0:
             self.loadpdfjs = False
+            self.doubleSpinBox.setEnabled(True)
+            self.checkBox_5.setEnabled(True)
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
             if not self.downlopdedpdfs:
                 self.downlopdedpdfs = True
                 self.createhtmlfrompdf()
@@ -255,10 +295,16 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         url = str(self.lineEdit.displayText())
         if url.startswith('http://'):
             self.webView.load(QtCore.QUrl(url))
+        elif url.startswith('https://'):
+            self.webView.load(QtCore.QUrl(url))
+        elif url.startswith('data:'):
+            self.webView.load(QtCore.QUrl(url))
+        elif url.startswith('ftp://'):
+            self.webView.load(QtCore.QUrl(url))
         elif url.startswith('www.'):
             self.webView.load(QtCore.QUrl('http://' + url))
         elif url.startswith('/'):
-            self.webView.load(QtCore.QUrl('file://' + url))
+            self.webView.load(QtCore.QUrl(url))
         else:
             self.webView.load(QtCore.QUrl('http://www.' + url))
         
@@ -372,6 +418,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if settings.value("pdftoimagesdpi").toInt()[1]:
             self.spinBox_4.setValue(settings.value("pdftoimagesdpi").toInt()[0])
             self.pdftoimagesdpi = settings.value("pdftoimagesdpi").toInt()[0]
+        if settings.value("usecssscale").toBool():
+            self.usecssscale = True
+            self.checkBox_5.setChecked(True)
+            self.loadcustomcss()
+        if settings.value("zoomfactor").toFloat()[1]:
+            self.doubleSpinBox.setValue(settings.value("zoomfactor").toFloat()[0])
         
         
     def writeSettings(self):
@@ -392,25 +444,37 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setValue("autodelpdfs", self.checkBox_3.isChecked())
         settings.setValue("autodelpdfstime", self.spinBox.value())
         settings.setValue("pdftoimagesdpi", self.spinBox_4.value())
-        self.savebrowserbookmarks()        
+        settings.setValue("usecssscale", self.checkBox_5.isChecked())
+        settings.setValue("zoomfactor", self.doubleSpinBox.value())
+        self.savebrowserbookmarks()   
         
     def deleteoldpdfs(self, days):
+        self.pushButton_8.setEnabled(False) 
         a = oldpdfdeleter.OldPdfDeleter(days)
         self.threads.append(a)
         self.threads[len(self.threads)-1].TxtInfo.connect(self.addtxt)
         self.threads[len(self.threads)-1].finished.connect(self.loadpdfcomboboxes)
+        self.threads[len(self.threads)-1].finished.connect(self.enablepushButton_8)
         a.start()
+
+    def enablepushButton_8(self):
+        self.pushButton_8.setEnabled(True)
 
     def stupidworkaround(self):
         self.plainTextEdit.appendPlainText(unicode('Jei yra trinu senus lankstinukus', "utf-8"))
             
     def checkforprogramupdates(self):
+        self.pushButton_7.setEnabled(False)
         self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
         b = updater.Updater()
         self.threads.append(b)
         self.threads[len(self.threads)-1].foundupdate.connect(self.addtxt)
         self.threads[len(self.threads)-1].updated.connect(self.addtxt)
+        self.threads[len(self.threads)-1].updated.connect(self.enablepushButton_7)
         b.start()
+
+    def enablepushButton_7(self):
+        self.pushButton_7.setEnabled(True)
  
     def loadpdf(self, combobox):
         index = combobox.currentIndex()
@@ -421,20 +485,21 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                     os.remove(userdir + '/.cache/deadprogram/web/pdftoload.pdf')
                 os.link(pdf, userdir + '/.cache/deadprogram/web/pdftoload.pdf')
                 self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
-                for item in self.combolist:
-                    shop = item[0]
-                    if shop != str(combobox.itemText(combobox.currentIndex())):
-                        item[1].setCurrentIndex(0)
+
             else:
-                html = 'file://' + userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
-                self.webView_2.load(QtCore.QUrl(html))
-                for item in self.combolist:
-                    shop = item[0]
-                    if shop != combobox.itemText(combobox.currentIndex()):
-                        item[1].setCurrentIndex(0)
+                html = userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
+                if os.path.exists(userdir + '/.cache/deadprogram/web/htmltoload.html'):
+                    os.remove(userdir + '/.cache/deadprogram/web/htmltoload.html')
+                os.link(html, userdir + '/.cache/deadprogram/web/htmltoload.html')
+                self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
+        for item in self.combolist:
+            shop = item[0]
+            if shop != combobox.itemText(combobox.currentIndex()):
+                item[1].setCurrentIndex(0)
         self.setWindowTitle('Lankstinukas ' + combobox.itemText(0) + ': ' + combobox.itemText(index))
              
     def updatepdfs(self):
+        self.pushButtondownloadpdf.setEnabled(False)
         if not self.checkforpdfupdates:
             self.checkforpdfupdates = True
             queue_list = []
@@ -487,6 +552,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.url = str(url)
                 if not os.path.exists(userdir + '/.cache/deadprogram/pdfs/' + self.shop + '/' + os.path.basename(self.url).split('?utm_source')[0]):
                     self.downloader.load(QtCore.QUrl(self.url))
+                    self.addtxt('Radau ' + self.shop + ' atnaujinimą')
                     break
 
     def downloadstart(self, reply):

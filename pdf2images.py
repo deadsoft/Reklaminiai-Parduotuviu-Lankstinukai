@@ -41,22 +41,18 @@ class imagesFromPdf(QtCore.QThread):
 .img-frame {
     background:#303030;
     padding:8px;
-    width:98%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
     
 html {
-    background:#3c3c3c;
-    width:100%;
-}
-body {
-    background:#3c3c3c;
-    width:99%;
+    background:#3c3c3c; 
 }
 </style>
 </head>
-
 <body>
-    <div id="myGallery">\n'''
+    <div id="gallery">\n'''
         self.htmlsp = '''    </div>
 </body>
 </html>
@@ -66,7 +62,7 @@ body {
         
     def run(self):
         time.sleep(0.5)
-        self.FinishedExtractingImages.emit('Tikrinu ar neatsiųsta lankstinukų atnaujinimų')
+        self.FinishedExtractingImages.emit('Tikrinu ar nebuvo atsiųsta lankstinukų')
         path = userdir + '/.cache/deadprogram/pdfs'
         for dirname, dirnames, filenames in os.walk(path):
             for subdirname in dirnames:
@@ -86,13 +82,13 @@ body {
                         page = doc.page(pagenum)
                         image = page.renderToImage(self.dpi, self.dpi)
                         pixmap = QtGui.QPixmap.fromImage(image)
-                        pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png')
-                        htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.png"' + ' border="0" alt="" class="img-frame"> \n'
+                        pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.jpg', format='JPG', quality = 70)
+                        htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
                     htmlfp += htmlsp
                     html.write(htmlfp)
                     html.close()
                     self.FinishedExtractingImages.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
-        self.FinishedExtractingImages.emit('Baigtas lankstinukų atnaujinimų tikrinimas')
+        self.FinishedExtractingImages.emit('Neradau naujų lankstinukų')
         self.reloadcomboboxes.emit()
         return
 
