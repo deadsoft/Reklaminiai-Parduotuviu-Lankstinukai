@@ -48,7 +48,7 @@ if not os.path.exists(userdir + userprogpath):
 if not os.path.exists(userdir + userprogpath + 'modules'):
     os.mkdir(userdir + userprogpath + 'modules')
 if not os.path.exists(userdir + userprogpath + SEP('modules/__init__.py')):
-    open(userdir + userprogpath + SEP('modules/__init__.py', 'a')).close()
+    open(userdir + userprogpath + SEP('modules/__init__.py'), 'a').close()
 if not os.path.exists(userdir + userprogpath + 'cache'):
     os.mkdir(userdir + userprogpath + 'cache')
 if not os.path.exists(userdir + userprogpath + 'pdfs'):
@@ -209,7 +209,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.usecssscale = False
 
     def loadcustomcss(self):
-        css = b64encode('img {zoom: 0.75 !important;}')
+        css = b64encode('img {zoom:' + str(self.doubleSpinBox.value()) + '!important;}')
         self.settings_2.setUserStyleSheetUrl(QtCore.QUrl('data:text/css;charset=utf-8;base64,' + css ))
         self.usecssscale = True
 
@@ -390,9 +390,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings = QtCore.QSettings("deadprogram", "lankstukai")
         self.resize(settings.value("winsize").toSize())
         self.move(settings.value("winpos").toPoint())
-        for item in self.checkboxlist:
-             if settings.value(item.text()).toBool():
-                item.setChecked(True)
         self.tabWidget.setCurrentIndex(settings.value("activetab").toInt()[0])
         if settings.value("pdfjs").toBool():
             self.checkBox.setChecked(True)
@@ -431,6 +428,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.loadcustomcss()
         if settings.value("zoomfactor").toFloat()[1]:
             self.doubleSpinBox.setValue(settings.value("zoomfactor").toFloat()[0])
+        for item in self.checkboxlist:
+             if settings.value(item.text()).toBool():
+                item.setChecked(True)
         
         
     def writeSettings(self):

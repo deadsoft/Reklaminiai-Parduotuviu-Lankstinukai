@@ -89,7 +89,7 @@ html {
                         page = doc.page(pagenum)
                         image = page.renderToImage(self.dpi, self.dpi)
                         pixmap = QtGui.QPixmap.fromImage(image)
-                        pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 70)
+                        pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 100)
                         htmlfp += '<img src="file://' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
                     htmlfp += htmlsp
                     html.write(htmlfp)

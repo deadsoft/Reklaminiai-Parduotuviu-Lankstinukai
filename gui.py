@@ -17,10 +17,19 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 version = 0.001
 
 from PyQt4 import QtCore, QtGui, QtWebKit
+import os
+
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+
+userdir = os.path.expanduser('~')
+userprogpath = SEP('/.cache/deadprogram/')
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -39,7 +48,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(853, 632)
+        MainWindow.resize(1300, 740)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -49,7 +58,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Sans"))
         MainWindow.setFont(font)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/image.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/image.png"))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -255,7 +264,7 @@ class Ui_MainWindow(object):
         self.pushButton_9.setAcceptDrops(True)
         self.pushButton_9.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/user-trash.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/user-trash.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_9.setIcon(icon1)
         self.pushButton_9.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_9.setAutoRepeat(False)
@@ -279,7 +288,7 @@ class Ui_MainWindow(object):
         self.pushButton_5.setAutoFillBackground(False)
         self.pushButton_5.setText(_fromUtf8(""))
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/go-previous.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/go-previous.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_5.setIcon(icon2)
         self.pushButton_5.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_5.setShortcut(_fromUtf8(""))
@@ -299,7 +308,7 @@ class Ui_MainWindow(object):
         self.pushButton_4.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_4.setText(_fromUtf8(""))
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/go-next.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/go-next.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_4.setIcon(icon3)
         self.pushButton_4.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_4.setCheckable(False)
@@ -315,7 +324,7 @@ class Ui_MainWindow(object):
         self.pushButton_3.setMouseTracking(False)
         self.pushButton_3.setFocusPolicy(QtCore.Qt.NoFocus)
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/process-stop.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon4.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/process-stop.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_3.setIcon(icon4)
         self.pushButton_3.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_3.setFlat(True)
@@ -330,7 +339,7 @@ class Ui_MainWindow(object):
         self.pushButton.setMouseTracking(False)
         self.pushButton.setFocusPolicy(QtCore.Qt.NoFocus)
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/view-refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon5.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/view-refresh.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton.setIcon(icon5)
         self.pushButton.setIconSize(QtCore.QSize(24, 24))
         self.pushButton.setFlat(True)
@@ -345,7 +354,7 @@ class Ui_MainWindow(object):
         self.pushButton_22.setMouseTracking(False)
         self.pushButton_22.setFocusPolicy(QtCore.Qt.NoFocus)
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap(_fromUtf8("../.cache/deadprogram/icons/go-home.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon6.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/go-home.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_22.setIcon(icon6)
         self.pushButton_22.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_22.setFlat(True)
@@ -372,7 +381,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setFocusPolicy(QtCore.Qt.NoFocus)
         self.pushButton_2.setText(_fromUtf8(""))
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap(_fromUtf8("../../../usr/share/deadprogram/icons/go-jump.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon7.addPixmap(QtGui.QPixmap(_fromUtf8(userdir + userprogpath + SEP("icons/go-jump.png"))), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.pushButton_2.setIcon(icon7)
         self.pushButton_2.setIconSize(QtCore.QSize(24, 24))
         self.pushButton_2.setFlat(True)
