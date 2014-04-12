@@ -17,6 +17,12 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+
 version = 0.001
 
 import os, time
@@ -24,6 +30,7 @@ from PyQt4 import QtCore, QtGui
 import popplerqt4
 
 userdir = os.path.expanduser('~')
+userprogpath = SEP('/.cache/deadprogram/')
 
 class imagesFromPdf(QtCore.QThread):
     FinishedExtractingImages = QtCore.pyqtSignal(str)
@@ -63,17 +70,17 @@ html {
     def run(self):
         time.sleep(0.5)
         self.FinishedExtractingImages.emit('Tikrinu ar nebuvo atsiųsta lankstinukų')
-        path = userdir + '/.cache/deadprogram/pdfs'
+        path = userdir + userprogpath + 'pdfs'
         for dirname, dirnames, filenames in os.walk(path):
             for subdirname in dirnames:
                 pass
             for filename in filenames:
-                if not os.path.exists(dirname + '/dir_' + filename) and not os.path.basename(dirname).startswith('dir_'):
-                    os.mkdir(dirname + '/dir_' + filename)
+                if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
+                    os.mkdir(dirname + SEP('/dir_') + filename)
                     htmlfp = self.htmlfp
                     htmlsp = self.htmlsp
-                    html = open(dirname + '/dir_' + filename + '/index.html', 'w')
-                    doc = popplerqt4.Poppler.Document.load(dirname + '/' + filename)
+                    html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                    doc = popplerqt4.Poppler.Document.load(dirname + SEP('/') + filename)
                     doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
                     doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
                     numpages = doc.numPages()
@@ -82,8 +89,8 @@ html {
                         page = doc.page(pagenum)
                         image = page.renderToImage(self.dpi, self.dpi)
                         pixmap = QtGui.QPixmap.fromImage(image)
-                        pixmap.save(dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.jpg', format='JPG', quality = 70)
-                        htmlfp += '<img src="file://' + dirname + '/dir_' + filename + '/' + 'doc' + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
+                        pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 70)
+                        htmlfp += '<img src="file://' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
                     htmlfp += htmlsp
                     html.write(htmlfp)
                     html.close()

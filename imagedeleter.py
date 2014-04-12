@@ -22,7 +22,14 @@ version = 0.001
 import os, shutil
 from PyQt4 import QtCore
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+    
 userdir = os.path.expanduser('~')
+userprogpath = SEP('/.cache/deadprogram/')
 
 class ImageDeleter(QtCore.QThread):
     finished = QtCore.pyqtSignal(str)
@@ -36,8 +43,8 @@ class ImageDeleter(QtCore.QThread):
         
     def run(self):
         for item in self.dirs:
-            dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
+            dirr = userdir + userprogpath + SEP('pdfs/') + item
             for filename in os.listdir(dirr):
-                if os.path.exists(os.path.join(dirr + '/dir_' + filename)):
-                    shutil.rmtree(dirr + '/dir_' + filename)
+                if os.path.exists(os.path.join(dirr + SEP('/dir_') + filename)):
+                    shutil.rmtree(dirr + SEP('/dir_') + filename)
         self.finished.emit('Ištryniau paveikslėlius')

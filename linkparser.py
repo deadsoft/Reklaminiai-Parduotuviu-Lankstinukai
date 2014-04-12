@@ -19,9 +19,7 @@
 version = 0.002
 
 from PyQt4 import QtCore
-import os, time
-
-userdir = os.path.expanduser('~')
+import time
 
 class LinkParser(QtCore.QThread):
     addtext = QtCore.pyqtSignal(str)

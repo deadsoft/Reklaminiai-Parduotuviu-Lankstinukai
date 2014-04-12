@@ -20,11 +20,19 @@
 
 version = 0.001
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+    
 import urllib, os, sys, json, time
 from PyQt4 import QtCore
 userdir = os.path.expanduser('~')
-sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
+sys.path.insert(0, userdir + SEP('/.cache/deadprogram/modules'))
 import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui
+
+userprogpath = SEP('/.cache/deadprogram/')
 
 vpdf2images = pdf2images.version
 voldpdfdeleter = oldpdfdeleter.version
@@ -51,10 +59,10 @@ class Updater(QtCore.QThread):
         updateinfolink = 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updateinfo'
         response = urllib.urlopen(updateinfolink)
         info = response.read()
-        f = open(userdir + '/.cache/deadprogram/modules/updateinfo', 'w')
+        f = open(userdir + userprogpath + SEP('modules/updateinfo'), 'w')
         f.write(info)
         f.close()
-        f2 = open(userdir + '/.cache/deadprogram/modules/updateinfo', 'r')        
+        f2 = open(userdir + userprogpath + SEP('modules/updateinfo'), 'r')        
         lst2 = json.load(f2)
         f2.close()
         for item in lst:
@@ -65,7 +73,7 @@ class Updater(QtCore.QThread):
                     filename = item2[0]
                     response = urllib.urlopen(url)
                     info = response.read()
-                    f = open(userdir + '/.cache/deadprogram/modules/' + filename, 'w')
+                    f = open(userdir + userprogpath + SEP('modules/') + filename, 'w')
                     f.write(info)
                     f.close()
                     self.updated.emit('Atnaujinau...')

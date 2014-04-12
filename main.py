@@ -24,8 +24,15 @@
 from PyQt4 import QtGui
 import os, sys
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+
+userprogpath = SEP('/.cache/deadprogram/')
 userdir = os.path.expanduser('~')
-sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
+sys.path.insert(0, userdir + userprogpath + 'modules')
 import deadprogram
 
 class Start(deadprogram.DeadProgram):

@@ -22,6 +22,12 @@
 
 version = 0.001
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+
 from base64 import b64encode
 from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
@@ -29,32 +35,33 @@ from gui import Ui_MainWindow
 import urllib, sys, os, json, shutil, time
 
 userdir = os.path.expanduser('~')
-sys.path.insert(0, userdir + '/.cache/deadprogram/modules')
+userprogpath = SEP('/.cache/deadprogram/')
+sys.path.insert(0, userdir + userprogpath + 'modules')
 
 import pdf2images, oldpdfdeleter, linkparser, updater, imagedeleter
 
 dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
-if not os.path.exists(userdir + '/.cache/'):
-    os.mkdir(userdir + '/.cache/')
-if not os.path.exists(userdir + '/.cache/deadprogram/'):
-    os.mkdir(userdir + '/.cache/deadprogram/')
-if not os.path.exists(userdir + '/.cache/deadprogram/modules/'):
-    os.mkdir(userdir + '/.cache/deadprogram/modules')
-if not os.path.exists(userdir + '/.cache/deadprogram/modules/__init__.py'):
-    open(userdir + '/.cache/deadprogram/modules/__init__.py', 'a').close()
-if not os.path.exists(userdir + '/.cache/deadprogram/cache'):
-    os.mkdir(userdir + '/.cache/deadprogram/cache')
-if not os.path.exists(userdir + '/.cache/deadprogram/' + '/pdfs'):
-    os.mkdir(userdir + '/.cache/deadprogram/' + '/pdfs')
+if not os.path.exists(userdir + SEP('/.cache')):
+    os.mkdir(userdir + '/.cache')
+if not os.path.exists(userdir + userprogpath):
+    os.mkdir(userdir + userprogpath)
+if not os.path.exists(userdir + userprogpath + 'modules'):
+    os.mkdir(userdir + userprogpath + 'modules')
+if not os.path.exists(userdir + userprogpath + SEP('modules/__init__.py')):
+    open(userdir + userprogpath + SEP('modules/__init__.py', 'a')).close()
+if not os.path.exists(userdir + userprogpath + 'cache'):
+    os.mkdir(userdir + userprogpath + 'cache')
+if not os.path.exists(userdir + userprogpath + 'pdfs'):
+    os.mkdir(userdir + userprogpath + 'pdfs')
 for item in dirs:
-    if not os.path.exists(userdir + '/.cache/deadprogram/' + '/pdfs/' + item):
-        os.mkdir(userdir + '/.cache/deadprogram/' + '/pdfs/' + item)
-if not os.path.exists(userdir + '/.cache/deadprogram/' + 'build'):
-    shutil.copytree('/usr/share/deadprogram/build', userdir + '/.cache/deadprogram/' + 'build')
-if not os.path.exists(userdir + '/.cache/deadprogram/' + 'icons'):
-    shutil.copytree('/usr/share/deadprogram/icons', userdir + '/.cache/deadprogram/' + 'icons')
-if not os.path.exists(userdir + '/.cache/deadprogram/' + 'web'):
-    shutil.copytree('/usr/share/deadprogram/web', userdir + '/.cache/deadprogram/' + 'web')
+    if not os.path.exists(userdir + userprogpath + 'pdfs/' + item):
+        os.mkdir(userdir + userprogpath + 'pdfs/' + item)
+if not os.path.exists(userdir + userprogpath + 'build'):
+    shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
+if not os.path.exists(userdir + userprogpath + 'icons'):
+    shutil.copytree('/usr/share/deadprogram/icons', userdir + userprogpath + 'icons')
+if not os.path.exists(userdir + userprogpath + 'web'):
+    shutil.copytree('/usr/share/deadprogram/web', userdir + userprogpath + 'web')
 
 
 class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
@@ -147,9 +154,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
         settings.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
         settings.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, True)
-        settings.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
+        settings.setLocalStoragePath(userdir  + userprogpath + 'cache')
         settings.setMaximumPagesInCache(20)
-        settings.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
+        settings.setOfflineStoragePath(userdir  + userprogpath + 'cache')
         
         self.webView_2.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.HighQualityAntialiasing)
         self.webView.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.HighQualityAntialiasing)
@@ -170,9 +177,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.settings_2.setAttribute(QtWebKit.QWebSettings.JavaEnabled, False)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.AcceleratedCompositingEnabled, False)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.DnsPrefetchEnabled, False)
-        self.settings_2.setLocalStoragePath(userdir  + '/.cache/deadprogram/cache')
+        self.settings_2.setLocalStoragePath(userdir  + userprogpath + 'cache')
         self.settings_2.setMaximumPagesInCache(20)
-        self.settings_2.setOfflineStoragePath(userdir  + '/.cache/deadprogram/cache')
+        self.settings_2.setOfflineStoragePath(userdir  + userprogpath + 'cache')
 
         self.readSettings()
         self.addbrowserbookmarks()
@@ -184,9 +191,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.createhtmlfrompdf()
             
         if self.loadpdfjs:
-            self.webView_2.load(QtCore.QUrl(userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+            self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
         else:
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
             
         self.downloader = QtWebKit.QWebView()
         self.downloader.page().setForwardUnsupportedContent(True)
@@ -222,14 +229,14 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def deletecssscalingfromhtmls(self):
         dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
         for item in dirs:
-            dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
+            dirr = userdir + userprogpath + SEP('pdfs/') + item
             for filename in os.listdir(dirr):
-                if os.path.exists(os.path.join(dirr + '/dir_' + filename)):                   
-                        f = open(dirr + '/dir_' + filename + '/index.html', 'r')
+                if os.path.exists(os.path.join(dirr + SEP('/dir_') + filename)):                   
+                        f = open(dirr + SEP('/dir_') + filename + SEP('/index.html'), 'r')
                         data = f.read()
                         f.close()
                         newfiledata = data.replace('    width:98%;', ' ')
-                        f = open(dirr + '/dir_' + filename + '/index.html', 'w')
+                        f = open(dirr + SEP('/dir_') + filename + SEP('/index.html'), 'w')
                         f.write(newfiledata)
                         f.close()
         
@@ -241,12 +248,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.loadpdfjs = True
             self.doubleSpinBox.setEnabled(False)
             self.checkBox_5.setEnabled(False)
-            self.webView_2.load(QtCore.QUrl(userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+            self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
         elif state == 0:
             self.loadpdfjs = False
             self.doubleSpinBox.setEnabled(True)
             self.checkBox_5.setEnabled(True)
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
+            self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
             if not self.downlopdedpdfs:
                 self.downlopdedpdfs = True
                 self.createhtmlfrompdf()
@@ -270,7 +277,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         for item in self.combolist:
             shop = item[0]
 #            pdfsinshopsdir = os.listdir(userdir + '/.cache/deadprogram/pdfs/' + shop + '/')
-            pdfsinshopsdir = sorted(os.listdir(userdir + '/.cache/deadprogram/pdfs/' + shop + '/'), key=lambda p: os.path.getctime(os.path.join(userdir + '/.cache/deadprogram/pdfs/' + shop + '/', p)))
+            pdfsinshopsdir = sorted(os.listdir(userdir + userprogpath + SEP('pdfs/') + shop + SEP('/')), key=lambda p: os.path.getctime(os.path.join(userdir + userprogpath + SEP('pdfs/') + shop + SEP('/'), p)))
             pdfss = []
             for pdf in pdfsinshopsdir:
                 if not pdf.startswith('dir_'):
@@ -345,14 +352,14 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         lst = []
         for n in range(self.comboBox.count()):
             lst.append(('Site title', str(self.comboBox.itemText(n))))
-        f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'w')
+        f = open(userdir + userprogpath + 'browserbookmarks.txt', 'w')
         json.dump(lst, f,  indent=4)
         f.close()
 
 
     def addbrowserbookmarks(self):
         try:
-            f = open(userdir + '/.cache/deadprogram/browserbookmarks.txt', 'r')
+            f = open(userdir + userprogpath + 'browserbookmarks.txt', 'r')
             lst = json.load(f)
             for tpl in lst:
                 self.comboBox.addItem(tpl[1])
@@ -480,18 +487,18 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         index = combobox.currentIndex()
         if index != 0:
             if self.loadpdfjs:
-                pdf = userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/' + combobox.itemText(index)
-                if os.path.exists(userdir + '/.cache/deadprogram/web/pdftoload.pdf'):
-                    os.remove(userdir + '/.cache/deadprogram/web/pdftoload.pdf')
-                os.link(pdf, userdir + '/.cache/deadprogram/web/pdftoload.pdf')
-                self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/viewer.html?pdfurl=pdftoload.pdf'))
+                pdf = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/') + combobox.itemText(index)
+                if os.path.exists(userdir + userprogpath + SEP('web/pdftoload.pdf')):
+                    os.remove(userdir + userprogpath + SEP('web/pdftoload.pdf'))
+                os.link(pdf, userdir + userprogpath + SEP('web/pdftoload.pdf'))
+                self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
 
             else:
-                html = userdir + '/.cache/deadprogram/pdfs/' + combobox.itemText(0) + '/dir_' + combobox.itemText(index) + '/index.html'
-                if os.path.exists(userdir + '/.cache/deadprogram/web/htmltoload.html'):
-                    os.remove(userdir + '/.cache/deadprogram/web/htmltoload.html')
-                os.link(html, userdir + '/.cache/deadprogram/web/htmltoload.html')
-                self.webView_2.load(QtCore.QUrl('file://' + userdir + '/.cache/deadprogram/web/htmltoload.html'))
+                html = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/dir_') + combobox.itemText(index) + SEP('/index.html')
+                if os.path.exists(userdir + userprogpath + SEP('web/htmltoload.html')):
+                    os.remove(userdir + userprogpath + SEP('web/htmltoload.html'))
+                os.link(html, userdir + userprogpath + SEP('web/htmltoload.html'))
+                self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
         for item in self.combolist:
             shop = item[0]
             if shop != combobox.itemText(combobox.currentIndex()):
@@ -550,7 +557,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.downloadlist.remove((shop, url))
                 self.shop = str(shop)
                 self.url = str(url)
-                if not os.path.exists(userdir + '/.cache/deadprogram/pdfs/' + self.shop + '/' + os.path.basename(self.url).split('?utm_source')[0]):
+                if not os.path.exists(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + os.path.basename(self.url).split('?utm_source')[0]):
                     self.downloader.load(QtCore.QUrl(self.url))
                     self.addtxt('Radau ' + self.shop + ' atnaujinimą')
                     break
@@ -568,7 +575,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
 
     def downloadfinished(self, dl):
         self.plainTextEdit.appendPlainText(unicode('Lankstinuko atsiuntimas baigtas: ' + os.path.basename(str(self.reply.url().path())), "utf-8"))
-        f = open(userdir + '/.cache/deadprogram/pdfs/' + self.shop + '/' + os.path.basename(self.url).split('?utm_source')[0], 'wb')
+        f = open(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + os.path.basename(self.url).split('?utm_source')[0], 'wb')
         f.write(dl.readAll())
         f.flush()
         f.close()

@@ -21,6 +21,13 @@ version = 0.001
 import os, time, shutil
 from PyQt4 import QtCore
 
+def SEP(path):
+    separator = os.path.sep
+    if separator != '/':
+        path = path.replace('/', os.path.sep)
+    return path
+    
+userprogpath = SEP('/.cache/deadprogram/')
 userdir = os.path.expanduser('~')
 
 class OldPdfDeleter(QtCore.QThread):
@@ -39,13 +46,13 @@ class OldPdfDeleter(QtCore.QThread):
         time.sleep(1)
         now = time.time()
         for item in self.dirs:
-            dirr = userdir + '/.cache/deadprogram/pdfs' + '/' + item
+            dirr = userdir + userprogpath + SEP('pdfs/') + item
             for filename in os.listdir(dirr):
                     if os.path.isfile(os.path.join(dirr, filename)):
                         if os.stat(os.path.join(dirr, filename)).st_mtime < now - self.timedays * 86400:
                             try:
                                 os.remove(os.path.join(dirr, filename))
-                                shutil.rmtree(dirr + '/dir_' + filename)
+                                shutil.rmtree(dirr + SEP('/dir_') + filename)
                                 self.TxtInfo.emit('Ištryniau lankstinuką: ' + filename)
                             except:
                                 self.TxtInfo.emit('Nepavyko ištrinti lankstinuko: '  + filename)
