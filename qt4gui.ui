@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>626</height>
+    <height>632</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,7 +26,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../usr/share/deadprogram/icons/image.png</normaloff>../../../usr/share/deadprogram/icons/image.png</iconset>
+    <normaloff>../.cache/deadprogram/icons/image.png</normaloff>../.cache/deadprogram/icons/image.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -58,7 +58,7 @@
            <enum>QTabWidget::Rounded</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>1</number>
           </property>
           <property name="documentMode">
            <bool>false</bool>
@@ -484,7 +484,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/user-trash.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/user-trash.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -543,7 +543,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/go-previous.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/go-previous.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -588,7 +588,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/go-next.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/go-next.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -621,7 +621,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/process-stop.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/process-stop.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -651,7 +651,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/view-refresh.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/view-refresh.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -681,7 +681,7 @@
                 </property>
                 <property name="icon">
                  <iconset>
-                  <normalon>../../../usr/share/deadprogram/icons/go-home.png</normalon>
+                  <normalon>../.cache/deadprogram/icons/go-home.png</normalon>
                  </iconset>
                 </property>
                 <property name="iconSize">
@@ -1081,6 +1081,9 @@
                   <property name="maximum">
                    <number>30</number>
                   </property>
+                  <property name="value">
+                   <number>7</number>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -1283,6 +1286,9 @@
                 </property>
                 <property name="maximum">
                  <number>30</number>
+                </property>
+                <property name="value">
+                 <number>10</number>
                 </property>
                </widget>
               </item>
