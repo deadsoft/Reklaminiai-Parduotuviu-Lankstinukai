@@ -1,10 +1,17 @@
 
 
-Port program to windows environment.
-Dependends only on: popplerqt4 and QtWebKit. Can show pdfs without poppler with Mozilla's pdf.js, but requires import popplerqt4.
-"/" has to be changed to "\" and maybe os.path.expanduser('~') with something else...
+#Port program to windows environment.
+#Dependends only on: popplerqt4 and QtWebKit. Can show pdfs without poppler with Mozilla's pdf.js, but requires import popplerqt4.
+#"/" has to be changed to "\" and maybe os.path.expanduser('~') with something else...
 
 
-Perkelti į windows aplinką.
-Priklausomybės: popplerqt4 ir QtWebKit
-Nu ir aišku iš "/" į "\" ir dar kas nors darant praktiškai. Pvz: os.path.expanduser('~').
+pdf.js doesn't work in windows, empty surfaces, and correct number of pages. Works with the included pdf. Hmmm... 
+
+
+#Perkelti į windows aplinką.
+#Priklausomybės: popplerqt4 ir QtWebKit
+#Nu ir aišku iš "/" į "\" ir dar kas nors darant praktiškai. Pvz: os.path.expanduser('~').
+
+
+
+Winduose pdf.js neveikia kaip priklauso, išskyrus pridėtą pdf. Įdomus pastebėjimas: linuksuose keičiasi failo modifikavimo data po to kai atidarai per qtwebkit'ą su pdf.js.
