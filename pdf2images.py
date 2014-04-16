@@ -25,15 +25,18 @@ def SEP(path):
 
 version = 0.001
 
-import os, time
+import os, time, platform
 from PyQt4 import QtCore, QtGui
-import popplerqt4
+if platform.system() == "Linux":
+	import popplerqt4
+elif platform.system() == "Windows":
+	import subprocess
 
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
 
 class imagesFromPdf(QtCore.QThread):
-    FinishedExtractingImages = QtCore.pyqtSignal(str)
+    txt = QtCore.pyqtSignal(str)
     reloadcomboboxes = QtCore.pyqtSignal()
     
     def __init__(self, dpi):
@@ -69,33 +72,60 @@ html {
         
     def run(self):
         time.sleep(0.5)
-        self.FinishedExtractingImages.emit('Tikrinu ar nebuvo atsiųsta lankstinukų')
+        found = False
+        self.txt.emit('Tikrinu ar nebuvo atsiųsta lankstinukų')
+        self.txt.emit('Išjungiau lanktinukų pasirinkimą kol apdirbu. Tiesiog palauk kažkiek, jei reikia.')
         path = userdir + userprogpath + 'pdfs'
         for dirname, dirnames, filenames in os.walk(path):
             for subdirname in dirnames:
                 pass
             for filename in filenames:
-                if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
-                    os.mkdir(dirname + SEP('/dir_') + filename)
-                    htmlfp = self.htmlfp
-                    htmlsp = self.htmlsp
-                    html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
-                    doc = popplerqt4.Poppler.Document.load(dirname + SEP('/') + filename)
-                    doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
-                    doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
-                    numpages = doc.numPages()
-                    page = doc.page(0)
-                    for pagenum in range(numpages):
-                        page = doc.page(pagenum)
-                        image = page.renderToImage(self.dpi, self.dpi)
-                        pixmap = QtGui.QPixmap.fromImage(image)
-                        pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 100)
-                        htmlfp += '<img src="file://' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
-                    htmlfp += htmlsp
-                    html.write(htmlfp)
-                    html.close()
-                    self.FinishedExtractingImages.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
-        self.FinishedExtractingImages.emit('Neradau naujų lankstinukų')
+                if platform.system() == 'Linux':
+                    if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
+                        os.mkdir(dirname + SEP('/dir_') + filename)
+                        htmlfp = self.htmlfp
+                        htmlsp = self.htmlsp
+                        html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                        doc = popplerqt4.Poppler.Document.load(dirname + SEP('/') + filename)
+                        doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
+                        doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
+                        numpages = doc.numPages()
+                        page = doc.page(0)
+                        for pagenum in range(numpages):
+                            page = doc.page(pagenum)
+                            image = page.renderToImage(self.dpi, self.dpi)
+                            pixmap = QtGui.QPixmap.fromImage(image)
+                            pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
+                            htmlfp += '<img src="file://' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
+                        htmlfp += htmlsp
+                        html.write(htmlfp)
+                        html.close()
+                        self.txt.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
+                        found = True
+                elif platform.system() == 'Windows':
+                    if platform.release() == 'XP':
+                        ver = '0.18\\'
+                    else:
+                        ver = '0.22\\'
+                    if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
+                        htmlfp = self.htmlfp
+                        htmlsp = self.htmlsp
+                        os.mkdir(dirname + SEP('/dir_') + filename)
+                        cmd = 'C:\\Program Files\\RPL\\pdf2html\\' + ver + 'pdftocairo.exe', '-r', str(self.dpi), '-jpeg',  dirname + SEP('/') + filename, dirname + SEP('/dir_') + filename + SEP('/doc')
+                        process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+                        a = process.communicate()[0]
+#                        process.wait()
+                        html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                        for item in os.listdir(dirname + SEP('/dir_') + filename):
+                            if item != 'index.html':
+                                htmlfp += '<img src="file:///' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame"> \n'
+                        htmlfp += htmlsp
+                        html.write(htmlfp)
+                        html.close()
+                        self.txt.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
+                        found = True
+        if not found:
+            self.txt.emit('Neradau naujų lankstinukų')
         self.reloadcomboboxes.emit()
         return
 

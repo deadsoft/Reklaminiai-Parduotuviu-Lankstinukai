@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-	ReklaminiaiParduotuviųLankstinukai
+	ReklaminiaiParduotuviøLankstinukai
 	Copyright (C) <2014> <Algirdas Butkus>
 
 	This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,9 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
+import platform
+if platform.system() == "Windows":
+    import win32file
 from base64 import b64encode
 from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
@@ -41,6 +44,7 @@ sys.path.insert(0, userdir + userprogpath + 'modules')
 import pdf2images, oldpdfdeleter, linkparser, updater, imagedeleter
 
 dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
+
 if not os.path.exists(userdir + SEP('/.cache')):
     os.mkdir(userdir + '/.cache')
 if not os.path.exists(userdir + userprogpath):
@@ -56,12 +60,20 @@ if not os.path.exists(userdir + userprogpath + 'pdfs'):
 for item in dirs:
     if not os.path.exists(userdir + userprogpath + 'pdfs/' + item):
         os.mkdir(userdir + userprogpath + 'pdfs/' + item)
-if not os.path.exists(userdir + userprogpath + 'build'):
-    shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
-if not os.path.exists(userdir + userprogpath + 'icons'):
-    shutil.copytree('/usr/share/deadprogram/icons', userdir + userprogpath + 'icons')
-if not os.path.exists(userdir + userprogpath + 'web'):
-    shutil.copytree('/usr/share/deadprogram/web', userdir + userprogpath + 'web')
+if platform.system() == "Linux":
+    if not os.path.exists(userdir + userprogpath + 'build'):
+        shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
+    if not os.path.exists(userdir + userprogpath + 'icons'):
+        shutil.copytree('/usr/share/deadprogram/icons', userdir + userprogpath + 'icons')
+    if not os.path.exists(userdir + userprogpath + 'web'):
+        shutil.copytree('/usr/share/deadprogram/web', userdir + userprogpath + 'web')
+elif platform.system() == "Windows":
+    if not os.path.exists(userdir + userprogpath + 'build'):
+        shutil.copytree('C:\\Program Files\\RPL\\build', userdir + userprogpath + 'build')
+    if not os.path.exists(userdir + userprogpath + 'icons'):
+        shutil.copytree('C:\\Program Files\\RPL\\icons', userdir + userprogpath + 'icons')
+    if not os.path.exists(userdir + userprogpath + 'web'):
+        shutil.copytree('C:\\Program Files\\RPL\\web', userdir + userprogpath + 'web')	
 
 
 class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
@@ -80,6 +92,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.deletingoldpdfs = False
         self.downlopdedpdfs = False
         self.usecssscale = False
+        self.fullScreen = False
         self.combohighlighted = 0
         self.lastprogramupdatechecktime = 1
         self.lastpdfupdatechecktime = 1
@@ -104,7 +117,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_8.clicked.connect(lambda: self.deleteoldpdfs(self.spinBox.value()))
         self.pushButton_8.clicked.connect(self.stupidworkaround)
         self.pushButton_10.clicked.connect(self.deleteimages)
-        self.pushButton_10.setEnabled(False)
+#        self.pushButton_10.setEnabled(False)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
         self.webView.urlChanged.connect(self.updatelineedit)
@@ -122,6 +135,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.combolist = [('Maxima', self.comboBox_2), ('Rimi', self.comboBox_6), ('Iki', self.comboBox_4), ('Norfa', self.comboBox_3)]
         self.checkboxlist = [self.checkboxmaxima, self.checkBoxrimi, self.checkBoxiki, self.checkBoxnorfa]
         self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttonnorfa, self.Intbuttoniki, self.Intbuttonrimi]
+        if platform.system() == "Windows":
+            self.checkBox.setEnabled(False)
         
         self.lineEdit.insert('about:blank')
         self.lineEdit.setDragEnabled(True)
@@ -132,6 +147,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_9.installEventFilter(self)
         self.comboBoxview = self.comboBox.view()
         self.comboBoxview.setDragDropMode(QtGui.QAbstractItemView.DragOnly)
+        QtGui.QShortcut(QtGui.QKeySequence("F11"), self, self.toogleFullScreen)
         
         settings = self.webView.settings()
         webpage = self.webView.page()
@@ -184,6 +200,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.readSettings()
         self.addbrowserbookmarks()
         self.loadpdfcomboboxes()
+        os.chdir(userdir + userprogpath)
         
 #       if not self.loadpdfjs and self.downlopdedpdfs
         if not self.loadpdfjs:
@@ -191,15 +208,49 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.createhtmlfrompdf()
             
         if self.loadpdfjs:
-            self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
+            if platform.system() == "Windows":
+                if platform.release() == 'XP':
+                    pass
+                else:
+                    self.webView_2.load(QtCore.QUrl.fromLocalFile(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
+            else:
+                self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
         else:
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
+            if platform.system() == "Windows":
+                if platform.release() == 'XP':
+                    pass
+                else:
+                    self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/htmltoload.html')))
+            else:                
+                self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/htmltoload.html')))
             
         self.downloader = QtWebKit.QWebView()
         self.downloader.page().setForwardUnsupportedContent(True)
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
+
+    def htmldata(self, htmlfile):
+        f = open(htmlfile, 'r')
+        html = f.read()
+        f.close()
+        return html
+
+    def comboboxesenabledisable(self, info):
+        if info == 'enable':
+            for a, item in self.combolist:
+                item.setEnabled(True)
+        elif info == 'disable':
+            for a, item in self.combolist:
+                item.setEnabled(False)
+            
+        
+    def toogleFullScreen(self):
+        if not self.fullScreen :
+            self.showFullScreen()
+        else:
+            self.showNormal()            
+        self.fullScreen = not (self.fullScreen)
 
     def cssscalecheckboxstatechanged(self, state):
         if state == 2:
@@ -248,12 +299,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.loadpdfjs = True
             self.doubleSpinBox.setEnabled(False)
             self.checkBox_5.setEnabled(False)
-            self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
+            self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
         elif state == 0:
             self.loadpdfjs = False
             self.doubleSpinBox.setEnabled(True)
             self.checkBox_5.setEnabled(True)
-            self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
+            self.webView_2.setHtml(self.htmldata(userdir + userprogpath + SEP('web/htmltoload.html')))
             if not self.downlopdedpdfs:
                 self.downlopdedpdfs = True
                 self.createhtmlfrompdf()
@@ -287,16 +338,17 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             item[1].addItems(pdfss)
 
     def createhtmlfrompdf(self):
+        self.comboboxesenabledisable('disable')
         b = pdf2images.imagesFromPdf(self.pdftoimagesdpi)
         self.threads.append(b)
-        self.threads[len(self.threads)-1].FinishedExtractingImages.connect(self.addtxt)
+        self.threads[len(self.threads)-1].txt.connect(self.addtxt)
         self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.loadpdfcomboboxes)
         self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.downlopdedpdfsfalse)
         b.start()
-        
 
     def downlopdedpdfsfalse(self):
         self.downlopdedpdfs = False
+        self.comboboxesenabledisable('enable')
         
     def loadurlfromlineedit(self):
         url = str(self.lineEdit.displayText())
@@ -311,7 +363,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         elif url.startswith('www.'):
             self.webView.load(QtCore.QUrl('http://' + url))
         elif url.startswith('/'):
-            self.webView.load(QtCore.QUrl(url))
+            self.webView.load(QtCore.QUrl.fromLocalFile(url))
+        elif url.startswith('c:'):
+            self.webView.load(QtCore.QUrl.fromLocalFile(url))
         else:
             self.webView.load(QtCore.QUrl('http://www.' + url))
         
@@ -369,12 +423,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def infobox(self, text):
         box = QtGui.QMessageBox()
         box.setText(unicode(text, "utf-8"))
-#        box.setAutoFillBackground(True)
-#        box.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-#        box.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#        box.setBackgroundRole(QtGui.QPalette.Base)
-#        box.setFocusPolicy(QtCore.Qt.StrongFocus)
-#        box.setWindowOpacity(0.5)
         box.exec_()
         
     def closeEvent(self, event):
@@ -472,7 +520,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             
     def checkforprogramupdates(self):
         self.pushButton_7.setEnabled(False)
-        self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
+        self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nëra programos atnaujinimo', "utf-8"))
         b = updater.Updater()
         self.threads.append(b)
         self.threads[len(self.threads)-1].foundupdate.connect(self.addtxt)
@@ -490,15 +538,29 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 pdf = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/') + combobox.itemText(index)
                 if os.path.exists(userdir + userprogpath + SEP('web/pdftoload.pdf')):
                     os.remove(userdir + userprogpath + SEP('web/pdftoload.pdf'))
-                os.link(pdf, userdir + userprogpath + SEP('web/pdftoload.pdf'))
-                self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/viewer.html?pdfurl=pdftoload.pdf')))
+                if platform.system() == "Windows":
+                    if platform.release() == 'XP':
+                        pass
+                    else:
+                        win32file.CreateHardLink(str(userdir + userprogpath + SEP('web/pdftoload.pdf')), str(pdf))
+                        self.webView_2.load(QtCore.QUrl.fromLocalFile(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
+                else:
+                    os.link(pdf, userdir + userprogpath + SEP('web/pdftoload.pdf'))
+                    self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
 
             else:
                 html = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/dir_') + combobox.itemText(index) + SEP('/index.html')
                 if os.path.exists(userdir + userprogpath + SEP('web/htmltoload.html')):
                     os.remove(userdir + userprogpath + SEP('web/htmltoload.html'))
-                os.link(html, userdir + userprogpath + SEP('web/htmltoload.html'))
-                self.webView_2.load(QtCore.QUrl('file://' + userdir + userprogpath + SEP('web/htmltoload.html')))
+                if platform.system() == "Windows":
+                    if platform.release() == 'XP':
+                        self.webView_2.setHtml(self.htmldata(html))
+                    else:
+                        win32file.CreateHardLink(str(userdir + userprogpath + SEP('web/htmltoload.html')), str(html))
+                        self.webView_2.setHtml(self.htmldata(html))
+                else:
+                    os.link(html, userdir + userprogpath + SEP('web/htmltoload.html'))
+                    self.webView_2.setHtml(self.htmldata(html))
         for item in self.combolist:
             shop = item[0]
             if shop != combobox.itemText(combobox.currentIndex()):
@@ -538,7 +600,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         
         for item in urllist:
             if item[0] == button.text():
-               self.webView.load(QtCore.QUrl(item[1]))
+               self.webView.load(QtCore.QUrl.fromLocalFile(item[1]))
                self.setWindowTitle('Internetas: ' + item[0])
         for item in self.pushbuttonlist:
             if item.text() != button.text():
@@ -559,7 +621,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.url = str(url)
                 if not os.path.exists(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + os.path.basename(self.url).split('?utm_source')[0]):
                     self.downloader.load(QtCore.QUrl(self.url))
-                    self.addtxt('Radau ' + self.shop + ' atnaujinimą')
+                    self.addtxt('Radau ' + self.shop + ' atnaujinimà')
                     break
 
     def downloadstart(self, reply):
@@ -567,7 +629,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.request.setUrl(reply.url())
         self.reply = self.downloadmanager.get(self.request)
         self.reply.downloadProgress.connect(self.dloadprogr)
-        self.plainTextEdit.appendPlainText(unicode('Atsiunčiu lankstinuką: ' + os.path.basename(str(self.reply.url().path())), "utf-8"))
+        self.plainTextEdit.appendPlainText(unicode('Atsiunèiu lankstinukà: ' + os.path.basename(str(self.reply.url().path())), "utf-8"))
         
 
     def dloadprogr(self, fromb, tob):

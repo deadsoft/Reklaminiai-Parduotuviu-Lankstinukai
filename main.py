@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 """
@@ -18,7 +18,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
+'''C:\PyInstaller-2.1>c:\python27\python.exe -O pyinstaller.py -w --clean -D -i c:\RPL\icons\image.ico --hidden-import=PyQt4.QtXml -n rpl -y --noupx c:\RPL\main.py'''
 '''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
 
 from PyQt4 import QtGui
