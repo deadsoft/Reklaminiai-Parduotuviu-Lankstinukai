@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
-    <height>632</height>
+    <width>849</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -244,7 +244,12 @@
                  <enum>Qt::NoFocus</enum>
                 </property>
                 <property name="text">
-                 <string>Didinimas</string>
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>../.cache/deadprogram/icons/zoom-fit.png</normalon>
+                 </iconset>
                 </property>
                </widget>
               </item>
@@ -282,6 +287,76 @@
                 </property>
                 <property name="value">
                  <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="Line" name="line_5">
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="lineWidth">
+                 <number>1</number>
+                </property>
+                <property name="midLineWidth">
+                 <number>0</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_11">
+                <property name="maximumSize">
+                 <size>
+                  <width>27</width>
+                  <height>27</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>../.cache/deadprogram/icons/go-up.png</normalon>
+                 </iconset>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_6">
+                <property name="maximumSize">
+                 <size>
+                  <width>27</width>
+                  <height>27</height>
+                 </size>
+                </property>
+                <property name="baseSize">
+                 <size>
+                  <width>0</width>
+                  <height>27</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>../.cache/deadprogram/icons/go-down.png</normalon>
+                 </iconset>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1562,7 +1637,7 @@
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="text">
-                   <string>DPI paveikslėlių kūrimui iš lankstinukų. 1920x*  ekranui reikėtų 200.</string>
+                   <string>PPI paveikslėlių kūrimui iš lankstinukų. 1920x*  ekranui reikėtų 200.</string>
                   </property>
                  </widget>
                 </item>

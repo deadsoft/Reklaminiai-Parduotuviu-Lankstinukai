@@ -25,7 +25,7 @@ def SEP(path):
 
 version = 0.001
 
-import os, time, platform
+import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
 if platform.system() == "Linux":
 	import popplerqt4
@@ -34,7 +34,7 @@ elif platform.system() == "Windows":
 
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
-
+    
 class imagesFromPdf(QtCore.QThread):
     txt = QtCore.pyqtSignal(str)
     reloadcomboboxes = QtCore.pyqtSignal()
@@ -59,10 +59,19 @@ class imagesFromPdf(QtCore.QThread):
 html {
     background:#3c3c3c; 
 }
-</style>
+</style>\n'''
+        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>' + '''
+<script type="text/javascript">
+$(document).ready(function () {
+$('#gallery img').mouseover(function() {
+   my_hub.connect(this.id);
+});
+});
+</script>        
 </head>
 <body>
     <div id="gallery">\n'''
+        self.htmlfp += self.htmlfp2
         self.htmlsp = '''    </div>
 </body>
 </html>
@@ -80,6 +89,10 @@ html {
             for subdirname in dirnames:
                 pass
             for filename in filenames:
+                if os.path.exists(dirname + SEP('/dir_') + filename):
+                    if len(os.listdir(dirname + SEP('/dir_') + filename)) <= 1 or os.path.getsize(dirname + SEP('/dir_') + filename + SEP('/index.html')) == 0:
+                        self.txt.emit('Radau neapdirbtų lankstinukų. Programos spraga arba buvo nutraukta...')
+                        shutil.rmtree(dirname + SEP('/dir_') + filename)
                 if platform.system() == 'Linux':
                     if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
                         os.mkdir(dirname + SEP('/dir_') + filename)
@@ -91,12 +104,14 @@ html {
                         doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
                         numpages = doc.numPages()
                         page = doc.page(0)
+                        idnum = 1
                         for pagenum in range(numpages):
                             page = doc.page(pagenum)
                             image = page.renderToImage(self.dpi, self.dpi)
                             pixmap = QtGui.QPixmap.fromImage(image)
                             pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
-                            htmlfp += '<img src="file://' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame"> \n'
+                            htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
+                            idnum += 1
                         htmlfp += htmlsp
                         html.write(htmlfp)
                         html.close()
@@ -116,9 +131,11 @@ html {
                         a = process.communicate()[0]
 #                        process.wait()
                         html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                        idnum = 1
                         for item in os.listdir(dirname + SEP('/dir_') + filename):
                             if item != 'index.html':
-                                htmlfp += '<img src="file:///' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame"> \n'
+                                htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
+                                idnum += 1
                         htmlfp += htmlsp
                         html.write(htmlfp)
                         html.close()
@@ -128,4 +145,3 @@ html {
             self.txt.emit('Neradau naujų lankstinukų')
         self.reloadcomboboxes.emit()
         return
-
