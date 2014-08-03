@@ -15,3 +15,7 @@ pdf.js doesn't work in windows, empty surfaces, and correct number of pages. Wor
 
 
 Winduose pdf.js neveikia kaip priklauso, išskyrus pridėtą pdf. Įdomus pastebėjimas: linuksuose keičiasi failo modifikavimo data po to kai atidarai per qtwebkit'ą su pdf.js.
+Naršyklės šiukšledėžės ikona neina istrint kai ilgas užrašas.
+Naršyklė zoom in/out mygtukai!!!
+mhhh atsiuntus maxima lankstinuką kažkodėl nesukūrė paveiksliukų kol neperkroviau programos.
+ijungus zoom palikti tam paciam puslapio paveiksleli.

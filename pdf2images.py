@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 	ReklaminiaiParduotuviųLankstinukai
-	Copyright (C) <2014> <Algirdas Butkus>
+	Copyright (C) <2014> <Algirdas Butkus> <butkus.algirdas@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Affero General Public License as
