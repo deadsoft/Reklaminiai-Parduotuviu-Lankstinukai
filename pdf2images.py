@@ -118,18 +118,18 @@ $('#gallery img').mouseover(function() {
                         self.txt.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
                         found = True
                 elif platform.system() == 'Windows':
-                    if platform.release() == 'XP':
-                        ver = '0.18\\'
-                    else:
-                        ver = '0.22\\'
                     if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
                         htmlfp = self.htmlfp
                         htmlsp = self.htmlsp
                         os.mkdir(dirname + SEP('/dir_') + filename)
-                        cmd = 'C:\\Program Files\\RPL\\pdf2html\\' + ver + 'pdftocairo.exe', '-r', str(self.dpi), '-jpeg',  dirname + SEP('/') + filename, dirname + SEP('/dir_') + filename + SEP('/doc')
-                        process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+                        arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gswin32c.exe', "-dBATCH", "-dNOPAUSE", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.jpg'), "-sDEVICE=jpeg", "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
+                        process =  subprocess.Popen(
+                        args=arglist,
+                        shell=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
                         a = process.communicate()[0]
-#                        process.wait()
+                        process.wait()
                         html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
                         idnum = 1
                         for item in os.listdir(dirname + SEP('/dir_') + filename):
