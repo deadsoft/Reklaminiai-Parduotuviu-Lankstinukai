@@ -38,7 +38,6 @@ import deadprogram
 class Start(deadprogram.DeadProgram):
     def __init__(self):
         deadprogram.DeadProgram.__init__(self)
-        self.resize(849, 614)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

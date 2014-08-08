@@ -122,7 +122,7 @@ $('#gallery img').mouseover(function() {
                         htmlfp = self.htmlfp
                         htmlsp = self.htmlsp
                         os.mkdir(dirname + SEP('/dir_') + filename)
-                        arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gswin32c.exe', "-dBATCH", "-dNOPAUSE", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.jpg'), "-sDEVICE=jpeg", "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
+                        arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=png16m", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.png'), "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
                         process =  subprocess.Popen(
                         args=arglist,
                         shell=True,
