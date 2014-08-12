@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.003
+version = 0.005
 
 from PyQt4 import QtCore
 import time
@@ -113,5 +113,51 @@ class LinkParser(QtCore.QThread):
                 soup = self.bsoup(html_page)
                 search2 = soup.findAll(attrs={'class': 'pdf'})
                 self.download_queue.append((label,  'http://www.rimi.lt' + search2[0].find('a')['href']))
+        except:
+            pass
+
+            
+    def Senukai(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Senukai turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.senukai.lt/index.php?&cl=newspapers_list')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'pdf'})
+            for link in search:
+                self.download_queue.append((label,  link['href']))
+        except:
+            pass
+
+
+    def Aibe(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Aibė turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.aibe.lt/lt/akcijos/aibe-leidiniai')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'pdf'})
+            for link in search:
+                self.download_queue.append((label,  'http://www.aibe.lt/' + link['href']))
+        except:
+            pass
+
+
+    def FRESH_MARKET(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar FRESH MARKET turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.freshmarket.lt/akcijos')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'get-pdf'})
+            for link in search:
+                self.download_queue.append((label,  'http://www.freshmarket.lt/' + link['href']))
+        except:
+            pass
+
+    def Moki_Vezi(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Moki Veži turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://mokivezi.lt/leidiniai/')
+            soup = self.bsoup(html_page)
+            search = soup.find(attrs={'class': 'leidinys_block'}).find("a")['href']
+            self.download_queue.append((label,  search))
         except:
             pass

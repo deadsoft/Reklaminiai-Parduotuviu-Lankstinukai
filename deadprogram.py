@@ -20,7 +20,7 @@
 
 '''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
 
-version = 0.001
+version = 0.003
 
 def SEP(path):
     separator = os.path.sep
@@ -45,7 +45,7 @@ sys.path.insert(0, userdir + userprogpath + 'modules')
 
 import pdf2images, oldpdfdeleter, linkparser, updater, imagedeleter
 
-dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
+dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
 
 if not os.path.exists(userdir + SEP('/.cache')):
     os.mkdir(userdir + '/.cache')
@@ -96,6 +96,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downlopdedpdfs = False
         self.usecsszoom = False
         self.fullScreen = False
+        self.filename = ''
         self.combohighlighted = 0
         self.lastprogramupdatechecktime = 1
         self.lastpdfupdatechecktime = 1
@@ -112,7 +113,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.Intbuttonmaxima.pressed.connect(lambda: self.loadurl(self.Intbuttonmaxima))
         self.Intbuttonnorfa.clicked.connect(lambda: self.loadurl(self.Intbuttonnorfa))
         self.Intbuttoniki.clicked.connect(lambda: self.loadurl(self.Intbuttoniki))
-        self.Intbuttonrimi.clicked.connect(lambda: self.loadurl(self.Intbuttonrimi))
+        self.Intbuttonrimi.clicked.connect(lambda: self.loadurl(self.Intbuttonrimi))        
+        self.intbuttonaibe.clicked.connect(lambda: self.loadurl(self.intbuttonaibe))
+        self.intbuttonFRESH_MARKET.clicked.connect(lambda: self.loadurl(self.intbuttonFRESH_MARKET))
+        self.intbuttonSenukai.clicked.connect(lambda: self.loadurl(self.intbuttonSenukai))
+        self.intbuttonMoki_Vezi.clicked.connect(lambda: self.loadurl(self.intbuttonMoki_Vezi))
+        self.intbuttonJysk.clicked.connect(lambda: self.loadurl(self.intbuttonJysk))   
         self.pushButton_22.clicked.connect(lambda: self.webView.load(QtCore.QUrl("about:blank")))
         self.pushButton.clicked.connect(self.webView.reload)
         self.pushButton_3.clicked.connect(self.webView.stop)
@@ -125,6 +131,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_10.clicked.connect(self.deleteimages)
         self.pushButton_6.clicked.connect(self.nextpage)
         self.pushButton_11.clicked.connect(self.previouspage)
+        self.pushButton_12.clicked.connect(self.addbookmarks)
 #        self.pushButton_10.setEnabled(False)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
@@ -140,9 +147,13 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.comboBox_3.activated.connect(lambda: self.loadpdf(self.comboBox_3))
         self.comboBox_4.activated.connect(lambda: self.loadpdf(self.comboBox_4))
         self.comboBox_6.activated.connect(lambda: self.loadpdf(self.comboBox_6))
-        self.combolist = [('Maxima', self.comboBox_2), ('Rimi', self.comboBox_6), ('Iki', self.comboBox_4), ('Norfa', self.comboBox_3)]
-        self.checkboxlist = [self.checkboxmaxima, self.checkBoxrimi, self.checkBoxiki, self.checkBoxnorfa]
-        self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttonnorfa, self.Intbuttoniki, self.Intbuttonrimi]
+        self.comboBox_5.activated.connect(lambda: self.loadpdf(self.comboBox_5))
+        self.comboBox_7.activated.connect(lambda: self.loadpdf(self.comboBox_7))
+        self.comboBox_8.activated.connect(lambda: self.loadpdf(self.comboBox_8))
+        self.comboBox_9.activated.connect(lambda: self.loadpdf(self.comboBox_9))        
+        self.combolist = [('Maxima', self.comboBox_2), ('Rimi', self.comboBox_6), ('Iki', self.comboBox_4), ('Norfa', self.comboBox_3), ('Aibe', self.comboBox_5), ('FRESH_MARKET', self.comboBox_7), ('Senukai', self.comboBox_8), ('Moki_Vezi', self.comboBox_9)]
+        self.checkboxlist = [self.checkboxmaxima, self.checkBoxrimi, self.checkBoxiki, self.checkBoxnorfa, self.checkboxAibe, self.checkboxFRESH_MARKET, self.checkboxSenukai, self.checkboxMoki_Vezi]
+        self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttoniki, self.Intbuttonrimi, self.Intbuttonnorfa, self.intbuttonaibe, self.intbuttonFRESH_MARKET, self.intbuttonSenukai, self.intbuttonMoki_Vezi, self.intbuttonJysk]
 
         if platform.system() == "Windows":
             self.checkBox.setEnabled(False)
@@ -243,6 +254,10 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
 
+    def addbookmarks(self):
+        url = self.lineEdit.displayText()
+        self.comboBox.addItem(url)
+        
     def setcurrentpdfpage(self, page):
         self.currentpdfpage = int(page)
 
@@ -298,7 +313,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.createhtmlfrompdf()
 
     def deletecssscalingfromhtmls(self):
-        dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
+        dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
         for item in dirs:
             dirr = userdir + userprogpath + SEP('pdfs/') + item
             for filename in os.listdir(dirr):
@@ -319,11 +334,15 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.loadpdfjs = True
             self.doubleSpinBox.setEnabled(False)
             self.checkBox_5.setEnabled(False)
+            self.pushButton_11.setEnabled(False)
+            self.pushButton_6.setEnabled(False)          
             self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
         elif state == 0:
             self.loadpdfjs = False
             self.doubleSpinBox.setEnabled(True)
             self.checkBox_5.setEnabled(True)
+            self.pushButton_11.setEnabled(True)
+            self.   pushButton_6.setEnabled(True)      
             if not self.downlopdedpdfs:
                 self.downlopdedpdfs = True
                 self.createhtmlfrompdf()
@@ -660,7 +679,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         urllist = ([('Maxima', 'http://www.maxima.lt/akcijos/akcijos-ir-nuolaidos/'), 
         ('Rimi', 'http://www.rimi.lt/rimi-pasiulymai'), 
         ('Norfa', 'http://www.norfa.lt/lt/akcijos/vykdomos_akcijos/'), 
-        ('Iki', 'http://iki.lt/lt.php/akcijos/pasiulymai')])
+        ('Iki', 'http://iki.lt/lt.php/akcijos/pasiulymai'),
+        ('Aibe', 'http://www.aibe.lt/lt/akcijos/aibe-leidiniai'),
+        ('FRESH_MARKET', 'http://www.freshmarket.lt/akcijos'),
+        ('Senukai', 'http://www.senukai.lt/index.php?&cl=actions_list'),
+        ('Moki_Vezi', 'http://mokivezi.lt/naujausios-akcijos/'),
+        ('Jysk', 'http://www.jysk.lt/')])
         
         for item in urllist:
             if item[0] == button.text():
@@ -679,28 +703,37 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def downloadpdfs(self):
         if not self.downloading:
             self.downloading = True
-            for shop, url in self.downloadlist:
+            try:
+                shop, url = self.downloadlist[0]
                 self.downloadlist.remove((shop, url))
                 self.shop = str(shop)
                 self.url = str(url)
-                if not os.path.exists(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + os.path.basename(self.url).split('?utm_source')[0]):
-                    self.downloader.load(QtCore.QUrl(self.url))
-                    self.addtxt('Radau ' + self.shop + ' atnaujinimą')
-                    break
+                self.downloader.load(QtCore.QUrl(self.url))
+            except IndexError:
+                pass
 
     def downloadstart(self, reply):
-        self.request = reply.request()
-        self.request.setUrl(reply.url())
-        self.reply = self.downloadmanager.get(self.request)
-        self.reply.downloadProgress.connect(self.dloadprogr)
-        self.plainTextEdit.appendPlainText(unicode('Atsiunčiu lankstinuką: ' + os.path.basename(str(self.reply.url().path())), "utf-8"))
-
+        if reply.hasRawHeader(QtCore.QByteArray("Content-Disposition")):
+            self.filename = reply.rawHeader(QtCore.QByteArray("Content-Disposition")).data().split('=')[1].replace('"', '')
+        else:
+            self.filename = os.path.basename(str(reply.url().path()))
+        if not os.path.exists(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + self.filename):
+            self.addtxt('Radau ' + self.shop + ' atnaujinimą')
+            self.request = reply.request()
+            self.request.setUrl(reply.url())
+            self.reply = self.downloadmanager.get(self.request)
+            self.reply.downloadProgress.connect(self.dloadprogr)
+            self.plainTextEdit.appendPlainText(unicode('Atsiunčiu lankstinuką: ' + self.filename, "utf-8"))
+        else:
+            reply.abort()
+            reply.close()
+            
     def dloadprogr(self, fromb, tob):
         self.progressBar.setProperty("value", int(float(fromb) / float(tob) * 100))      
 
     def downloadfinished(self, dl):
-        self.plainTextEdit.appendPlainText(unicode('Lankstinuko atsiuntimas baigtas: ' + os.path.basename(str(self.reply.url().path())), "utf-8"))
-        f = open(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + os.path.basename(self.url).split('?utm_source')[0], 'wb')
+        self.plainTextEdit.appendPlainText(unicode('Lankstinuko atsiuntimas baigtas: ' + self.filename, "utf-8"))
+        f = open(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + self.filename, 'wb')
         f.write(dl.readAll())
         f.flush()
         f.close()

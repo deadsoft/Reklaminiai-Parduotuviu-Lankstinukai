@@ -18,7 +18,7 @@
 """
 #lst = [('linkparser.py', 0.002, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'), ('pdf2images.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py'), ('oldpdfdeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py'), ('deadprogram.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py'), ('BeautifulSoup.py', 3.2, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py'), ('updater.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py'), ('gui.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py'), ('imagedeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/imagedeleter.py')]
 
-version = 0.001
+version = 0.003
 
 def SEP(path):
     separator = os.path.sep
@@ -73,10 +73,10 @@ class Updater(QtCore.QThread):
                     filename = item2[0]
                     response = urllib.urlopen(url)
                     info = response.read()
-                    f = open(userdir + userprogpath + SEP('modules/') + filename, 'w')
+                    f = open(userdir + userprogpath + SEP('modules/') + filename + '.updt', 'w')
                     f.write(info)
                     f.close()
-                    self.updated.emit('Atnaujinau...')
+                    self.updated.emit('Atnaujinau ' + filename)
                 else:
                     pass
         self.updated.emit('Patikrinau ar nėra programos atnaujinimo')

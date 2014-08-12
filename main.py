@@ -32,6 +32,16 @@ def SEP(path):
 
 userprogpath = SEP('/.cache/deadprogram/')
 userdir = os.path.expanduser('~')
+files = os.listdir(userdir + userprogpath + SEP('modules/'))
+for f in files:
+    if f.endswith('.updt'):
+        try:
+            os.rename(userdir + userprogpath + SEP('modules/') + f, userdir + userprogpath + SEP('modules/') + f.replace(".updt", ""))
+        except:
+            os.remove(userdir + userprogpath + SEP('modules/') + f.replace(".updt", ""))
+            os.rename(userdir + userprogpath + SEP('modules/') + f, userdir + userprogpath + SEP('modules/') + f.replace(".updt", ""))
+
+
 sys.path.insert(0, userdir + userprogpath + 'modules')
 import deadprogram
 

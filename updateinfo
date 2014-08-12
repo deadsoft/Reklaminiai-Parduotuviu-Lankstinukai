@@ -1,22 +1,22 @@
 [
     [
         "linkparser.py", 
-        0.003, 
+        0.005, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py"
     ], 
     [
         "pdf2images.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py"
     ], 
     [
         "oldpdfdeleter.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py"
     ], 
     [
         "deadprogram.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py"
     ], 
     [
@@ -26,17 +26,17 @@
     ], 
     [
         "updater.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py"
     ], 
     [
         "gui.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py"
     ], 
     [
         "imagedeleter.py", 
-        0.001, 
+        0.003, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/imagedeleter.py"
     ]
 ]

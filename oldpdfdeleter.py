@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.001
+version = 0.003
 
 import os, time, shutil
 from PyQt4 import QtCore
@@ -37,7 +37,7 @@ class OldPdfDeleter(QtCore.QThread):
     def __init__(self, timedays):
         QtCore.QThread.__init__(self)
         self.timedays = timedays
-        self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi']
+        self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
 
     def __del__(self):
         self.wait()
