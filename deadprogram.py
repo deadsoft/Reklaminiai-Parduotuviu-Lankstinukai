@@ -18,9 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-'''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
-
-version = 0.004
+version = 0.005
 
 def SEP(path):
     separator = os.path.sep
@@ -29,15 +27,19 @@ def SEP(path):
     return path
 
 import platform
+
 if platform.system() == "Windows":
     import win32file
+
 from base64 import b64encode
 from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
+from PyQt4.QtCore import QString
 from gui import Ui_MainWindow
 from PyQt4.QtCore import pyqtSignal as Signal
 from PyQt4.QtCore import pyqtSlot as Slot
 import urllib, sys, os, json, shutil, time
+from helpfile import helphtml
 
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
@@ -46,12 +48,14 @@ dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'M
 
 if not os.path.exists(userdir + userprogpath + 'cache'):
     os.mkdir(userdir + userprogpath + 'cache')
+    
 if not os.path.exists(userdir + userprogpath + 'pdfs'):
     os.mkdir(userdir + userprogpath + 'pdfs')
     
 for item in dirs:
     if not os.path.exists(userdir + userprogpath + 'pdfs/' + item):
         os.mkdir(userdir + userprogpath + 'pdfs/' + item)
+        
 if platform.system() == "Linux":
     if not os.path.exists(userdir + userprogpath + 'build'):
         shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
@@ -124,6 +128,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_6.clicked.connect(self.nextpage)
         self.pushButton_11.clicked.connect(self.previouspage)
         self.pushButton_12.clicked.connect(self.addbookmarks)
+        self.pushButton_13.clicked.connect(self.displayhelp)
 #        self.pushButton_10.setEnabled(False)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
@@ -192,6 +197,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.webView.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing | QPainter.TextAntialiasing | QPainter.HighQualityAntialiasing)
 
         self.webView_2.loadFinished.connect(self.onLoad)
+        self.webView_2.linkClicked.connect(self.loadgithubissue)
+
         
         self.settings_2 = self.webView_2.settings()
         self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
@@ -216,6 +223,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.myHub = Hub()
         self.myHub.on_client_event.connect(self.setcurrentpdfpage)
         self.page_2 = self.webView_2.page()
+        self.page_2.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         self.page_2.settings().setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
         self.frame_2 = self.page_2.mainFrame()
 
@@ -245,6 +253,16 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
+
+    def loadgithubissue(self, url):
+        if str(url.toString()).startswith('https://github.com/deadsoft'):
+            self.webView_2.stop()
+            self.webView.load(url)
+            self.tabWidget.setCurrentIndex(1)        
+
+    def displayhelp(self):
+        self.webView_2.setHtml(QString.fromUtf8(helphtml))
+        self.tabWidget.setCurrentIndex(0)
 
     def addbookmarks(self):
         url = self.lineEdit.displayText()
@@ -342,16 +360,13 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 
     def loadcurrenthtml(self):
         try:
-            if platform.system() == "Windows":
-                if platform.release() == 'XP':
-                    pass
-                else:
-                    self.webView_2.load(QtCore.QUrl(self.currenthtmlpath  + '#' + str(self.currentpdfpage)))
-            else:            
-                self.webView_2.load(QtCore.QUrl(self.currenthtmlpath  + '#' + str(self.currentpdfpage)))
+            pdf = self.currenthtmlpath.split(SEP('/'))[7].replace('dir_', '')
+            shop = self.currenthtmlpath.split(SEP('/'))[6]
+            self.webView_2.load(QtCore.QUrl(self.currenthtmlpath  + '#' + str(self.currentpdfpage)))
+            self.setWindowTitle('Lankstinukas ' + shop + ': ' + pdf)
         except:
-            pass
-                
+            self.displayhelp()
+            
     def webpagelinkhovered(self, url):
         pass
 

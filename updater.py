@@ -32,7 +32,7 @@ userdir = os.path.expanduser('~')
 
 sys.path.insert(0, userdir + SEP('/.cache/deadprogram/modules'))
 
-import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui
+import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui, helpfile
 
 userprogpath = SEP('/.cache/deadprogram/')
 
@@ -43,8 +43,9 @@ vBeautifulSoup = BeautifulSoup.version
 vdeadprogram = deadprogram.version
 vimagedeleter = imagedeleter.version
 vgui = gui.version
+vhelpfile = helpfile.version
 
-lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version), ('gui.py', vgui), ('imagedeleter.py', vimagedeleter)]
+lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version), ('gui.py', vgui), ('imagedeleter.py', vimagedeleter), ('helpfile.py', vhelpfile)]
 
 class Updater(QtCore.QThread):
     foundupdate = QtCore.pyqtSignal(str)

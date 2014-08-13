@@ -17,7 +17,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.003
+version = 0.004
 
 from PyQt4 import QtCore, QtGui, QtWebKit
 import os
@@ -875,6 +875,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.tab_2)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.verticalLayout_5 = QtGui.QVBoxLayout()
+        self.verticalLayout_5.setSpacing(6)
+        self.verticalLayout_5.setContentsMargins(-1, 0, -1, 0)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
         self.horizontalLayout_13 = QtGui.QHBoxLayout()
         self.horizontalLayout_13.setContentsMargins(-1, 0, -1, 0)
@@ -922,9 +924,20 @@ class Ui_MainWindow(object):
         spacerItem13 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_10.addItem(spacerItem13)
         self.verticalLayout_5.addLayout(self.horizontalLayout_10)
+        self.horizontalLayout_11 = QtGui.QHBoxLayout()
+        self.horizontalLayout_11.setSpacing(0)
+        self.horizontalLayout_11.setContentsMargins(-1, 0, -1, 0)
+        self.horizontalLayout_11.setObjectName(_fromUtf8("horizontalLayout_11"))
+        self.pushButton_13 = QtGui.QPushButton(self.tab_2)
+        self.pushButton_13.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.pushButton_13.setObjectName(_fromUtf8("pushButton_13"))
+        self.horizontalLayout_11.addWidget(self.pushButton_13)
+        spacerItem14 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_11.addItem(spacerItem14)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_11)
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
-        spacerItem14 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_6.addItem(spacerItem14)
+        spacerItem15 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem15)
         self.tabWidget.addTab(self.tab_2, _fromUtf8(""))
         self.horizontalLayout.addWidget(self.tabWidget)
         self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
@@ -983,5 +996,5 @@ class Ui_MainWindow(object):
         self.label_6.setText(_translate("MainWindow", "PPI paveikslėlių kūrimui iš lankstinukų. 1920x*  ekranui reikėtų 200.", None))
         self.pushButton_10.setText(_translate("MainWindow", "Ištrinti paveikslėlius", None))
         self.label_7.setText(_translate("MainWindow", "Nespausk. Rimtai ;)", None))
+        self.pushButton_13.setText(_translate("MainWindow", "Pagalba", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Nustatymai", None))
-
