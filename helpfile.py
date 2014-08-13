@@ -27,7 +27,7 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.0.1 (Linux)">
 	<META NAME="CREATED" CONTENT="20140813;142702547185657">
-	<META NAME="CHANGED" CONTENT="20140813;181705558119189">
+	<META NAME="CHANGED" CONTENT="20140813;191532191763260">
 	<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 2cm }
@@ -63,11 +63,11 @@ pasirinkti lankstinuką</SPAN></SPAN></FONT><FONT SIZE=3><I><B>. </B></I></FONT>
 programa veikia ne taip kaip turėtų arba iš viso neveikia, reikėtų</B></I></P>
 <P STYLE="margin-bottom: 0cm"><I><B>kreiptis adresu:
 </B></I><A HREF="https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues</SPAN></SPAN></A></P>
-<P STYLE="margin-bottom: 0cm"><B><SPAN STYLE="font-style: normal">Programa
+<P STYLE="margin-bottom: 0cm; font-style: normal"><B>Programa
 nekomercinė ir kuriama vieno žmogaus, taigi jei nepraneši,
-greičiausiai niekas ir nesužinos. Nebent pats pastebėsiu.</SPAN></B></P>
-<P STYLE="margin-bottom: 0cm"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">Sėkmingo
-naudojimo. :)</SPAN></SPAN></P>
+greičiausiai niekas ir nesužinos. Taip pat laukiami ir pasiūlymai.</B></P>
+<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+Sėkmingo naudojimo. :)</P>
 <P STYLE="margin-bottom: 0cm"><BR>
 </P>
 <P STYLE="margin-bottom: 0cm"><BR>
