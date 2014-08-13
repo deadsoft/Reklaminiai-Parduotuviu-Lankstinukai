@@ -42,6 +42,35 @@ import urllib, sys, os, json, shutil, time
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
 
+dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
+
+if not os.path.exists(userdir + userprogpath + 'cache'):
+    os.mkdir(userdir + userprogpath + 'cache')
+if not os.path.exists(userdir + userprogpath + 'pdfs'):
+    os.mkdir(userdir + userprogpath + 'pdfs')
+    
+for item in dirs:
+    if not os.path.exists(userdir + userprogpath + 'pdfs/' + item):
+        os.mkdir(userdir + userprogpath + 'pdfs/' + item)
+if platform.system() == "Linux":
+    if not os.path.exists(userdir + userprogpath + 'build'):
+        shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
+    if not os.path.exists(userdir + userprogpath + 'icons'):
+        shutil.copytree('/usr/share/deadprogram/icons', userdir + userprogpath + 'icons')
+    if not os.path.exists(userdir + userprogpath + 'web'):
+        shutil.copytree('/usr/share/deadprogram/web', userdir + userprogpath + 'web')
+    if not os.path.exists(userdir + userprogpath + 'jquery'):
+        shutil.copytree('/usr/share/deadprogram/jquery', userdir + userprogpath + 'jquery')    
+elif platform.system() == "Windows":
+    if not os.path.exists(userdir + userprogpath + 'build'):
+        shutil.copytree('C:\\Program Files\\RPL\\build', userdir + userprogpath + 'build')
+    if not os.path.exists(userdir + userprogpath + 'icons'):
+        shutil.copytree('C:\\Program Files\\RPL\\icons', userdir + userprogpath + 'icons')
+    if not os.path.exists(userdir + userprogpath + 'web'):
+        shutil.copytree('C:\\Program Files\\RPL\\web', userdir + userprogpath + 'web')
+    if not os.path.exists(userdir + userprogpath + 'jquery'):
+        shutil.copytree('C:\\Program Files\\RPL\\jquery', userdir + userprogpath + 'jquery')
+
 sys.path.insert(0, userdir + userprogpath + 'modules')
 import pdf2images, oldpdfdeleter, linkparser, imagedeleter, updater
 
