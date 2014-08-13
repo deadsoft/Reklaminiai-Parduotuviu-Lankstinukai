@@ -20,7 +20,7 @@
 
 '''pyinstaller --clean --hidden-import=PyQt4.QtXml --workpath=/tmp --specpath=/tmp/spec --distpath=/tmp/dist -s --noupx --onefile -n DeadProgram -y  /usr/lib/deadprogram/main.py'''
 
-version = 0.003
+version = 0.004
 
 def SEP(path):
     separator = os.path.sep
@@ -41,46 +41,9 @@ import urllib, sys, os, json, shutil, time
 
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
+
 sys.path.insert(0, userdir + userprogpath + 'modules')
-
-import pdf2images, oldpdfdeleter, linkparser, updater, imagedeleter
-
-dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
-
-if not os.path.exists(userdir + SEP('/.cache')):
-    os.mkdir(userdir + '/.cache')
-if not os.path.exists(userdir + userprogpath):
-    os.mkdir(userdir + userprogpath)
-if not os.path.exists(userdir + userprogpath + 'modules'):
-    os.mkdir(userdir + userprogpath + 'modules')
-if not os.path.exists(userdir + userprogpath + SEP('modules/__init__.py')):
-    open(userdir + userprogpath + SEP('modules/__init__.py'), 'a').close()
-if not os.path.exists(userdir + userprogpath + 'cache'):
-    os.mkdir(userdir + userprogpath + 'cache')
-if not os.path.exists(userdir + userprogpath + 'pdfs'):
-    os.mkdir(userdir + userprogpath + 'pdfs')
-for item in dirs:
-    if not os.path.exists(userdir + userprogpath + 'pdfs/' + item):
-        os.mkdir(userdir + userprogpath + 'pdfs/' + item)
-if platform.system() == "Linux":
-    if not os.path.exists(userdir + userprogpath + 'build'):
-        shutil.copytree('/usr/share/deadprogram/build', userdir + userprogpath + 'build')
-    if not os.path.exists(userdir + userprogpath + 'icons'):
-        shutil.copytree('/usr/share/deadprogram/icons', userdir + userprogpath + 'icons')
-    if not os.path.exists(userdir + userprogpath + 'web'):
-        shutil.copytree('/usr/share/deadprogram/web', userdir + userprogpath + 'web')
-    if not os.path.exists(userdir + userprogpath + 'jquery'):
-        shutil.copytree('/usr/share/deadprogram/jquery', userdir + userprogpath + 'jquery')    
-elif platform.system() == "Windows":
-    if not os.path.exists(userdir + userprogpath + 'build'):
-        shutil.copytree('C:\\Program Files\\RPL\\build', userdir + userprogpath + 'build')
-    if not os.path.exists(userdir + userprogpath + 'icons'):
-        shutil.copytree('C:\\Program Files\\RPL\\icons', userdir + userprogpath + 'icons')
-    if not os.path.exists(userdir + userprogpath + 'web'):
-        shutil.copytree('C:\\Program Files\\RPL\\web', userdir + userprogpath + 'web')
-    if not os.path.exists(userdir + userprogpath + 'jquery'):
-        shutil.copytree('C:\\Program Files\\RPL\\jquery', userdir + userprogpath + 'jquery')
-
+import pdf2images, oldpdfdeleter, linkparser, imagedeleter, updater
 
 class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -704,11 +667,13 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if not self.downloading:
             self.downloading = True
             try:
-                shop, url = self.downloadlist[0]
-                self.downloadlist.remove((shop, url))
-                self.shop = str(shop)
-                self.url = str(url)
-                self.downloader.load(QtCore.QUrl(self.url))
+                for shop, url in self.downloadlist:
+                    self.downloadlist.remove((shop, url))
+                    self.shop = str(shop)
+                    self.url = str(url)
+                    self.downloader.load(QtCore.QUrl(self.url))
+                    print self.url
+                    break
             except IndexError:
                 pass
 
@@ -727,6 +692,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         else:
             reply.abort()
             reply.close()
+            self.downloading = False
+            self.downloadpdfs()
             
     def dloadprogr(self, fromb, tob):
         self.progressBar.setProperty("value", int(float(fromb) / float(tob) * 100))      

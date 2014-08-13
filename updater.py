@@ -29,7 +29,9 @@ def SEP(path):
 import urllib, os, sys, json, time
 from PyQt4 import QtCore
 userdir = os.path.expanduser('~')
+
 sys.path.insert(0, userdir + SEP('/.cache/deadprogram/modules'))
+
 import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui
 
 userprogpath = SEP('/.cache/deadprogram/')
