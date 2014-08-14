@@ -1,4 +1,4 @@
-Reklaminiai-Parduotuviu-Lankstinukai
+Reklaminiai Parduotuvių Lankstinukai
 ====================================
 
 ![Screenshot](https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/screens/ReklaminiaiParduotuviuLankstinukai-1.jpg)
