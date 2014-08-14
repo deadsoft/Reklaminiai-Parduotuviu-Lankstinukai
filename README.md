@@ -22,5 +22,6 @@ Linux:
 
 Windows:
 
-    Spaudi ant exe bylos pagal windows architektūrą x86 arba x64, po to mygtuką Raw, atsisiunti ir diegi įprastai.
+    Spaudi ant exe bylos pagal windows architektūrą x86 arba x64, po to mygtuką Raw,
+    atsisiunti ir diegi įprastai.
     Programa turėtų veikt: Windows xp, Windows 7, Windows 8.
