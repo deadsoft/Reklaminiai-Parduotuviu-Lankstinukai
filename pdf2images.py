@@ -56,11 +56,24 @@ class imagesFromPdf(QtCore.QThread):
     margin-right: auto;
 }
     
-html {
-    background:#3c3c3c; 
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background:#3c3c3c
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.scrollable {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
 }
 </style>\n'''
-        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>' + '''
+        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>\n' + '<script src="' + userdir + userprogpath + 'jquery/grab-to-pan.js"></script>\n' + '''
 <script type="text/javascript">
 $(document).ready(function () {
 $('#gallery img').mouseover(function() {
@@ -70,9 +83,17 @@ $('#gallery img').mouseover(function() {
 </script>        
 </head>
 <body>
-    <div id="gallery">\n'''
+    <div class="scrollable"  id="gallery">\n'''
         self.htmlfp += self.htmlfp2
         self.htmlsp = '''    </div>
+<script type="text/javascript">
+var scrollableContainer = document.getElementById('gallery');
+var g2p = new GrabToPan({
+    element: scrollableContainer
+});
+g2p.activate();
+
+</script>
 </body>
 </html>
 '''
