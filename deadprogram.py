@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.006
+version = 0.007
 
 def SEP(path):
     separator = os.path.sep
@@ -76,7 +76,7 @@ elif platform.system() == "Windows":
         shutil.copytree('C:\\Program Files\\RPL\\jquery', userdir + userprogpath + 'jquery')
 
 sys.path.insert(0, userdir + userprogpath + 'modules')
-import pdf2images, oldpdfdeleter, linkparser, imagedeleter, updater
+import pdf2images, pdf2images2, oldpdfdeleter, linkparser, imagedeleter, updater
 
 class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -102,6 +102,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.currenthtmlpath = str
         
         self.doubleSpinBox.valueChanged.connect(self.setzoomincss)
+        self.spinBox_4.valueChanged.connect(self.setpdfdpi)
         self.tabWidget.currentChanged.connect(self.tabchangedwindowtitle)
         self.checkBox.stateChanged.connect(self.pdfjscheckboxstatechanged)
         self.checkBox_5.stateChanged.connect(self.cssscalecheckboxstatechanged)
@@ -128,7 +129,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_6.clicked.connect(self.nextpage)
         self.pushButton_11.clicked.connect(self.previouspage)
         self.pushButton_12.clicked.connect(self.addbookmarks)
-        self.pushButton_13.clicked.connect(self.displayhelp)
+        self.pushButton_13.clicked.connect(self.switchtab)
+        
 #        self.pushButton_10.setEnabled(False)
         self.webView.loadStarted.connect(self.updatelineedit)
         self.webView.loadFinished.connect(self.updatelineedit)
@@ -254,15 +256,21 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
 
+    def setpdfdpi(self, value):
+        self.pdftoimagesdpi = value
+
     def loadgithubissue(self, url):
         if str(url.toString()).startswith('https://github.com/deadsoft'):
             self.webView_2.stop()
             self.webView.load(url)
-            self.tabWidget.setCurrentIndex(1)        
+            self.tabWidget.setCurrentIndex(1)
+
+    def switchtab(self):
+        self.tabWidget.setCurrentIndex(0)
+        self.displayhelp()
 
     def displayhelp(self):
         self.webView_2.setHtml(QString.fromUtf8(helphtml))
-        self.tabWidget.setCurrentIndex(0)
 
     def addbookmarks(self):
         url = self.lineEdit.displayText()
@@ -402,6 +410,13 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.loadpdfcomboboxes)
         self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.downlopdedpdfsfalse)
         b.start()
+
+    def createhtmlfrompdf2(self, dpi, shop, url):
+        c = pdf2images2.imagesFromPdf2(dpi, shop, url)
+        self.threads.append(c)
+        self.threads[len(self.threads)-1].finished.connect(self.addtxt)
+        self.threads[len(self.threads)-1].finished.connect(self.loadpdfcomboboxes)
+        c.start()
 
     def downlopdedpdfsfalse(self):
         self.downlopdedpdfs = False
@@ -577,20 +592,14 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.pushButton_8.setEnabled(True)
 
     def stupidworkaround(self):
-        self.plainTextEdit.appendPlainText(unicode('Jei yra trinu senus lankstinukus', "utf-8"))
+        self.addtxt('Jei yra trinu senus lankstinukus')
             
     def checkforprogramupdates(self):
         self.pushButton_7.setEnabled(False)
-        self.plainTextEdit.appendPlainText(unicode('Tikrinu ar nėra programos atnaujinimo', "utf-8"))
         b = updater.Updater()
         self.threads.append(b)
-        self.threads[len(self.threads)-1].foundupdate.connect(self.addtxt)
-        self.threads[len(self.threads)-1].updated.connect(self.addtxt)
-        self.threads[len(self.threads)-1].updated.connect(self.enablepushButton_7)
+        self.threads[len(self.threads)-1].info.connect(self.addtxt)
         b.start()
-
-    def enablepushButton_7(self):
-        self.pushButton_7.setEnabled(True)
 
     def nextpage(self):
         if self.currentpdfpage <= self.numofpdfpages - 1:
@@ -716,7 +725,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                     self.shop = str(shop)
                     self.url = str(url)
                     self.downloader.load(QtCore.QUrl(self.url))
-                    print self.url
                     break
             except IndexError:
                 pass
@@ -732,7 +740,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.request.setUrl(reply.url())
             self.reply = self.downloadmanager.get(self.request)
             self.reply.downloadProgress.connect(self.dloadprogr)
-            self.plainTextEdit.appendPlainText(unicode('Atsiunčiu lankstinuką: ' + self.filename, "utf-8"))
+            self.addtxt('Siunčiu lankstinuką ' + self.shop + ': ' + self.filename)
         else:
             reply.abort()
             reply.close()
@@ -743,18 +751,19 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.progressBar.setProperty("value", int(float(fromb) / float(tob) * 100))      
 
     def downloadfinished(self, dl):
-        self.plainTextEdit.appendPlainText(unicode('Lankstinuko atsiuntimas baigtas: ' + self.filename, "utf-8"))
+        self.addtxt('Atsiunčiau lankstinuką ' + self.shop + ': ' + self.filename)
         f = open(userdir + userprogpath + SEP('pdfs/') + self.shop + SEP('/') + self.filename, 'wb')
         f.write(dl.readAll())
         f.flush()
         f.close()
+        self.createhtmlfrompdf2(self.pdftoimagesdpi, self.shop, self.filename)
         self.downloading = False
         self.downloadpdfs()
         if len(self.downloadlist) == 0:
             self.downlopdedpdfs = True
             self.checkforpdfupdates = False
-            if not self.loadpdfjs:
-                self.createhtmlfrompdf()
+#             if not self.loadpdfjs:
+#                self.createhtmlfrompdf()
  
 class Hub(QtCore.QObject):
  

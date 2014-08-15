@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.004
+version = 0.005
 
 import os, time, shutil
 from PyQt4 import QtCore

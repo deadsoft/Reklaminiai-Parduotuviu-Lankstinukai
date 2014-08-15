@@ -18,7 +18,7 @@
 """
 #lst = [('linkparser.py', 0.002, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'), ('pdf2images.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py'), ('oldpdfdeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py'), ('deadprogram.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py'), ('BeautifulSoup.py', 3.2, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py'), ('updater.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py'), ('gui.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py'), ('imagedeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/imagedeleter.py')]
 
-version = 0.004
+version = 0.005
 
 def SEP(path):
     separator = os.path.sep
@@ -48,8 +48,7 @@ vhelpfile = helpfile.version
 lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version), ('gui.py', vgui), ('imagedeleter.py', vimagedeleter), ('helpfile.py', vhelpfile)]
 
 class Updater(QtCore.QThread):
-    foundupdate = QtCore.pyqtSignal(str)
-    updated = QtCore.pyqtSignal(str)
+    info = QtCore.pyqtSignal(str)
        
     def __init__(self):
         QtCore.QThread.__init__(self)
@@ -58,7 +57,7 @@ class Updater(QtCore.QThread):
         self.wait()
         
     def run(self):
-        time.sleep(2)
+        self.info.emit('Tikrinu ar nėra programos atnaujinimo')
         updateinfolink = 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updateinfo'
         response = urllib.urlopen(updateinfolink)
         info = response.read()
@@ -71,7 +70,7 @@ class Updater(QtCore.QThread):
         for item in lst:
             for item2 in lst2:
                 if item[1] <  item2[1] and item[0] ==  item2[0]:
-                    self.foundupdate.emit('Radau atnaujinimą')
+                    self.info.emit('Radau atnaujinimą')
                     url = item2[2]
                     filename = item2[0]
                     response = urllib.urlopen(url)
@@ -79,8 +78,8 @@ class Updater(QtCore.QThread):
                     f = open(userdir + userprogpath + SEP('modules/') + filename + '.updt', 'w')
                     f.write(info)
                     f.close()
-                    self.updated.emit('Atnaujinau ' + filename)
+                    self.info.emit('Atnaujinau ' + filename)
                 else:
                     pass
-        self.updated.emit('Patikrinau ar nėra programos atnaujinimo')
+        self.updated.emit('Baigiau')
         return

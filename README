@@ -1,7 +1,1 @@
-Programa, kurios paskirtis yra atsiųsti reklaminius lankstinukus, ir suteikti galimybę juos patogiai perskaityti.
-Taip pat šalia yra ir interneto naršyklė.
-Kolkas veikia tik Linux aplinkoj, bet turetų nesunkiai persikelt į windows.
-
-
-Perkėlimo procesas šiek tiek bjauresnis nei tikėjausi. Pasinaudojau kažkieno jau sukompiliuotu Poppler.
-Yra bandymas sukompiliuot windows aplinkai. Win 7 - veikia. Reikia: msvcp110.dll ver. 11.0.50727.1, msvcr110.dll ver. 11.0.50214.1.
+...

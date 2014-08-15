@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.004
+version = 0.005
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -103,8 +103,7 @@ g2p.activate();
     def run(self):
         time.sleep(0.5)
         found = False
-        self.txt.emit('Tikrinu ar nebuvo atsiųsta lankstinukų')
-        self.txt.emit('Išjungiau lanktinukų pasirinkimą kol apdirbu. Tiesiog palauk kažkiek, jei reikia.')
+        self.txt.emit('Tikrinu lankstinukus')
         path = userdir + userprogpath + 'pdfs'
         for dirname, dirnames, filenames in os.walk(path):
             for subdirname in dirnames:
@@ -112,57 +111,63 @@ g2p.activate();
             for filename in filenames:
                 if os.path.exists(dirname + SEP('/dir_') + filename):
                     if len(os.listdir(dirname + SEP('/dir_') + filename)) <= 1 or os.path.getsize(dirname + SEP('/dir_') + filename + SEP('/index.html')) == 0:
-                        self.txt.emit('Radau neapdirbtų lankstinukų. Programos spraga arba buvo nutraukta...')
+                        self.txt.emit('Radau neapdirbtų arba nebaigtų lankstinukų.')
                         shutil.rmtree(dirname + SEP('/dir_') + filename)
-                if platform.system() == 'Linux':
-                    if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
-                        os.mkdir(dirname + SEP('/dir_') + filename)
-                        htmlfp = self.htmlfp
-                        htmlsp = self.htmlsp
-                        html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
-                        doc = popplerqt4.Poppler.Document.load(dirname + SEP('/') + filename)
-                        doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
-                        doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
-                        numpages = doc.numPages()
-                        page = doc.page(0)
-                        idnum = 1
-                        for pagenum in range(numpages):
-                            page = doc.page(pagenum)
-                            image = page.renderToImage(self.dpi, self.dpi)
-                            pixmap = QtGui.QPixmap.fromImage(image)
-                            pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
-                            htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
-                            idnum += 1
-                        htmlfp += htmlsp
-                        html.write(htmlfp)
-                        html.close()
-                        self.txt.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
-                        found = True
-                elif platform.system() == 'Windows':
-                    if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
-                        htmlfp = self.htmlfp
-                        htmlsp = self.htmlsp
-                        os.mkdir(dirname + SEP('/dir_') + filename)
-                        arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=png16m", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.png'), "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
-                        process =  subprocess.Popen(
-                        args=arglist,
-                        shell=True,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
-                        a = process.communicate()[0]
-                        process.wait()
-                        html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
-                        idnum = 1
-                        for item in os.listdir(dirname + SEP('/dir_') + filename):
-                            if item != 'index.html':
-                                htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
+                if not os.path.exists(dirname + SEP('/dir_') + filename) and not os.path.basename(dirname).startswith('dir_'):
+                    os.mkdir(dirname + SEP('/dir_') + filename)
+                    if not os.path.exists(dirname + SEP('/dir_') + filename + '/working'):
+                        working = open(dirname + SEP('/dir_') + filename + SEP('/working'), 'w')
+                        working.close()
+                    self.txt.emit('Radau lankstinuką ' + os.path.basename(dirname) + ': ' + filename)
+                    if platform.system() == 'Linux':
+                            htmlfp = self.htmlfp
+                            htmlsp = self.htmlsp
+                            html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                            doc = popplerqt4.Poppler.Document.load(dirname + SEP('/') + filename)
+                            doc.setRenderHint(popplerqt4.Poppler.Document.Antialiasing)
+                            doc.setRenderHint(popplerqt4.Poppler.Document.TextAntialiasing)
+                            numpages = doc.numPages()
+                            page = doc.page(0)
+                            idnum = 1
+                            for pagenum in range(numpages):
+                                page = doc.page(pagenum)
+                                image = page.renderToImage(self.dpi, self.dpi)
+                                pixmap = QtGui.QPixmap.fromImage(image)
+                                pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
+                                htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
                                 idnum += 1
-                        htmlfp += htmlsp
-                        html.write(htmlfp)
-                        html.close()
-                        self.txt.emit('Sukuriau paveikslėlius iš atnaujintų lankstinukų: ' + filename)
-                        found = True
+                            htmlfp += htmlsp
+                            html.write(htmlfp)
+                            html.close()
+                            self.txt.emit('Sukuriau paveikslėlius iš lankstinuko  ' + os.path.basename(dirname) + ': ' + filename)
+                            found = True
+                    elif platform.system() == 'Windows':
+                            htmlfp = self.htmlfp
+                            htmlsp = self.htmlsp
+                            arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=png16m", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.png'), "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
+                            process =  subprocess.Popen(
+                            args=arglist,
+                            shell=True,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+                            a = process.communicate()[0]
+                            process.wait()
+                            html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
+                            idnum = 1
+                            for item in os.listdir(dirname + SEP('/dir_') + filename):
+                                if item != 'index.html' or item != 'working':
+                                    htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
+                                    idnum += 1
+                            htmlfp += htmlsp
+                            html.write(htmlfp)
+                            html.close()
+                            self.txt.emit('Sukuriau paveikslėlius iš lankstinuko  ' + os.path.basename(dirname) + ': ' + filename)
+                            found = True
+                try:
+                    os.remove(dirname + SEP('/dir_') + filename + SEP('/working'))
+                except:
+                    pass
         if not found:
             self.txt.emit('Neradau naujų lankstinukų')
         self.reloadcomboboxes.emit()
-        return
+        self.txt.emit('Baigiau lankstinukų tikrinimą')
