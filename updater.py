@@ -18,7 +18,7 @@
 """
 #lst = [('linkparser.py', 0.002, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py'), ('pdf2images.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py'), ('oldpdfdeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/oldpdfdeleter.py'), ('deadprogram.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py'), ('BeautifulSoup.py', 3.2, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/BeautifulSoup.py'), ('updater.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py'), ('gui.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/gui.py'), ('imagedeleter.py', 0.001, 'https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/imagedeleter.py')]
 
-version = 0.006
+version = 0.007
 
 def SEP(path):
     separator = os.path.sep
@@ -32,7 +32,7 @@ userdir = os.path.expanduser('~')
 
 sys.path.insert(0, userdir + SEP('/.cache/deadprogram/modules'))
 
-import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui, helpfile
+import pdf2images, oldpdfdeleter, linkparser, deadprogram, BeautifulSoup, imagedeleter, gui, helpfile, pdf2images2
 
 userprogpath = SEP('/.cache/deadprogram/')
 
@@ -44,8 +44,9 @@ vdeadprogram = deadprogram.version
 vimagedeleter = imagedeleter.version
 vgui = gui.version
 vhelpfile = helpfile.version
+vpdf2images2 = pdf2images2.version
 
-lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version), ('gui.py', vgui), ('imagedeleter.py', vimagedeleter), ('helpfile.py', vhelpfile)]
+lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('linkparser.py', vlinkparser), ('BeautifulSoup.py', vBeautifulSoup), ('deadprogram.py', vdeadprogram), ('updater.py', version), ('gui.py', vgui), ('imagedeleter.py', vimagedeleter), ('helpfile.py', vhelpfile), ('pdf2images2.py', vpdf2images2)]
 
 class Updater(QtCore.QThread):
     info = QtCore.pyqtSignal(str)
