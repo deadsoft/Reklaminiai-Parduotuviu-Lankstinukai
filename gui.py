@@ -17,7 +17,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.006
+version = 0.007
 
 from PyQt4 import QtCore, QtGui, QtWebKit
 import os
@@ -163,7 +163,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox_7.sizePolicy().hasHeightForWidth())
         self.comboBox_7.setSizePolicy(sizePolicy)
-        self.comboBox_7.setMinimumSize(QtCore.QSize(110, 0))
+        self.comboBox_7.setMinimumSize(QtCore.QSize(130, 0))
         self.comboBox_7.setMaximumSize(QtCore.QSize(100, 16777215))
         self.comboBox_7.setFocusPolicy(QtCore.Qt.NoFocus)
         self.comboBox_7.setObjectName(_fromUtf8("comboBox_7"))
@@ -260,7 +260,6 @@ class Ui_MainWindow(object):
         self.line_2.setObjectName(_fromUtf8("line_2"))
         self.verticalLayout_4.addWidget(self.line_2)
         self.webView_2 = QtWebKit.QWebView(self.pdftab)
-        self.webView_2.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
         self.webView_2.setAutoFillBackground(False)
         self.webView_2.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.webView_2.setObjectName(_fromUtf8("webView_2"))

@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.001
+version = 0.003
 
 import os, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -136,13 +136,13 @@ g2p.activate();
                 htmlfp = self.htmlfp
                 htmlsp = self.htmlsp
                 html = open(path + SEP('/dir_') + self.url + SEP('/index.html'), 'w')
-                arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=png16m", "-sOutputFile=%s" % path + SEP('/dir_') + self.url + SEP('/doc%02d.png'), "-r%s" % str(self.dpi), path + SEP('/') + self.url]
-                process =  subprocess.Popen(args=arglist, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=jpeg", "-dJPEGQ=90", "-sOutputFile=%s" % path + SEP('/dir_') + self.url + SEP('/doc%02d.jpg'), "-r%s" % str(self.dpi), path + SEP('/') + self.url]
+                process = subprocess.Popen(args=arglist, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 a = process.communicate()[0]
                 process.wait()
                 idnum = 1
                 for item in os.listdir(path + SEP('/dir_') + self.url):
-                    if item != 'index.html' or item != 'working':
+                    if item != 'index.html' and item != 'working':
                         htmlfp += '<img src="' + path + SEP('/dir_') + self.url + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
                         idnum += 1
                 htmlfp += htmlsp

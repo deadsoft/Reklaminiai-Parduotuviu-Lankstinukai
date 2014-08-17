@@ -1,4 +1,3 @@
 Winduose pdf.js neveikia kaip priklauso, išskyrus pridėtą pdf. Įdomus pastebėjimas: linuksuose keičiasi failo modifikavimo data po to kai atidarai per qtwebkit'ą su pdf.js.
-Naršyklės šiukšledėžės ikona neina istrint kai ilgas užrašas.
-mhhh atsiuntus maxima lankstinuką kažkodėl nesukūrė paveiksliukų kol neperkroviau programos.
+
 

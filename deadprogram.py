@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.007
+version = 0.009
 
 def SEP(path):
     separator = os.path.sep
@@ -180,6 +180,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, False)
         settings.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, False)
         settings.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, False)
+        settings.setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
         settings.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
         settings.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
         settings.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
@@ -207,6 +208,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessFileUrls, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageDatabaseEnabled, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.LocalStorageEnabled, True)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.DeveloperExtrasEnabled, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, False)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
@@ -368,6 +370,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 
     def loadcurrenthtml(self):
         try:
+            if not os.path.exists(self.currenthtmlpath):
+                self.displayhelp()
             pdf = self.currenthtmlpath.split(SEP('/'))[7].replace('dir_', '')
             shop = self.currenthtmlpath.split(SEP('/'))[6]
             self.webView_2.load(QtCore.QUrl(self.currenthtmlpath  + '#' + str(self.currentpdfpage)))
@@ -649,16 +653,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.getnumofpdfpages(html)
                 self.currenthtmlpath = html
                 self.currentpdfpage = 1
-                if os.path.exists(userdir + userprogpath + SEP('web/htmltoload.html')):
-                    os.remove(userdir + userprogpath + SEP('web/htmltoload.html'))
                 if platform.system() == "Windows":
                     if platform.release() == 'XP':
                         self.webView_2.load(QtCore.QUrl(html))
                     else:
-#                        win32file.CreateHardLink(str(userdir + userprogpath + SEP('web/htmltoload.html')), str(html))
                         self.webView_2.load(QtCore.QUrl(html))
                 else:
-#                    os.link(html, userdir + userprogpath + SEP('web/htmltoload.html'))
                     self.webView_2.load(QtCore.QUrl(html))
         for item in self.combolist:
             shop = item[0]
@@ -760,7 +760,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloading = False
         self.downloadpdfs()
         if len(self.downloadlist) == 0:
-            self.downlopdedpdfs = True
+            self.downlopdedpdfs = False
             self.checkforpdfupdates = False
 #             if not self.loadpdfjs:
 #                self.createhtmlfrompdf()

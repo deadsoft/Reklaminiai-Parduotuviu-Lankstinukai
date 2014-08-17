@@ -268,7 +268,7 @@
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>110</width>
+                  <width>130</width>
                   <height>0</height>
                  </size>
                 </property>
@@ -504,7 +504,7 @@
             <item>
              <widget class="QWebView" name="webView_2">
               <property name="contextMenuPolicy">
-               <enum>Qt::NoContextMenu</enum>
+               <enum>Qt::DefaultContextMenu</enum>
               </property>
               <property name="autoFillBackground">
                <bool>false</bool>

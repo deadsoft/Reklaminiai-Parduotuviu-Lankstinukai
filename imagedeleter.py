@@ -17,7 +17,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.005
+version = 0.006
 
 import os, shutil
 from PyQt4 import QtCore

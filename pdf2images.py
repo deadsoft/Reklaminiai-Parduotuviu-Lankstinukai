@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.005
+version = 0.007
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -144,8 +144,8 @@ g2p.activate();
                     elif platform.system() == 'Windows':
                             htmlfp = self.htmlfp
                             htmlsp = self.htmlsp
-                            arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=png16m", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.png'), "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
-                            process =  subprocess.Popen(
+                            arglist = ['C:\\Program Files\\RPL\\gs\\bin\\gs.exe', "-dNumRenderingThreads=2", "-dBATCH", "-dNOPAUSE", "-dSAFER", "-dTextAlphaBits=4", "-dGraphicsAlphaBits=4", "-sDEVICE=jpeg", "-dJPEGQ=90", "-sOutputFile=%s" % dirname + SEP('/dir_') + filename + SEP('/doc%02d.jpg'), "-r%s" % str(self.dpi), dirname + SEP('/') + filename]
+                            process = subprocess.Popen(
                             args=arglist,
                             shell=True,
                             stdout=subprocess.PIPE,
@@ -155,7 +155,7 @@ g2p.activate();
                             html = open(dirname + SEP('/dir_') + filename + SEP('/index.html'), 'w')
                             idnum = 1
                             for item in os.listdir(dirname + SEP('/dir_') + filename):
-                                if item != 'index.html' or item != 'working':
+                                if item != 'index.html' and item != 'working':
                                     htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/') + item  + '"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
                                     idnum += 1
                             htmlfp += htmlsp
