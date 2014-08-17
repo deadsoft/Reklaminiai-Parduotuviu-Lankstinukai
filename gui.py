@@ -260,6 +260,12 @@ class Ui_MainWindow(object):
         self.line_2.setObjectName(_fromUtf8("line_2"))
         self.verticalLayout_4.addWidget(self.line_2)
         self.webView_2 = QtWebKit.QWebView(self.pdftab)
+
+        
+        self.webView_2.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
+
+
+        
         self.webView_2.setAutoFillBackground(False)
         self.webView_2.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.webView_2.setObjectName(_fromUtf8("webView_2"))
