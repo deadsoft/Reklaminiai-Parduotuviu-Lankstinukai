@@ -82,5 +82,5 @@ class Updater(QtCore.QThread):
                     self.info.emit('Atnaujinau ' + filename)
                 else:
                     pass
-        self.updated.emit('Baigiau')
+        self.info.emit('Baigiau')
         return
