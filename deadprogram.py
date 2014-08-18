@@ -286,8 +286,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
 
     def addbookmarks(self):
         url = self.lineEdit.displayText()
-        self.comboBox.addItem(self.webView.title(), QVariant(url))
-        self.webView.title()
+        self.comboBox.addItem(self.webView.title(), QVariant(self.webView.url()))
         
     def setcurrentpdfpage(self, page):
         self.currentpdfpage = int(page)
@@ -461,10 +460,10 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def pageloadprogress(self, n):
         self.progressBar_2.setProperty("value", n) 
         
-    def loadsite(self):
+    def loadsite(self, index):
         for item in self.pushbuttonlist:
             item.setChecked(False)
-        self.webView.load(QtCore.QUrl(self.comboBox.itemData(0).toString()))
+        self.webView.load(QtCore.QUrl(self.comboBox.itemData(index).toString()))
 #        self.setWindowTitle('Internetas: ' + self.comboBox.currentText())
         
     def savebrowserbookmarks(self):
