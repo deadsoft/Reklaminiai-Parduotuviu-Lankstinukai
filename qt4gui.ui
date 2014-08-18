@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1061</width>
-    <height>615</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -616,7 +616,7 @@
             <item>
              <widget class="QWebView" name="webView_2">
               <property name="contextMenuPolicy">
-               <enum>Qt::DefaultContextMenu</enum>
+               <enum>Qt::NoContextMenu</enum>
               </property>
               <property name="autoFillBackground">
                <bool>false</bool>

@@ -407,6 +407,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         b.start()
 
     def createhtmlfrompdf2(self, dpi, shop, url):
+        self.addtxt('Kuriu paveikslėlius iš lankstinuko ' +  shop + ': ' + url)
         c = pdf2images2.imagesFromPdf2(dpi, shop, url)
         self.threads.append(c)
         self.threads[len(self.threads)-1].finished.connect(self.addtxt)
