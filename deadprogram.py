@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.009
+version = 0.010
 
 def SEP(path):
     separator = os.path.sep
@@ -34,7 +34,7 @@ if platform.system() == "Windows":
 from base64 import b64encode
 from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
-from PyQt4.QtCore import QString
+from PyQt4.QtCore import QString, QVariant
 from gui import Ui_MainWindow
 from PyQt4.QtCore import pyqtSignal as Signal
 from PyQt4.QtCore import pyqtSlot as Slot
@@ -44,7 +44,7 @@ from helpfile import helphtml
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
 
-dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
+dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'PROMO_CashCarry', 'PRISMA', 'EUROKOS', 'Drogas', 'ERMITAZAS', 'Senukai', 'Moki_Vezi']
 
 if not os.path.exists(userdir + userprogpath + 'cache'):
     os.mkdir(userdir + userprogpath + 'cache')
@@ -115,7 +115,12 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.intbuttonFRESH_MARKET.clicked.connect(lambda: self.loadurl(self.intbuttonFRESH_MARKET))
         self.intbuttonSenukai.clicked.connect(lambda: self.loadurl(self.intbuttonSenukai))
         self.intbuttonMoki_Vezi.clicked.connect(lambda: self.loadurl(self.intbuttonMoki_Vezi))
-        self.intbuttonJysk.clicked.connect(lambda: self.loadurl(self.intbuttonJysk))   
+        self.intbuttonJysk.clicked.connect(lambda: self.loadurl(self.intbuttonJysk))
+        self.intbuttonPROMO.clicked.connect(lambda: self.loadurl(self.intbuttonPROMO))
+        self.intbuttonPRISMA.clicked.connect(lambda: self.loadurl(self.intbuttonPRISMA))
+        self.intbuttonEUROKOS.clicked.connect(lambda: self.loadurl(self.intbuttonEUROKOS))
+        self.intbuttonDrogas.clicked.connect(lambda: self.loadurl(self.intbuttonDrogas))
+        self.intbuttonERMITAZAS.clicked.connect(lambda: self.loadurl(self.intbuttonERMITAZAS))
         self.pushButton_22.clicked.connect(lambda: self.webView.load(QtCore.QUrl("about:blank")))
         self.pushButton.clicked.connect(self.webView.reload)
         self.pushButton_3.clicked.connect(self.webView.stop)
@@ -149,10 +154,15 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.comboBox_5.activated.connect(lambda: self.loadpdf(self.comboBox_5))
         self.comboBox_7.activated.connect(lambda: self.loadpdf(self.comboBox_7))
         self.comboBox_8.activated.connect(lambda: self.loadpdf(self.comboBox_8))
-        self.comboBox_9.activated.connect(lambda: self.loadpdf(self.comboBox_9))        
-        self.combolist = [('Maxima', self.comboBox_2), ('Rimi', self.comboBox_6), ('Iki', self.comboBox_4), ('Norfa', self.comboBox_3), ('Aibe', self.comboBox_5), ('FRESH_MARKET', self.comboBox_7), ('Senukai', self.comboBox_8), ('Moki_Vezi', self.comboBox_9)]
-        self.checkboxlist = [self.checkboxmaxima, self.checkBoxrimi, self.checkBoxiki, self.checkBoxnorfa, self.checkboxAibe, self.checkboxFRESH_MARKET, self.checkboxSenukai, self.checkboxMoki_Vezi]
-        self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttoniki, self.Intbuttonrimi, self.Intbuttonnorfa, self.intbuttonaibe, self.intbuttonFRESH_MARKET, self.intbuttonSenukai, self.intbuttonMoki_Vezi, self.intbuttonJysk]
+        self.comboBox_9.activated.connect(lambda: self.loadpdf(self.comboBox_9))
+        self.comboBox_10.activated.connect(lambda: self.loadpdf(self.comboBox_10))
+        self.comboBox_11.activated.connect(lambda: self.loadpdf(self.comboBox_11))
+        self.comboBox_12.activated.connect(lambda: self.loadpdf(self.comboBox_12))
+        self.comboBox_13.activated.connect(lambda: self.loadpdf(self.comboBox_13))
+        self.comboBox_14.activated.connect(lambda: self.loadpdf(self.comboBox_14))              
+        self.combolist = [('Maxima', self.comboBox_2, 'Maxima'), ('Rimi', self.comboBox_6, 'Rimi'), ('Iki', self.comboBox_4, 'Iki'), ('Norfa', self.comboBox_3, 'Norfa'), ('Aibe', self.comboBox_5, 'Aibė'), ('FRESH_MARKET', self.comboBox_7, 'FRESH MARKET'), ('Senukai', self.comboBox_8, 'Senukai'), ('Moki_Vezi', self.comboBox_9, 'Moki*Veži'), ('PROMO_CashCarry', self.comboBox_10, 'PROMO CashCarry'), ('PRISMA', self.comboBox_11, 'PRISMA'), ('EUROKOS', self.comboBox_12, 'EUROKOS'), ('Drogas', self.comboBox_13, 'Drogas'), ('ERMITAZAS', self.comboBox_14, 'ERMITAŽAS')]
+        self.checkboxlist = [('Maxima', self.checkboxmaxima), ('Rimi', self.checkBoxrimi), ('Iki', self.checkBoxiki), ('Norfa', self.checkBoxnorfa), ('Aibe', self.checkboxAibe), ('FRESH_MARKET', self.checkboxFRESH_MARKET), ('PROMO_CashCarry', self.checkboxPROMO), ('PRISMA', self.checkboxPRISMA), ('EUROKOS', self.checkboxEUROKOS), ('Drogas', self.checkboxDrogas), ('ERMITAZAS', self.checkboxERMITAZAS), ('Senukai', self.checkboxSenukai), ('Moki_Vezi', self.checkboxMoki_Vezi)]
+        self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttoniki, self.Intbuttonrimi, self.Intbuttonnorfa, self.intbuttonaibe, self.intbuttonFRESH_MARKET, self.intbuttonSenukai, self.intbuttonMoki_Vezi, self.intbuttonJysk, self.intbuttonPROMO, self.intbuttonPRISMA, self.intbuttonEUROKOS, self.intbuttonDrogas, self.intbuttonERMITAZAS]
 
         if platform.system() == "Windows":
             self.checkBox.setEnabled(False)
@@ -232,7 +242,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.frame_2 = self.page_2.mainFrame()
 
         self.readSettings()
-        self.addbrowserbookmarks()
+        self.loadbrowserbookmarks()
         self.loadpdfcomboboxes()
         os.chdir(userdir + userprogpath)
 
@@ -276,7 +286,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
 
     def addbookmarks(self):
         url = self.lineEdit.displayText()
-        self.comboBox.addItem(url)
+        self.comboBox.addItem(self.webView.title(), QVariant(url))
+        self.webView.title()
         
     def setcurrentpdfpage(self, page):
         self.currentpdfpage = int(page)
@@ -290,14 +301,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         html = f.read()
         f.close()
         return html
-
-    def comboboxesenabledisable(self, info):
-        if info == 'enable':
-            for a, item in self.combolist:
-                item.setEnabled(True)
-        elif info == 'disable':
-            for a, item in self.combolist:
-                item.setEnabled(False)
         
     def toogleFullScreen(self):
         if not self.fullScreen :
@@ -331,20 +334,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         a.start()
         self.downlopdedpdfs = True
         self.createhtmlfrompdf()
-
-    def deletecssscalingfromhtmls(self):
-        dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
-        for item in dirs:
-            dirr = userdir + userprogpath + SEP('pdfs/') + item
-            for filename in os.listdir(dirr):
-                if os.path.exists(os.path.join(dirr + SEP('/dir_') + filename)):                   
-                        f = open(dirr + SEP('/dir_') + filename + SEP('/index.html'), 'r')
-                        data = f.read()
-                        f.close()
-                        newfiledata = data.replace('    width:98%;', ' ')
-                        f = open(dirr + SEP('/dir_') + filename + SEP('/index.html'), 'w')
-                        f.write(newfiledata)
-                        f.close()
         
     def tabchangedwindowtitle(self, i):
         self.setWindowTitle(self.tabWidget.tabText(i))
@@ -402,12 +391,15 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             for pdf in pdfsinshopsdir:
                 if not pdf.startswith('dir_'):
                     pdfss.append(pdf)
+            if len(pdfss) == 0:
+                item[1].setEnabled(False)
+            else:
+                item[1].setEnabled(True)
             item[1].clear()
-            item[1].addItem(shop)
+            item[1].addItem(QtCore.QString.fromUtf8(item[2]), QVariant(shop))
             item[1].addItems(pdfss)
 
     def createhtmlfrompdf(self):
-        self.comboboxesenabledisable('disable')
         b = pdf2images.imagesFromPdf(self.pdftoimagesdpi)
         self.threads.append(b)
         self.threads[len(self.threads)-1].txt.connect(self.addtxt)
@@ -424,7 +416,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
 
     def downlopdedpdfsfalse(self):
         self.downlopdedpdfs = False
-        self.comboboxesenabledisable('enable')
         
     def loadurlfromlineedit(self):
         url = str(self.lineEdit.displayText())
@@ -454,7 +445,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if (event.type() == 63 and source is self.comboBox):
             if event.mimeData().hasFormat('text/plain'):
                 event.accept()
-                source.addItem(event.mimeData().text())
+                source.addItem(self.webView.title(), QVariant(event.mimeData().text()))
         if (event.type() == 60 and source is self.pushButton_9):
             if not event.mimeData().hasFormat('text/plain'):
                 event.accept()
@@ -473,25 +464,25 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
     def loadsite(self):
         for item in self.pushbuttonlist:
             item.setChecked(False)
-        self.webView.load(QtCore.QUrl(self.comboBox.currentText()))
-        self.setWindowTitle('Internetas: ' + self.comboBox.currentText())
+        self.webView.load(QtCore.QUrl(self.comboBox.itemData(0).toString()))
+#        self.setWindowTitle('Internetas: ' + self.comboBox.currentText())
         
     def savebrowserbookmarks(self):
         lst = []
         for n in range(self.comboBox.count()):
-            lst.append(('Site title', str(self.comboBox.itemText(n))))
+            lst.append((str(self.comboBox.itemText(n).toUtf8()), str(self.comboBox.itemData(n).toString())))
         f = open(userdir + userprogpath + 'browserbookmarks.txt', 'w')
-        json.dump(lst, f,  indent=4)
+        json.dump(lst, f, indent=4)
         f.close()
 
-    def addbrowserbookmarks(self):
-        try:
+    def loadbrowserbookmarks(self):
+        if os.path.exists(userdir + userprogpath + 'browserbookmarks.txt'):
             f = open(userdir + userprogpath + 'browserbookmarks.txt', 'r')
             lst = json.load(f)
             for tpl in lst:
-                self.comboBox.addItem(tpl[1])
-        except:
-                pass
+                self.comboBox.addItem(tpl[0], QVariant(tpl[1]))
+        else:
+            self.comboBox.addItem('Google', QVariant('https://www.google.lt/'))
 
     def infobox(self, text):
         box = QtGui.QMessageBox()
@@ -549,8 +540,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if settings.value("zoomfactor").toFloat()[1]:
             self.doubleSpinBox.setValue(settings.value("zoomfactor").toFloat()[0])
         for item in self.checkboxlist:
-             if settings.value(item.text()).toBool():
-                item.setChecked(True)
+             if settings.value(item[1].text()).toBool():
+                item[1].setChecked(True)
         if settings.value("currenthtmlpath").toString():
             self.currenthtmlpath = settings.value("currenthtmlpath").toString()
         if settings.value("currentpdfpage").toInt()[1]:
@@ -563,7 +554,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setValue("winsize", self.size())
         settings.setValue("winpos", self.pos())
         for item in self.checkboxlist:
-            settings.setValue(item.text(), item.isChecked())
+            settings.setValue(item[1].text(), item[1].isChecked())
         settings.setValue("activetab", self.tabWidget.currentIndex())
         settings.setValue("pdfjs", self.checkBox.isChecked())
         settings.setValue("autoupdatepdfs", self.checkBox_4.isChecked())
@@ -636,7 +627,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         index = combobox.currentIndex()
         if index != 0:
             if self.loadpdfjs:
-                pdf = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/') + combobox.itemText(index)
+                pdf = userdir + userprogpath + SEP('pdfs/') + combobox.itemData(0).toString() + SEP('/') + combobox.itemText(index)
                 if os.path.exists(userdir + userprogpath + SEP('web/pdftoload.pdf')):
                     os.remove(userdir + userprogpath + SEP('web/pdftoload.pdf'))
                 if platform.system() == "Windows":
@@ -649,7 +640,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                     os.link(pdf, userdir + userprogpath + SEP('web/pdftoload.pdf'))
                     self.webView_2.load(QtCore.QUrl(userdir + userprogpath + SEP('web/viewer.html?file=pdftoload.pdf')))
             else:
-                html = userdir + userprogpath + SEP('pdfs/') + combobox.itemText(0) + SEP('/dir_') + combobox.itemText(index) + SEP('/index.html')
+                html = userdir + userprogpath + SEP('pdfs/') + combobox.itemData(0).toString() + SEP('/dir_') + combobox.itemText(index) + SEP('/index.html')
                 self.getnumofpdfpages(html)
                 self.currenthtmlpath = html
                 self.currentpdfpage = 1
@@ -672,15 +663,15 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.checkforpdfupdates = True
             queue_list = []
             for item in self.checkboxlist:
-                if item.isChecked():
-                    queue_list.append(str(item.text()))
+                if item[1].isChecked():
+                    queue_list.append(item[0])
             lnk = linkparser.LinkParser(queue_list)
             self.threads.append(lnk)
             self.threads[len(self.threads)-1].addtext.connect(self.addtxt)
             self.threads[len(self.threads)-1].url.connect(self.addurltodwnlist)
             self.threads[len(self.threads)-1].finishedurlparsing.connect(self.downloadpdfs)
             lnk.start()
-        
+
     def addurltodwnlist(self, shop, url):
         self.downloadlist.append((str(shop), str(url)))
 
@@ -696,16 +687,22 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         ('Rimi', 'http://www.rimi.lt/rimi-pasiulymai'), 
         ('Norfa', 'http://www.norfa.lt/lt/akcijos/vykdomos_akcijos/'), 
         ('Iki', 'http://iki.lt/lt.php/akcijos/pasiulymai'),
-        ('Aibe', 'http://www.aibe.lt/lt/akcijos/aibe-leidiniai'),
-        ('FRESH_MARKET', 'http://www.freshmarket.lt/akcijos'),
+        ('Aibė', 'http://www.aibe.lt/lt/akcijos/aibe-leidiniai'),
+        ('FRESH MARKET', 'http://www.freshmarket.lt/akcijos'),
         ('Senukai', 'http://www.senukai.lt/index.php?&cl=actions_list'),
-        ('Moki_Vezi', 'http://mokivezi.lt/naujausios-akcijos/'),
-        ('Jysk', 'http://www.jysk.lt/')])
-        
+        ('Moki*Veži', 'http://mokivezi.lt/naujausios-akcijos/'),
+        ('Jysk', 'http://www.jysk.lt/'),
+        ('PROMO CashCarry', 'http://www.cashcarry.lt/'),
+        ('PRISMA', 'http://www.prisma.lt'),
+        ('EUROKOS', 'http://www.eurokos.lt/akcijos/'),
+        ('Drogas', 'https://www.drogas.lt/lit/akcijos/visos_akcijos/'),
+        ('ERMITAŽAS', 'http://www.ermitazas.lt/akcijos.php?pg=3')
+        ])
+
         for item in urllist:
-            if item[0] == button.text():
+            if item[0] == button.text().toUtf8():
                self.webView.load(QtCore.QUrl(item[1]))
-               self.setWindowTitle('Internetas: ' + item[0])
+               self.setWindowTitle('Internetas: ' + unicode(item[0], "utf-8"))
         for item in self.pushbuttonlist:
             if item.text() != button.text():
                 item.setChecked(False)
@@ -762,8 +759,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if len(self.downloadlist) == 0:
             self.downlopdedpdfs = False
             self.checkforpdfupdates = False
-#             if not self.loadpdfjs:
-#                self.createhtmlfrompdf()
+            if self.loadpdfjs:
+                self.loadpdfcomboboxes()
  
 class Hub(QtCore.QObject):
  

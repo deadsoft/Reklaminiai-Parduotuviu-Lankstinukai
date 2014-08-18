@@ -17,7 +17,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.006
+version = 0.007
 
 import os, shutil
 from PyQt4 import QtCore
@@ -36,7 +36,7 @@ class ImageDeleter(QtCore.QThread):
     
     def __init__(self):
         QtCore.QThread.__init__(self)
-        self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'Senukai', 'Moki_Vezi']
+        self.dirs = ['Iki', 'Maxima', 'Norfa', 'Rimi', 'Aibe' , 'FRESH_MARKET', 'PROMO_CashCarry', 'PRISMA', 'EUROKOS', 'Drogas', 'ERMITAZAS', 'Senukai', 'Moki_Vezi']
 
     def __del__(self):
         self.wait()

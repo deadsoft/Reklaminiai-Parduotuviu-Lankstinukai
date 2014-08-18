@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.007
+version = 0.008
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui

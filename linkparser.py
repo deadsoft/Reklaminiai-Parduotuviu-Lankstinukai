@@ -16,10 +16,9 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.008
+version = 0.009
 
 from PyQt4 import QtCore
-import time
 
 class LinkParser(QtCore.QThread):
     addtext = QtCore.pyqtSignal(str)
@@ -39,7 +38,6 @@ class LinkParser(QtCore.QThread):
         self.wait()
 
     def run(self):
-        time.sleep(1.5)
         for label in self.queue_list:
             exec 'self.' + label + '(label)'
         for item in self.download_queue:
@@ -161,3 +159,68 @@ class LinkParser(QtCore.QThread):
             self.download_queue.append((label,  search))
         except:
             pass
+            
+    def PROMO_CashCarry(self, label):
+        try:
+            pages = []
+            self.addtext.emit('Tikrinu ar PROMO CashCarry turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.cashcarry.lt/')
+            soup = self.bsoup(html_page)
+            search = soup.find(attrs={'class': 'banner_area clearfix'}).findAll("a")
+            for link in search:
+                pages.append(link['href'])
+            for link in pages:
+                html_page = self.urlib.urlopen(link)
+                soup = self.bsoup(html_page)
+                search = soup.find(attrs={'class': 'stext clearfix'})
+                self.download_queue.append((label,  search.find('a')['href']))
+        except:
+            pass
+
+    
+    def PRISMA(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar PRISMA turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.prisma.lt/lt/leidiniai/')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'getPDFOffer'})
+            for link in search:
+                self.download_queue.append((label,  'http://www.prisma.lt' + link.find('a')['href']))
+        except:
+            pass
+
+    def EUROKOS(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar EUROKOS turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.eurokos.lt/leidiniai/akciju-leidiniai/')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'leid_parsisiusti'})
+            for link in search:
+                self.download_queue.append((label,  link.find('a')['href']))
+            
+        except:
+            pass
+
+    def Drogas(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Drogas turi atnaujinimų')
+            html_page = self.urlib.urlopen('https://www.drogas.lt/lit/laikrastis/')
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'content-block'})
+            for link in search:
+                 self.download_queue.append((label,  'https://www.drogas.lt' + link.find('a')['href']))          
+        except:
+            pass
+
+
+    def ERMITAZAS(self, label):
+        try:
+            self.addtext.emit('ERMITAŽAS kolkas nesiunčiamas')
+        except:
+            pass
+
+
+
+
+
+            
