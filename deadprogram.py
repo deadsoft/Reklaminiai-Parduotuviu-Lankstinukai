@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.010
+version = 0.011
 
 def SEP(path):
     separator = os.path.sep
@@ -34,7 +34,7 @@ if platform.system() == "Windows":
 from base64 import b64encode
 from PyQt4.QtGui import QPainter
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
-from PyQt4.QtCore import QString, QVariant
+from PyQt4.QtCore import QString, QVariant, pyqtSignal
 from gui import Ui_MainWindow
 from PyQt4.QtCore import pyqtSignal as Signal
 from PyQt4.QtCore import pyqtSlot as Slot
@@ -163,7 +163,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.combolist = [('Maxima', self.comboBox_2, 'Maxima'), ('Rimi', self.comboBox_6, 'Rimi'), ('Iki', self.comboBox_4, 'Iki'), ('Norfa', self.comboBox_3, 'Norfa'), ('Aibe', self.comboBox_5, 'Aibė'), ('FRESH_MARKET', self.comboBox_7, 'FRESH MARKET'), ('Senukai', self.comboBox_8, 'Senukai'), ('Moki_Vezi', self.comboBox_9, 'Moki*Veži'), ('PROMO_CashCarry', self.comboBox_10, 'PROMO CashCarry'), ('PRISMA', self.comboBox_11, 'PRISMA'), ('EUROKOS', self.comboBox_12, 'EUROKOS'), ('Drogas', self.comboBox_13, 'Drogas'), ('ERMITAZAS', self.comboBox_14, 'ERMITAŽAS')]
         self.checkboxlist = [('Maxima', self.checkboxmaxima), ('Rimi', self.checkBoxrimi), ('Iki', self.checkBoxiki), ('Norfa', self.checkBoxnorfa), ('Aibe', self.checkboxAibe), ('FRESH_MARKET', self.checkboxFRESH_MARKET), ('PROMO_CashCarry', self.checkboxPROMO), ('PRISMA', self.checkboxPRISMA), ('EUROKOS', self.checkboxEUROKOS), ('Drogas', self.checkboxDrogas), ('ERMITAZAS', self.checkboxERMITAZAS), ('Senukai', self.checkboxSenukai), ('Moki_Vezi', self.checkboxMoki_Vezi)]
         self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttoniki, self.Intbuttonrimi, self.Intbuttonnorfa, self.intbuttonaibe, self.intbuttonFRESH_MARKET, self.intbuttonSenukai, self.intbuttonMoki_Vezi, self.intbuttonJysk, self.intbuttonPROMO, self.intbuttonPRISMA, self.intbuttonEUROKOS, self.intbuttonDrogas, self.intbuttonERMITAZAS]
-
+        
         if platform.system() == "Windows":
             self.checkBox.setEnabled(False)
         
@@ -181,7 +181,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         
         webpage = self.webView.page()
         webpage.unsupportedContent.connect(self.webpageunsupportedcontent)
-        webpage.linkHovered.connect(self.webpagelinkhovered)
         webpage.setForwardUnsupportedContent(True)
         webpage.setLinkDelegationPolicy(QtWebKit.QWebPage.DontDelegateLinks)
         
@@ -265,6 +264,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.downloader = QtWebKit.QWebView()
         self.downloader.page().setForwardUnsupportedContent(True)
         self.downloader.page().unsupportedContent.connect(self.downloadstart)
+        self.downloader.page().loadFinished.connect(self.checkdownload)
         self.downloadmanager = QtNetwork.QNetworkAccessManager()
         self.downloadmanager.finished.connect(self.downloadfinished)
 
@@ -712,17 +712,22 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         python = sys.executable
         os.execl(python, python, * sys.argv)
         return
+
+    def checkdownload(self, badlink):
+        #Jeigu blogas linkas ir uzkrauna html o ne pdf. sitiek blin laiko knisausi..............
+        if badlink:
+            self.downloading = False
+            self.downloadpdfs()
                 
     def downloadpdfs(self):
         if not self.downloading:
-            self.downloading = True
             try:
-                for shop, url in self.downloadlist:
-                    self.downloadlist.remove((shop, url))
-                    self.shop = str(shop)
-                    self.url = str(url)
-                    self.downloader.load(QtCore.QUrl(self.url))
-                    break
+                self.downloading = True
+                shop, url = self.downloadlist[0]
+                self.downloadlist.remove((shop, url))
+                self.shop = str(shop)
+                self.url = str(url)
+                self.downloader.load(QtCore.QUrl(self.url))
             except IndexError:
                 pass
 
@@ -742,7 +747,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             reply.abort()
             reply.close()
             self.downloading = False
-            self.downloadpdfs()
+            if len(self.downloadlist) > 0:
+                self.downloadpdfs()
             
     def dloadprogr(self, fromb, tob):
         self.progressBar.setProperty("value", int(float(fromb) / float(tob) * 100))      
