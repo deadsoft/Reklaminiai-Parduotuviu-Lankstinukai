@@ -59,8 +59,7 @@ class LinkParser(QtCore.QThread):
                 soup = self.bsoup(html_page)
                 for link in soup.findAll('a', href=True):
                     if str(link['href']).endswith('pdf'):
-                        if not str(link['href']).endswith('Nr18-s.pdf'):
-                            self.download_queue.append((label, link['href']))
+                        self.download_queue.append((label, link['href']))
         except:
             pass
 

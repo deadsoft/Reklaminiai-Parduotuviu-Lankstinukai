@@ -6,7 +6,7 @@
     ], 
     [
         "pdf2images.py", 
-        0.008, 
+        0.009, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py"
     ], 
     [
@@ -16,7 +16,7 @@
     ], 
     [
         "deadprogram.py", 
-        0.011, 
+        0.012, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py"
     ], 
     [
@@ -46,7 +46,7 @@
     ], 
     [
         "pdf2images2.py", 
-        0.004, 
+        0.005, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images2.py"
     ]
 ]

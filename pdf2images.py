@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.008
+version = 0.009
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -73,27 +73,21 @@ html, body {
     height: 100%;
 }
 </style>\n'''
-        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>\n' + '<script src="' + userdir + userprogpath + 'jquery/grab-to-pan.js"></script>\n' + '''
+        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>\n' + '<script src="' + userdir + userprogpath + 'jquery/jquery.scrollview.js"></script>\n' + '''
 <script type="text/javascript">
 $(document).ready(function () {
 $('#gallery img').mouseover(function() {
    my_hub.connect(this.id);
 });
 });
-</script>        
+</script>
+<script type="text/javascript">''' + '''$(document).ready(function(){$("#gallery").scrollview({grab:"''' + userdir + userprogpath + '''jquery/openhand_8_8.cur", grabbing:"''' + userdir + userprogpath + '''jquery/closedhand_8_8.cur"});});''' +  '''
+        </script>      
 </head>
 <body>
     <div class="scrollable"  id="gallery">\n'''
         self.htmlfp += self.htmlfp2
         self.htmlsp = '''    </div>
-<script type="text/javascript">
-var scrollableContainer = document.getElementById('gallery');
-var g2p = new GrabToPan({
-    element: scrollableContainer
-});
-g2p.activate();
-
-</script>
 </body>
 </html>
 '''
@@ -134,7 +128,7 @@ g2p.activate();
                                 image = page.renderToImage(self.dpi, self.dpi)
                                 pixmap = QtGui.QPixmap.fromImage(image)
                                 pixmap.save(dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
-                                htmlfp += '<img src="' + dirname + SEP('/dir_') + filename + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
+                                htmlfp += '<img src="' + 'doc' + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
                                 idnum += 1
                             htmlfp += htmlsp
                             html.write(htmlfp)

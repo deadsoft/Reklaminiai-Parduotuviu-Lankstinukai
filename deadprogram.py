@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.011
+version = 0.012
 
 def SEP(path):
     separator = os.path.sep
@@ -387,16 +387,20 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             shop = item[0]
             pdfsinshopsdir = sorted(os.listdir(userdir + userprogpath + SEP('pdfs/') + shop + SEP('/')), key=lambda p: os.path.getctime(os.path.join(userdir + userprogpath + SEP('pdfs/') + shop + SEP('/'), p)))
             pdfss = []
+            item[1].clear()
+            item[1].addItem(QtCore.QString.fromUtf8(item[2]), QVariant(shop))
+            num = 1
             for pdf in pdfsinshopsdir:
                 if not pdf.startswith('dir_'):
                     pdfss.append(pdf)
+                    item[1].addItem(pdf)
+                    item[1].setItemData(num, pdf, QtCore.Qt.ToolTipRole)
+                    num += 1 
             if len(pdfss) == 0:
                 item[1].setEnabled(False)
             else:
                 item[1].setEnabled(True)
-            item[1].clear()
-            item[1].addItem(QtCore.QString.fromUtf8(item[2]), QVariant(shop))
-            item[1].addItems(pdfss)
+#            item[1].addItems(pdfss)
 
     def createhtmlfrompdf(self):
         b = pdf2images.imagesFromPdf(self.pdftoimagesdpi)
@@ -479,11 +483,15 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if os.path.exists(userdir + userprogpath + 'browserbookmarks.txt'):
             f = open(userdir + userprogpath + 'browserbookmarks.txt', 'r')
             lst = json.load(f)
+            num = 0
             for tpl in lst:
                 self.comboBox.addItem(tpl[0], QVariant(tpl[1]))
+                self.comboBox.setItemData(num, tpl[0], QtCore.Qt.ToolTipRole)
+                num += 1
         else:
             self.comboBox.addItem('Google', QVariant('https://www.google.lt/'))
-
+            self.comboBox.setItemData(num, 'Google', QtCore.Qt.ToolTipRole)
+            
     def infobox(self, text):
         box = QtGui.QMessageBox()
         box.setText(unicode(text, "utf-8"))

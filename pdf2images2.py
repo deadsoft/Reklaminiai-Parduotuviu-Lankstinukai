@@ -23,9 +23,9 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.004
+version = 0.005
 
-import os, platform, shutil
+import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
 if platform.system() == "Linux":
 	import popplerqt4
@@ -35,14 +35,13 @@ elif platform.system() == "Windows":
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
     
-class imagesFromPdf2(QtCore.QThread):
-    finished  = QtCore.pyqtSignal(str)
+class imagesFromPdf(QtCore.QThread):
+    txt = QtCore.pyqtSignal(str)
+    reloadcomboboxes = QtCore.pyqtSignal()
     
-    def __init__(self, dpi, shop, url):
+    def __init__(self, dpi):
         QtCore.QThread.__init__(self)
         self.dpi = dpi
-        self.shop = shop
-        self.url   =  url
         self.htmlfp = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -74,27 +73,21 @@ html, body {
     height: 100%;
 }
 </style>\n'''
-        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>\n' + '<script src="' + userdir + userprogpath + 'jquery/grab-to-pan.js"></script>\n' + '''
+        self.htmlfp2 =  '<script src="' + userdir + userprogpath + 'jquery/jquery-1.9.1.min.js"></script>\n' + '<script src="' + userdir + userprogpath + 'jquery/jquery.scrollview.js"></script>\n' + '''
 <script type="text/javascript">
 $(document).ready(function () {
 $('#gallery img').mouseover(function() {
    my_hub.connect(this.id);
 });
 });
-</script>        
+</script>
+<script type="text/javascript">''' + '''$(document).ready(function(){$("#gallery").scrollview({grab:"''' + userdir + userprogpath + '''jquery/openhand_8_8.cur", grabbing:"''' + userdir + userprogpath + '''jquery/closedhand_8_8.cur"});});''' +  '''
+        </script>      
 </head>
 <body>
     <div class="scrollable"  id="gallery">\n'''
         self.htmlfp += self.htmlfp2
         self.htmlsp = '''    </div>
-<script type="text/javascript">
-var scrollableContainer = document.getElementById('gallery');
-var g2p = new GrabToPan({
-    element: scrollableContainer
-});
-g2p.activate();
-
-</script>
 </body>
 </html>
 '''
