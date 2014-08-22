@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.005
+version = 0.006
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -35,13 +35,15 @@ elif platform.system() == "Windows":
 userdir = os.path.expanduser('~')
 userprogpath = SEP('/.cache/deadprogram/')
     
-class imagesFromPdf(QtCore.QThread):
+class imagesFromPdf2(QtCore.QThread):
     txt = QtCore.pyqtSignal(str)
     reloadcomboboxes = QtCore.pyqtSignal()
     
-    def __init__(self, dpi):
+    def __init__(self, dpi, shop, url):
         QtCore.QThread.__init__(self)
         self.dpi = dpi
+        self.shop = shop
+        self.url = url
         self.htmlfp = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -124,7 +126,8 @@ $('#gallery img').mouseover(function() {
                 htmlfp += htmlsp
                 html.write(htmlfp)
                 html.close()
-                self.finished.emit('Sukuriau paveikslėlius iš lankstinuko ' + self.shop + ': ' + self.url)
+                self.txt.emit('Sukuriau paveikslėlius iš lankstinuko ' + self.shop + ': ' + self.url)
+                self.reloadcomboboxes.emit()
             elif platform.system() == 'Windows':
                 htmlfp = self.htmlfp
                 htmlsp = self.htmlsp
@@ -141,7 +144,8 @@ $('#gallery img').mouseover(function() {
                 htmlfp += htmlsp
                 html.write(htmlfp)
                 html.close()
-                self.finished.emit('Sukuriau paveikslėlius iš lankstinuko ' + self.shop + ': ' + self.url)
+                self.txt.emit('Sukuriau paveikslėlius iš lankstinuko ' + self.shop + ': ' + self.url)
+                self.reloadcomboboxes.emit()
         try:
             os.remove(path + SEP('/dir_') + self.url + SEP('/working'))
         except:

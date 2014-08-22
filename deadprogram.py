@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.012
+version = 0.013
 
 def SEP(path):
     separator = os.path.sep
@@ -414,8 +414,8 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.addtxt('Kuriu paveikslėlius iš lankstinuko ' +  shop + ': ' + url)
         c = pdf2images2.imagesFromPdf2(dpi, shop, url)
         self.threads.append(c)
-        self.threads[len(self.threads)-1].finished.connect(self.addtxt)
-        self.threads[len(self.threads)-1].finished.connect(self.loadpdfcomboboxes)
+        self.threads[len(self.threads)-1].txt.connect(self.addtxt)
+        self.threads[len(self.threads)-1].reloadcomboboxes.connect(self.loadpdfcomboboxes)
         c.start()
 
     def downlopdedpdfsfalse(self):
