@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.006
+version = 0.007
 
 helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
@@ -27,7 +27,7 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.0.1 (Linux)">
 	<META NAME="CREATED" CONTENT="20140813;142702547185657">
-	<META NAME="CHANGED" CONTENT="20140815;224613598763594">
+	<META NAME="CHANGED" CONTENT="20140823;135310890537738">
 	<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 2cm }
@@ -149,5 +149,13 @@ Sėkmingo naudojimo. :)</P>
 </UL>
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><BR>
 </P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
+programa nepasileidžia (taip gali atsitikti nes įvelsiu kokią
+klaidą ar nepagalvosiu...) pirmiausia reikėtų ištrinti vartotojo
+namų aplanke esantį aplanką. Linux : 
+/home/Vartotojas/.cache/deadprogram,  Windows:
+C:\Users\Vartotojas\.cache\deadprogram. Jeigu nenorit, kad dingtų
+kaupiami lankstinukai, tada reiketų ištrinti viską išskyrus
+„pdfs“  aplanką.</FONT></P>
 </BODY>
 </HTML>'''
