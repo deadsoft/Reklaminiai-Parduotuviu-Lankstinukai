@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.007
+version = 0.008
 
 helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
@@ -27,7 +27,7 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.0.1 (Linux)">
 	<META NAME="CREATED" CONTENT="20140813;142702547185657">
-	<META NAME="CHANGED" CONTENT="20140823;135310890537738">
+	<META NAME="CHANGED" CONTENT="20140823;141351985374536">
 	<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 2cm }
@@ -40,24 +40,30 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5 STYLE="font-size: 20pt"><B>Pagalba</B></FONT></P>
 <P STYLE="margin-bottom: 0cm"><BR>
 </P>
-<P STYLE="margin-bottom: 0cm">Kortelėje <SPAN STYLE="font-style: normal"><B>„</B></SPAN><SPAN STYLE="font-style: normal"><SPAN STYLE="text-decoration: none"><B>Naujinimas</B></SPAN></SPAN><SPAN STYLE="font-style: normal"><B>“</B></SPAN>
-reikia pasirinkti <FONT SIZE=3><SPAN STYLE="font-weight: normal">parduotuvę(-es),
-ir paspausti </SPAN></FONT><FONT SIZE=3><I><B>„Tikrinti ir atsiųsti
-dabar“. </B></I></FONT><FONT SIZE=3><I><SPAN STYLE="font-weight: normal">Eigą
-gal</SPAN></I></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">ima
-stebėti </SPAN></SPAN></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><B>„</B></SPAN></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><B>Naujinimas“</B></SPAN></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
-kortelės apačioje. Skaitymas – kortelėje </SPAN></SPAN></FONT><FONT SIZE=3><I><B>„</B></I></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><B>Lankstinukai</B></SPAN></FONT><FONT SIZE=3><I><B>“</B></I></FONT><FONT SIZE=3><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">.</SPAN></SPAN></FONT></P>
+<P STYLE="margin-bottom: 0cm">Kortelėje „<B>Naujinimas</B>“
+reikia pasirinkti parduotuvę(-es), ir paspausti „<I><B>Tikrinti ir
+atsiųsti dabar</B></I>“. Eigą galima stebėti „<B>Naujinimas</B>“
+kortelės apačioje. Skaitymas – kortelėje „<B>Lankstinukai</B>“.</P>
 <P STYLE="margin-bottom: 0cm"><BR>
 </P>
-<P STYLE="margin-bottom: 0cm"><I><B>Jei dėl kokių nors priežasčių
-programa veikia ne taip kaip turėtų arba iš viso neveikia, reikėtų</B></I></P>
-<P STYLE="margin-bottom: 0cm"><I><B>kreiptis adresu:
-</B></I><A HREF="https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues</SPAN></SPAN></A></P>
-<P STYLE="margin-bottom: 0cm; font-style: normal"><B>Programa
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
+programa nepasileidžia (taip gali atsitikti nes įvelsiu kokią
+klaidą ar nepagalvosiu...) pirmiausia reikėtų ištrinti vartotojo
+namų aplanke esantį aplanką. Linux : 
+„<I>/home/Vartotojas/.cache/deadprogram</I>“,  Windows:
+„<I>C:\Users\Vartotojas\.cache\deadprogram</I>“. Jeigu nenorit,
+kad dingtų kaupiami lankstinukai, tada reiketų ištrinti viską
+išskyrus „pdfs“  aplanką.</FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
+nepadeda, tada reikėtų kreiptis adresu:
+<A HREF="https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues">https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues</A>
+ir užpildyti formą.</FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Programa
 nekomercinė ir kuriama vieno žmogaus, taigi jei nepraneši,
-greičiausiai niekas ir nesužinos. Taip pat laukiami ir pasiūlymai.</B></P>
-<P STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
-Sėkmingo naudojimo. :)</P>
+greičiausiai niekas ir nesužinos. Taip pat laukiami ir pasiūlymai.</FONT></P>
+<P STYLE="margin-bottom: 0cm">Sėkmingo naudojimo. :)</P>
 <P STYLE="margin-bottom: 0cm"><BR>
 </P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5 STYLE="font-size: 20pt"><B>Informacija</B></FONT></P>
@@ -147,15 +153,5 @@ Sėkmingo naudojimo. :)</P>
 		</UL>
 	</UL>
 </UL>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><BR>
-</P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
-programa nepasileidžia (taip gali atsitikti nes įvelsiu kokią
-klaidą ar nepagalvosiu...) pirmiausia reikėtų ištrinti vartotojo
-namų aplanke esantį aplanką. Linux : 
-/home/Vartotojas/.cache/deadprogram,  Windows:
-C:\Users\Vartotojas\.cache\deadprogram. Jeigu nenorit, kad dingtų
-kaupiami lankstinukai, tada reiketų ištrinti viską išskyrus
-„pdfs“  aplanką.</FONT></P>
 </BODY>
 </HTML>'''
