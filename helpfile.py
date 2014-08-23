@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.008
+version = 0.009
 
 helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
@@ -27,7 +27,7 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.0.1 (Linux)">
 	<META NAME="CREATED" CONTENT="20140813;142702547185657">
-	<META NAME="CHANGED" CONTENT="20140823;141351985374536">
+	<META NAME="CHANGED" CONTENT="20140823;143137471448002">
 	<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 2cm }
@@ -49,13 +49,15 @@ kortelės apačioje. Skaitymas – kortelėje „<B>Lankstinukai</B>“.</P>
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
 programa nepasileidžia (taip gali atsitikti nes įvelsiu kokią
 klaidą ar nepagalvosiu...) pirmiausia reikėtų ištrinti vartotojo
-namų aplanke esantį aplanką. Linux : 
-„<I>/home/Vartotojas/.cache/deadprogram</I>“,  Windows:
-„<I>C:\Users\Vartotojas\.cache\deadprogram</I>“. Jeigu nenorit,
+namų aplanke esančius aplankus. Linux : 
+„<I>/home/Vartotojas/.cache/deadprogram</I>“ ir
+,„<I>/home/neon/.config/deadprogram</I>“  Windows:
+„<I>C:\Users\Vartotojas\.cache\deadprogram</I>“ ir registro
+įrašus su <I><B>regedit.exe</B></I>
+„<I>HKEY_CURRENT_USER\Software\deadprogram</I>“. Jeigu nenorit,
 kad dingtų kaupiami lankstinukai, tada reiketų ištrinti viską
-išskyrus „pdfs“  aplanką.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><FONT SIZE=3>Jei
-nepadeda, tada reikėtų kreiptis adresu:
+išskyrus „pdfs“  aplanką. Jei nepadeda, tada reikėtų kreiptis
+adresu:
 <A HREF="https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues">https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/issues</A>
 ir užpildyti formą.</FONT></P>
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal"><BR>
