@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.009
+version = 0.010
 
 helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
@@ -27,7 +27,7 @@ helphtml='''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.0.1 (Linux)">
 	<META NAME="CREATED" CONTENT="20140813;142702547185657">
-	<META NAME="CHANGED" CONTENT="20140823;143137471448002">
+	<META NAME="CHANGED" CONTENT="20140823;161701334580747">
 	<STYLE TYPE="text/css">
 	<!--
 		@page { margin: 2cm }
@@ -132,10 +132,10 @@ greičiausiai niekas ir nesužinos. Taip pat laukiami ir pasiūlymai.</FONT></P>
 				</P>
 				<UL>
 					<LI><P ALIGN=LEFT STYLE="margin-bottom: 0cm; font-weight: normal">
-					<FONT SIZE=3>Patikrins įjungiant programą fone. Gali uždėt,
-					gali palaukt kol nustos siųst lankstinukus, nors interneto
-					kortelėj rodys jog yra naujesnis. O galbūt ir šiaip programos
-					atnaujinimas bus, kuris praktiškai matysis.</FONT></P>
+					<FONT SIZE=3>Patikrins įjungiant programą fone. Siūlau uždėt
+					varnelę arba periodiškai spausti mygtuką <I><B>„Tikrinti ir
+					atsiųsti dabar“. </B></I></FONT>
+					</P>
 				</UL>
 			</UL>
 		</UL>
