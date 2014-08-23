@@ -69,7 +69,8 @@ class Updater(QtCore.QThread):
         f2.close()
         for item in lst:
             for item2 in lst2:
-                print item[0], item2[0], item[1], item2[1]
+                if item[0] ==  item2[0]:
+                    print item[0], item2[0], item[1], item2[1]
                 if item[1] <  item2[1] and item[0] ==  item2[0]:
                     self.info.emit('Radau atnaujinimą')
                     url = item2[2]
