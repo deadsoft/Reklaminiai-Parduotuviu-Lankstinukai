@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.013
+version = 0.014
 
 def SEP(path):
     separator = os.path.sep
@@ -490,7 +490,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 num += 1
         else:
             self.comboBox.addItem('Google', QVariant('https://www.google.lt/'))
-            self.comboBox.setItemData(num, 'Google', QtCore.Qt.ToolTipRole)
+            self.comboBox.setItemData(0, 'Google', QtCore.Qt.ToolTipRole)
             
     def infobox(self, text):
         box = QtGui.QMessageBox()
