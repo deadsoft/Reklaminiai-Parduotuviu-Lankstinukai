@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1061</width>
-    <height>656</height>
+    <width>901</width>
+    <height>636</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -308,11 +308,20 @@
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_10">
+                <property name="minimumSize">
+                 <size>
+                  <width>145</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
                   <height>23</height>
                  </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -323,11 +332,20 @@
               </item>
               <item>
                <widget class="QComboBox" name="comboBox_11">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="maximumSize">
                  <size>
-                  <width>16777215</width>
+                  <width>100</width>
                   <height>23</height>
                  </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -338,6 +356,164 @@
               </item>
               <item>
                <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <property name="spacing">
+               <number>1</number>
+              </property>
+              <property name="topMargin">
+               <number>1</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="comboBox_12">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>EUROKOS</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_13">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Drogas</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_14">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>ERMITAŽAS</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_8">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Senukai</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_9">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Moki*Veži</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_11">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -472,137 +648,6 @@
                  <bool>true</bool>
                 </property>
                </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12">
-              <property name="spacing">
-               <number>1</number>
-              </property>
-              <property name="topMargin">
-               <number>1</number>
-              </property>
-              <property name="bottomMargin">
-               <number>2</number>
-              </property>
-              <item>
-               <widget class="QComboBox" name="comboBox_12">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>EUROKOS</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_13">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Drogas</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_14">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>ERMITAŽAS</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_8">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>100</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Senukai</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox_9">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>100</width>
-                  <height>23</height>
-                 </size>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Moki*Veži</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_11">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </item>
@@ -1142,6 +1187,51 @@
                 </property>
                </spacer>
               </item>
+              <item>
+               <widget class="QComboBox" name="comboBox">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>200</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>23</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Sans Serif</family>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                  <strikeout>false</strikeout>
+                 </font>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::NoFocus</enum>
+                </property>
+                <property name="acceptDrops">
+                 <bool>true</bool>
+                </property>
+                <property name="editable">
+                 <bool>false</bool>
+                </property>
+                <property name="maxVisibleItems">
+                 <number>20</number>
+                </property>
+                <property name="frame">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
              </layout>
             </item>
             <item>
@@ -1166,7 +1256,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1220,7 +1316,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1262,7 +1364,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1298,7 +1406,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1334,7 +1448,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1362,7 +1482,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1370,7 +1490,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>360</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="font">
@@ -1403,7 +1529,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>27</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="mouseTracking">
@@ -1439,55 +1571,10 @@
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>40</width>
-                  <height>27</height>
+                  <height>23</height>
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item>
-               <widget class="QComboBox" name="comboBox">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>200</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>200</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <family>Sans Serif</family>
-                  <weight>50</weight>
-                  <bold>false</bold>
-                  <strikeout>false</strikeout>
-                 </font>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
-                </property>
-                <property name="acceptDrops">
-                 <bool>true</bool>
-                </property>
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <property name="maxVisibleItems">
-                 <number>20</number>
-                </property>
-                <property name="frame">
-                 <bool>false</bool>
-                </property>
-               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="pushButton_12">
@@ -1522,7 +1609,13 @@
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>18</height>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>23</height>
                  </size>
                 </property>
                 <property name="value">
