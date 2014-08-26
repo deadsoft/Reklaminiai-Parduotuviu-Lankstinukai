@@ -78,7 +78,6 @@ class LinkParser(QtCore.QThread):
                 search = soup.findAll(attrs={'class': 'downloadPdf'})
                 for link in search:
                     self.download_queue.append((label, link.find('a')['href']))
-                    print link.find('a')['href']
                     
         except:
             pass
