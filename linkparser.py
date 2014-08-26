@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.010
+version = 0.011
 
 from PyQt4 import QtCore
 
@@ -71,13 +71,14 @@ class LinkParser(QtCore.QThread):
             soup = self.bsoup(html_page)
             search = soup.find(attrs={'class': 'thirdMenu'}).findAll("a")
             for link in search:
-                self.pages.append(link.get("href"))
+                pages.append(link.get("href"))
             for link in pages:
                 html_page = self.urlib.urlopen(link)
                 soup = self.bsoup(html_page)
                 search = soup.findAll(attrs={'class': 'downloadPdf'})
                 for link in search:
                     self.download_queue.append((label, link.find('a')['href']))
+                    print link.find('a')['href']
                     
         except:
             pass
