@@ -1,3 +1,23 @@
+Naršyklėj paspaudus ant pdf nuorodos siųsti ją pagal parduotuvę
+galbūt padaryt kad automatiskai siųstų programos nuluzimo klaidas.
+Pasidomet ar galima perkelt i android ir ar daug keist reiketu. Galima į vieną projektą ar jau visai atskirai.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Winduose pdf.js neveikia kaip priklauso, išskyrus pridėtą pdf. Įdomus pastebėjimas: linuksuose keičiasi failo modifikavimo data po to kai atidarai per qtwebkit'ą su pdf.js.
 
 

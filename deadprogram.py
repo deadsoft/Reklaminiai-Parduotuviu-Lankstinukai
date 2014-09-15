@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.014
+version = 0.015
 
 def SEP(path):
     separator = os.path.sep
@@ -602,6 +602,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         b = updater.Updater()
         self.threads.append(b)
         self.threads[len(self.threads)-1].info.connect(self.addtxt)
+        self.threads[len(self.threads)-1].rst.connect(self.restart)
         b.start()
 
     def nextpage(self):
@@ -773,6 +774,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         if len(self.downloadlist) == 0:
             self.downlopdedpdfs = False
             self.checkforpdfupdates = False
+            self.addtxt('Baigiau lankstinukų atsiuntimą')
             if self.loadpdfjs:
                 self.loadpdfcomboboxes()
  

@@ -17,7 +17,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.009
+version = 0.010
 
 def SEP(path):
     separator = os.path.sep
@@ -49,6 +49,7 @@ lst = [('pdf2images.py', vpdf2images), ('oldpdfdeleter.py', voldpdfdeleter), ('l
 
 class Updater(QtCore.QThread):
     info = QtCore.pyqtSignal(str)
+    rst = QtCore.pyqtSignal()
        
     def __init__(self):
         QtCore.QThread.__init__(self)
@@ -82,4 +83,7 @@ class Updater(QtCore.QThread):
                 else:
                     pass
         self.info.emit('Baigiau')
+        self.info.emit('Už 3 sekundžių automatiškai persikrausiu, kad įsigaliotų atnaujinimai')
+        time.sleep(3)
+        self.rst.emit()
         return
