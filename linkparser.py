@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.012
+version = 0.013
 
 from PyQt4 import QtCore
 
@@ -43,7 +43,7 @@ class LinkParser(QtCore.QThread):
         for item in self.download_queue:
             self.url.emit(item[0], item[1])
         self.finishedurlparsing.emit(True)
-        self.addtext.emit('Baigiau')
+        self.addtext.emit('Baigiau tikrinti parduotuves')
         return
         
     def Maxima(self, label):

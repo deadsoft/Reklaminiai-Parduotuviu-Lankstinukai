@@ -17,7 +17,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.010
+version = 0.011
 
 def SEP(path):
     separator = os.path.sep
@@ -82,8 +82,8 @@ class Updater(QtCore.QThread):
                     self.info.emit('Atnaujinau ' + filename)
                 else:
                     pass
-        self.info.emit('Baigiau')
-        self.info.emit('Už 3 sekundžių automatiškai persikrausiu, kad įsigaliotų atnaujinimai')
+        self.info.emit('Baigiau programos atnaujinimą')
+        self.info.emit('Perkrauk, kad įsigaliotų atnaujinimai, jei tokių yra')
         time.sleep(3)
         self.rst.emit()
         return

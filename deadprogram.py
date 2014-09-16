@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.015
+version = 0.016
 
 def SEP(path):
     separator = os.path.sep
@@ -528,11 +528,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.spinBox_3.setValue(settings.value("pdfupdateindays").toInt()[0])
         if settings.value("lastpdfupdatechecktime").toInt()[1]:
             self.lastpdfupdatechecktime = settings.value("lastpdfupdatechecktime").toInt()[0]
-        if settings.value("autoupdatepdfs").toBool():
-            self.checkBox_4.setChecked(True)
-            if self.lastpdfupdatechecktime <= int(time.strftime("%Y%m%d")) - settings.value("pdfupdateindays").toInt()[0]:
-                self.updatepdfs()
-                self.lastpdfupdatechecktime = int(time.strftime("%Y%m%d"))
         if settings.value("autodelpdfs").toBool():
             self.checkBox_3.setChecked(True)
             self.deleteoldpdfs(self.spinBox.value())
@@ -556,6 +551,11 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.currentpdfpage = settings.value("currentpdfpage").toInt()[0]
         if settings.value("numofpdfpages").toInt()[1]:
             self.numofpdfpages = settings.value("numofpdfpages").toInt()[0]
+        if settings.value("autoupdatepdfs").toBool():
+            self.checkBox_4.setChecked(True)
+            if self.lastpdfupdatechecktime <= int(time.strftime("%Y%m%d")) - settings.value("pdfupdateindays").toInt()[0]:
+                self.updatepdfs()
+                self.lastpdfupdatechecktime = int(time.strftime("%Y%m%d"))
         
     def writeSettings(self):
         settings = QtCore.QSettings("deadprogram", "lankstukai")
@@ -602,7 +602,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         b = updater.Updater()
         self.threads.append(b)
         self.threads[len(self.threads)-1].info.connect(self.addtxt)
-        self.threads[len(self.threads)-1].rst.connect(self.restart)
         b.start()
 
     def nextpage(self):

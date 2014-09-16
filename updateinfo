@@ -1,7 +1,7 @@
 [
     [
         "linkparser.py", 
-        0.012, 
+        0.013, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py"
     ], 
     [
@@ -16,7 +16,7 @@
     ], 
     [
         "deadprogram.py", 
-        0.015, 
+        0.016, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/deadprogram.py"
     ], 
     [
@@ -26,7 +26,7 @@
     ], 
     [
         "updater.py", 
-        0.010, 
+        0.011, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/updater.py"
     ], 
     [
