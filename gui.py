@@ -13,7 +13,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.010
+version = 0.011
 from PyQt4 import QtCore, QtGui, QtWebKit
 import os
 
@@ -43,7 +43,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(901, 636)
+        MainWindow.resize(905, 636)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -288,6 +288,14 @@ class Ui_MainWindow(object):
         self.pushButton_6.setFlat(True)
         self.pushButton_6.setObjectName(_fromUtf8("pushButton_6"))
         self.horizontalLayout_12.addWidget(self.pushButton_6)
+        self.label_8 = QtGui.QLabel(self.pdftab)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
+        self.label_8.setSizePolicy(sizePolicy)
+        self.label_8.setObjectName(_fromUtf8("label_8"))
+        self.horizontalLayout_12.addWidget(self.label_8)
         self.verticalLayout_4.addLayout(self.horizontalLayout_12)
         self.line_2 = QtGui.QFrame(self.pdftab)
         self.line_2.setFrameShape(QtGui.QFrame.HLine)
@@ -881,7 +889,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addWidget(self.checkBox_4)
         self.spinBox_3 = QtGui.QSpinBox(self.tab)
         self.spinBox_3.setMaximum(30)
-        self.spinBox_3.setProperty("value", 7)
+        self.spinBox_3.setProperty("value", 1)
         self.spinBox_3.setObjectName(_fromUtf8("spinBox_3"))
         self.horizontalLayout_6.addWidget(self.spinBox_3)
         self.label_5 = QtGui.QLabel(self.tab)
@@ -910,7 +918,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.spinBox.sizePolicy().hasHeightForWidth())
         self.spinBox.setSizePolicy(sizePolicy)
-        self.spinBox.setMinimum(10)
+        self.spinBox.setMinimum(5)
         self.spinBox.setMaximum(365)
         self.spinBox.setSingleStep(5)
         self.spinBox.setProperty("value", 180)
@@ -966,9 +974,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.spinBox_2.sizePolicy().hasHeightForWidth())
         self.spinBox_2.setSizePolicy(sizePolicy)
-        self.spinBox_2.setMinimum(1)
+        self.spinBox_2.setMinimum(0)
         self.spinBox_2.setMaximum(30)
-        self.spinBox_2.setProperty("value", 10)
+        self.spinBox_2.setProperty("value", 1)
         self.spinBox_2.setObjectName(_fromUtf8("spinBox_2"))
         self.horizontalLayout_7.addWidget(self.spinBox_2)
         self.label_4 = QtGui.QLabel(self.tab)
@@ -1109,6 +1117,7 @@ class Ui_MainWindow(object):
         self.comboBox_14.setItemText(0, _translate("MainWindow", "ERMITAŽAS", None))
         self.comboBox_8.setItemText(0, _translate("MainWindow", "Senukai", None))
         self.comboBox_9.setItemText(0, _translate("MainWindow", "Moki*Veži", None))
+        self.label_8.setText(_translate("MainWindow", "TextLabel", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.pdftab), _translate("MainWindow", "Lankstinukai", None))
         self.Intbuttonmaxima.setText(_translate("MainWindow", "Maxima", None))
         self.Intbuttonnorfa.setText(_translate("MainWindow", "Norfa", None))

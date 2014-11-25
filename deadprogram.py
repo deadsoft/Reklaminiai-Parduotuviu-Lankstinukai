@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.016
+version = 0.018
 
 def SEP(path):
     separator = os.path.sep
@@ -182,7 +182,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         webpage = self.webView.page()
         webpage.unsupportedContent.connect(self.webpageunsupportedcontent)
         webpage.setForwardUnsupportedContent(True)
-        webpage.setLinkDelegationPolicy(QtWebKit.QWebPage.DontDelegateLinks)
+        webpage.setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
         
         settings = self.webView.settings()
         settings.setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, False)
@@ -193,7 +193,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         settings.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
         settings.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
         settings.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
-        settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
+        settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, True)
         settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, False)
         settings.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
         settings.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
@@ -221,7 +221,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.settings_2.setAttribute(QtWebKit.QWebSettings.AutoLoadImages, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.PluginsEnabled, False)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptEnabled, True)
-        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, False)
+        self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanOpenWindows, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanAccessClipboard, True)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.JavascriptCanCloseWindows, False)
         self.settings_2.setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, False)
@@ -232,7 +232,9 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.settings_2.setLocalStoragePath(userdir  + userprogpath + 'cache')
         self.settings_2.setMaximumPagesInCache(20)
         self.settings_2.setOfflineStoragePath(userdir  + userprogpath + 'cache')
-
+        
+        self.label_8.setText(str(self.currentpdfpage))
+        
         self.myHub = Hub()
         self.myHub.on_client_event.connect(self.setcurrentpdfpage)
         self.page_2 = self.webView_2.page()
@@ -290,6 +292,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         
     def setcurrentpdfpage(self, page):
         self.currentpdfpage = int(page)
+        self.label_8.setText(str(self.currentpdfpage))
 
     def onLoad(self):
         self.frame_2.addToJavaScriptWindowObject("my_hub", self.myHub)
@@ -380,7 +383,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         pass
 
     def webviewlinkclicked(self, url):
-        pass
+        self.webView.load(url)
 
     def loadpdfcomboboxes(self):
         for item in self.combolist:
@@ -611,6 +614,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.webView_2.load(QtCore.QUrl(self.currenthtmlpath + '#' + str(self.currentpdfpage)))
             else:
                 self.webView_2.load(QtCore.QUrl(self.currenthtmlpath + '#' + str(self.currentpdfpage)))
+            self.label_8.setText(str(self.currentpdfpage))
         
     def previouspage(self):
         if self.currentpdfpage >= 2:
@@ -619,6 +623,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.webView_2.load(QtCore.QUrl(self.currenthtmlpath + '#' + str(self.currentpdfpage)))
             else:
                 self.webView_2.load(QtCore.QUrl(self.currenthtmlpath + str("#") + str(self.currentpdfpage)))
+            self.label_8.setText(str(self.currentpdfpage))
 
     def getnumofpdfpages(self, htmlpath):
         try:
@@ -652,6 +657,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
                 self.getnumofpdfpages(html)
                 self.currenthtmlpath = html
                 self.currentpdfpage = 1
+                self.label_8.setText(str(self.currentpdfpage))
                 if platform.system() == "Windows":
                     if platform.release() == 'XP':
                         self.webView_2.load(QtCore.QUrl(html))
