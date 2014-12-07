@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.013
+version = 0.014
 
 from PyQt4 import QtCore
 
@@ -50,13 +50,13 @@ class LinkParser(QtCore.QThread):
         try:
             self.addtext.emit('Tikrinu ar Maxima turi atnaujinimų')
             pages = []
-            html_page = self.urlib.urlopen('http://www.maxima.lt/akcijos/')
+            html_page = self.urlib.urlopen('http://www.maxima.lt/akcijos/', timeout = 5)
             soup = self.bsoup(html_page)
             for link in soup.findAll(attrs={'class': 'mainSubmenuLink'}):
                 if 'http://www.maxima.lt/akcijos/maxima-kaininis' in link['href'] or 'http://www.maxima.lt/akcijos/maxima-leidinys' in link['href']:
                     pages.append(link['href'])
             for link in pages:
-                html_page = self.urlib.urlopen(link)
+                html_page = self.urlib.urlopen(link, timeout = 5)
                 soup = self.bsoup(html_page)
                 for link in soup.findAll('a', href=True):
                     if str(link['href']).endswith('pdf'):
@@ -68,13 +68,13 @@ class LinkParser(QtCore.QThread):
         try:
             self.addtext.emit('Tikrinu ar Norfa turi atnaujinimų')
             pages = []
-            html_page = self.urlib.urlopen('http://www.norfa.lt/lt/leidiniai')
+            html_page = self.urlib.urlopen('http://www.norfa.lt/lt/leidiniai', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.find(attrs={'class': 'thirdMenu'}).findAll("a")
             for link in search:
                 pages.append(link.get("href"))
             for link in pages:
-                html_page = self.urlib.urlopen(link)
+                html_page = self.urlib.urlopen(link, timeout = 5)
                 soup = self.bsoup(html_page)
                 search = soup.findAll(attrs={'class': 'downloadPdf'})
                 for link in search:
@@ -86,12 +86,12 @@ class LinkParser(QtCore.QThread):
     def Iki(self, label):
         try:
             self.addtext.emit('Tikrinu ar Iki turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.iki.lt/lt.php/akcijos/kainu_leidinys')
+            html_page = self.urlib.urlopen('http://www.iki.lt/lt.php/akcijos/kainu_leidinys', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll('div', attrs={'class': 'nomargin'})
             self.download_queue.append((label, 'http://www.iki.lt/' + str(search[1].a).split('href="')[1].split('"')[0]))
             
-            html_page = self.urlib.urlopen('http://iki.lt/lt.php/akcijos/savaitele-plius')
+            html_page = self.urlib.urlopen('http://iki.lt/lt.php/akcijos/savaitele-plius', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll('div', attrs={'class': 'nomargin'})
             self.download_queue.append((label, 'http://www.iki.lt/' + str(search[1].a).split('href="')[1].split('"')[0]))
@@ -103,11 +103,11 @@ class LinkParser(QtCore.QThread):
     def Rimi(self, label):
         try:
             self.addtext.emit('Tikrinu ar Rimi turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.rimi.lt/rimi-pasiulymai/rimi-leidiniai')
+            html_page = self.urlib.urlopen('http://www.rimi.lt/rimi-pasiulymai/rimi-leidiniai', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'item'})
             for link in search:
-                html_page = self.urlib.urlopen('http://www.rimi.lt' + link.find('a')['href'])
+                html_page = self.urlib.urlopen('http://www.rimi.lt' + link.find('a')['href'], timeout = 5)
                 soup = self.bsoup(html_page)
                 search2 = soup.findAll(attrs={'class': 'pdf'})
                 self.download_queue.append((label,  'http://www.rimi.lt' + search2[0].find('a')['href']))
@@ -118,7 +118,7 @@ class LinkParser(QtCore.QThread):
     def Senukai(self, label):
         try:
             self.addtext.emit('Tikrinu ar Senukai turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.senukai.lt/index.php?&cl=newspapers_list')
+            html_page = self.urlib.urlopen('http://www.senukai.lt/index.php?&cl=newspapers_list', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'pdf'})
             for link in search:
@@ -130,7 +130,7 @@ class LinkParser(QtCore.QThread):
     def Aibe(self, label):
         try:
             self.addtext.emit('Tikrinu ar Aibė turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.aibe.lt/lt/akcijos/aibe-leidiniai')
+            html_page = self.urlib.urlopen('http://www.aibe.lt/lt/akcijos/aibe-leidiniai', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'pdf'})
             for link in search:
@@ -142,7 +142,7 @@ class LinkParser(QtCore.QThread):
     def FRESH_MARKET(self, label):
         try:
             self.addtext.emit('Tikrinu ar FRESH MARKET turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.freshmarket.lt/akcijos')
+            html_page = self.urlib.urlopen('http://www.freshmarket.lt/akcijos', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'get-pdf'})
             for link in search:
@@ -153,7 +153,7 @@ class LinkParser(QtCore.QThread):
     def Moki_Vezi(self, label):
         try:
             self.addtext.emit('Tikrinu ar Moki Veži turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://mokivezi.lt/leidiniai/')
+            html_page = self.urlib.urlopen('http://mokivezi.lt/leidiniai/', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.find(attrs={'class': 'leidinys_block'}).find("a")['href']
             self.download_queue.append((label,  search))
@@ -164,13 +164,13 @@ class LinkParser(QtCore.QThread):
         try:
             pages = []
             self.addtext.emit('Tikrinu ar PROMO CashCarry turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.cashcarry.lt/')
+            html_page = self.urlib.urlopen('http://www.cashcarry.lt/', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.find(attrs={'class': 'banner_area clearfix'}).findAll("a")
             for link in search:
                 pages.append(link['href'])
             for link in pages:
-                html_page = self.urlib.urlopen(link)
+                html_page = self.urlib.urlopen(link, timeout = 5)
                 soup = self.bsoup(html_page)
                 search = soup.find(attrs={'class': 'stext clearfix'})
                 self.download_queue.append((label,  search.find('a')['href']))
@@ -181,7 +181,7 @@ class LinkParser(QtCore.QThread):
     def PRISMA(self, label):
         try:
             self.addtext.emit('Tikrinu ar PRISMA turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.prisma.lt/lt/leidiniai/')
+            html_page = self.urlib.urlopen('http://www.prisma.lt/lt/leidiniai/', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'getPDFOffer'})
             for link in search:
@@ -192,7 +192,7 @@ class LinkParser(QtCore.QThread):
     def EUROKOS(self, label):
         try:
             self.addtext.emit('Tikrinu ar EUROKOS turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.eurokos.lt/leidiniai/akciju-leidiniai/')
+            html_page = self.urlib.urlopen('http://www.eurokos.lt/leidiniai/akciju-leidiniai/', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'leid_parsisiusti'})
             for link in search:
@@ -204,7 +204,7 @@ class LinkParser(QtCore.QThread):
     def Drogas(self, label):
         try:
             self.addtext.emit('Tikrinu ar Drogas turi atnaujinimų')
-            html_page = self.urlib.urlopen('https://www.drogas.lt/lit/laikrastis/')
+            html_page = self.urlib.urlopen('https://www.drogas.lt/lit/laikrastis/', timeout = 5)
             soup = self.bsoup(html_page)
             search = soup.findAll(attrs={'class': 'content-block'})
             for link in search:
