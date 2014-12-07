@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.019
+version = 0.020
 
 def SEP(path):
     separator = os.path.sep
@@ -233,8 +233,6 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.settings_2.setLocalStoragePath(userdir  + userprogpath + 'cache')
         self.settings_2.setMaximumPagesInCache(20)
         self.settings_2.setOfflineStoragePath(userdir  + userprogpath + 'cache')
-        
-        self.label_8.setText(str(self.currentpdfpage))
         
         self.myHub = Hub()
         self.myHub.on_client_event.connect(self.setcurrentpdfpage)
@@ -553,6 +551,7 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
             self.currenthtmlpath = settings.value("currenthtmlpath").toString()
         if settings.value("currentpdfpage").toInt()[1]:
             self.currentpdfpage = settings.value("currentpdfpage").toInt()[0]
+            self.label_8.setText(str(self.currentpdfpage))
         if settings.value("numofpdfpages").toInt()[1]:
             self.numofpdfpages = settings.value("numofpdfpages").toInt()[0]
         if settings.value("autoupdatepdfs").toBool():
