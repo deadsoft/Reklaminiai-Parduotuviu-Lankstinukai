@@ -18,7 +18,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-version = 0.018
+version = 0.019
 
 def SEP(path):
     separator = os.path.sep
@@ -161,9 +161,10 @@ class DeadProgram(QtGui.QMainWindow, Ui_MainWindow):
         self.comboBox_13.activated.connect(lambda: self.loadpdf(self.comboBox_13))
         self.comboBox_14.activated.connect(lambda: self.loadpdf(self.comboBox_14))              
         self.combolist = [('Maxima', self.comboBox_2, 'Maxima'), ('Rimi', self.comboBox_6, 'Rimi'), ('Iki', self.comboBox_4, 'Iki'), ('Norfa', self.comboBox_3, 'Norfa'), ('Aibe', self.comboBox_5, 'Aibė'), ('FRESH_MARKET', self.comboBox_7, 'FRESH MARKET'), ('Senukai', self.comboBox_8, 'Senukai'), ('Moki_Vezi', self.comboBox_9, 'Moki*Veži'), ('PROMO_CashCarry', self.comboBox_10, 'PROMO CashCarry'), ('PRISMA', self.comboBox_11, 'PRISMA'), ('EUROKOS', self.comboBox_12, 'EUROKOS'), ('Drogas', self.comboBox_13, 'Drogas'), ('ERMITAZAS', self.comboBox_14, 'ERMITAŽAS')]
-        self.checkboxlist = [('Maxima', self.checkboxmaxima), ('Rimi', self.checkBoxrimi), ('Iki', self.checkBoxiki), ('Norfa', self.checkBoxnorfa), ('Aibe', self.checkboxAibe), ('FRESH_MARKET', self.checkboxFRESH_MARKET), ('PROMO_CashCarry', self.checkboxPROMO), ('PRISMA', self.checkboxPRISMA), ('EUROKOS', self.checkboxEUROKOS), ('Drogas', self.checkboxDrogas), ('ERMITAZAS', self.checkboxERMITAZAS), ('Senukai', self.checkboxSenukai), ('Moki_Vezi', self.checkboxMoki_Vezi)]
         self.pushbuttonlist = [self.Intbuttonmaxima, self.Intbuttoniki, self.Intbuttonrimi, self.Intbuttonnorfa, self.intbuttonaibe, self.intbuttonFRESH_MARKET, self.intbuttonSenukai, self.intbuttonMoki_Vezi, self.intbuttonJysk, self.intbuttonPROMO, self.intbuttonPRISMA, self.intbuttonEUROKOS, self.intbuttonDrogas, self.intbuttonERMITAZAS]
-        
+        self.checkboxlist = [('Maxima', self.checkboxmaxima), ('Norfa', self.checkBoxnorfa), ('Iki', self.checkBoxiki), ('Rimi', self.checkBoxrimi), ('Aibe', self.checkboxAibe), ('FRESH_MARKET', self.checkboxFRESH_MARKET), ('PROMO_CashCarry', self.checkboxPROMO), ('PRISMA', self.checkboxPRISMA), ('EUROKOS', self.checkboxEUROKOS), ('Drogas', self.checkboxDrogas), ('ERMITAZAS', self.checkboxERMITAZAS), ('Senukai', self.checkboxSenukai), ('Moki_Vezi', self.checkboxMoki_Vezi)]
+
+
         if platform.system() == "Windows":
             self.checkBox.setEnabled(False)
         
