@@ -99,7 +99,6 @@ class LinkParser(QtCore.QThread):
         except:
             pass
 
-
     def Rimi(self, label):
         try:
             self.addtext.emit('Tikrinu ar Rimi turi atnaujinimų')
@@ -114,19 +113,6 @@ class LinkParser(QtCore.QThread):
         except:
             pass
 
-            
-    def Senukai(self, label):
-        try:
-            self.addtext.emit('Tikrinu ar Senukai turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.senukai.lt/index.php?&cl=newspapers_list', timeout = 5)
-            soup = self.bsoup(html_page)
-            search = soup.findAll(attrs={'class': 'pdf'})
-            for link in search:
-                self.download_queue.append((label,  link['href']))
-        except:
-            pass
-
-
     def Aibe(self, label):
         try:
             self.addtext.emit('Tikrinu ar Aibė turi atnaujinimų')
@@ -138,7 +124,6 @@ class LinkParser(QtCore.QThread):
         except:
             pass
 
-
     def FRESH_MARKET(self, label):
         try:
             self.addtext.emit('Tikrinu ar FRESH MARKET turi atnaujinimų')
@@ -147,16 +132,6 @@ class LinkParser(QtCore.QThread):
             search = soup.findAll(attrs={'class': 'get-pdf'})
             for link in search:
                 self.download_queue.append((label,  'http://www.freshmarket.lt/' + link['href']))
-        except:
-            pass
-
-    def Moki_Vezi(self, label):
-        try:
-            self.addtext.emit('Tikrinu ar Moki Veži turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://mokivezi.lt/leidiniai/', timeout = 5)
-            soup = self.bsoup(html_page)
-            search = soup.find(attrs={'class': 'leidinys_block'}).find("a")['href']
-            self.download_queue.append((label,  search))
         except:
             pass
             
@@ -176,8 +151,7 @@ class LinkParser(QtCore.QThread):
                 self.download_queue.append((label,  search.find('a')['href']))
         except:
             pass
-
-    
+            
     def PRISMA(self, label):
         try:
             self.addtext.emit('Tikrinu ar PRISMA turi atnaujinimų')
@@ -212,15 +186,29 @@ class LinkParser(QtCore.QThread):
         except:
             pass
 
-
     def ERMITAZAS(self, label):
         try:
             self.addtext.emit('ERMITAŽAS kolkas nesiunčiamas')
         except:
             pass
-
-
-
-
-
             
+    def Senukai(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Senukai turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://www.senukai.lt/index.php?&cl=newspapers_list', timeout = 5)
+            soup = self.bsoup(html_page)
+            search = soup.findAll(attrs={'class': 'pdf'})
+            for link in search:
+                self.download_queue.append((label,  link['href']))
+        except:
+            pass
+
+    def Moki_Vezi(self, label):
+        try:
+            self.addtext.emit('Tikrinu ar Moki Veži turi atnaujinimų')
+            html_page = self.urlib.urlopen('http://mokivezi.lt/leidiniai/', timeout = 5)
+            soup = self.bsoup(html_page)
+            search = soup.find(attrs={'class': 'leidinys_block'}).find("a")['href']
+            self.download_queue.append((label,  search))
+        except:
+            pass
