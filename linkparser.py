@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.015
+version = 0.016
 
 from PyQt4 import QtCore
 
@@ -189,6 +189,15 @@ class LinkParser(QtCore.QThread):
     def ERMITAZAS(self, label):
         try:
             self.addtext.emit('ERMITAŽAS kolkas nesiunčiamas')
+            try:
+                import santaka
+                urllist = santaka.run()
+                for item in urllist:
+                  self.download_queue.append((label,  item))
+                  print item  
+                
+            except:
+                pass
         except:
             pass
             
