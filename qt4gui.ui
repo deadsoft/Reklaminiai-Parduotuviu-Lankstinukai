@@ -141,7 +141,7 @@
                  </font>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -171,7 +171,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -201,7 +201,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -231,7 +231,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -261,7 +261,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="currentIndex">
                  <number>0</number>
@@ -294,7 +294,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="currentIndex">
                  <number>0</number>
@@ -321,7 +321,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -345,7 +345,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -395,7 +395,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -419,7 +419,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -443,7 +443,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -473,7 +473,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -503,7 +503,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <item>
                  <property name="text">
@@ -540,7 +540,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string/>
@@ -604,7 +604,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string/>
@@ -634,7 +634,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string/>
@@ -672,14 +672,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QWebView" name="webView_2">
+             <widget class="QWebView" name="webView_2" native="true">
               <property name="contextMenuPolicy">
                <enum>Qt::NoContextMenu</enum>
               </property>
               <property name="autoFillBackground">
                <bool>false</bool>
               </property>
-              <property name="url">
+              <property name="url" stdset="0">
                <url>
                 <string>about:blank</string>
                </url>
@@ -737,7 +737,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="acceptDrops">
                  <bool>false</bool>
@@ -777,7 +777,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Norfa</string>
@@ -811,7 +811,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Iki</string>
@@ -845,7 +845,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Rimi</string>
@@ -879,7 +879,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Aibė</string>
@@ -910,7 +910,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>FRESH MARKET</string>
@@ -929,7 +929,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>PROMO CashCarry</string>
@@ -948,7 +948,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>PRISMA</string>
@@ -997,7 +997,7 @@
                  </font>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="acceptDrops">
                  <bool>true</bool>
@@ -1046,7 +1046,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>EUROKOS</string>
@@ -1065,7 +1065,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Drogas</string>
@@ -1084,7 +1084,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>ERMITAŽAS</string>
@@ -1115,7 +1115,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Senukai</string>
@@ -1146,7 +1146,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Moki*Veži</string>
@@ -1177,7 +1177,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Jysk</string>
@@ -1229,7 +1229,7 @@
                  </font>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="acceptDrops">
                  <bool>true</bool>
@@ -1282,7 +1282,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="autoFillBackground">
                  <bool>false</bool>
@@ -1342,7 +1342,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string notr="true"/>
@@ -1390,7 +1390,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset>
@@ -1432,7 +1432,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset>
@@ -1474,7 +1474,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="icon">
                  <iconset>
@@ -1521,7 +1521,7 @@
                  <bool>false</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::ClickFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="dragEnabled">
                  <bool>true</bool>
@@ -1555,7 +1555,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string/>
@@ -1604,7 +1604,7 @@
                  </size>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Į adresyną</string>
@@ -1646,7 +1646,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QWebView" name="webView">
+             <widget class="QWebView" name="webView" native="true">
               <property name="font">
                <font>
                 <stylestrategy>PreferAntialias</stylestrategy>
@@ -1655,7 +1655,7 @@
               <property name="mouseTracking">
                <bool>false</bool>
               </property>
-              <property name="url">
+              <property name="url" stdset="0">
                <url>
                 <string>about:blank</string>
                </url>
@@ -1772,7 +1772,7 @@
                      </size>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="layoutDirection">
                      <enum>Qt::LeftToRight</enum>
@@ -1800,7 +1800,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Norfa</string>
@@ -1819,7 +1819,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Iki</string>
@@ -1838,7 +1838,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Rimi</string>
@@ -1857,7 +1857,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Aibė</string>
@@ -1873,7 +1873,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>FRESH MARKET</string>
@@ -1889,7 +1889,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>PROMO CashCarry</string>
@@ -1905,7 +1905,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>PRISMA</string>
@@ -1921,7 +1921,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>EUROKOS</string>
@@ -1937,7 +1937,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Drogas</string>
@@ -1953,7 +1953,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>ERMITAŽAS</string>
@@ -1969,7 +1969,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Senukai</string>
@@ -1985,7 +1985,7 @@
                      </sizepolicy>
                     </property>
                     <property name="focusPolicy">
-                     <enum>Qt::NoFocus</enum>
+                     <enum>Qt::StrongFocus</enum>
                     </property>
                     <property name="text">
                      <string>Moki*Veži</string>
@@ -2035,7 +2035,7 @@
                    </size>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Tikrinti ir atsiųsti dabar</string>
@@ -2083,7 +2083,7 @@
                    </size>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Automatiškai tikrinti ar yra naujų lankstinukų kas  </string>
@@ -2142,7 +2142,7 @@
                    </sizepolicy>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Automatiškai trinti senus lankstinukus po  </string>
@@ -2196,7 +2196,7 @@
                    </sizepolicy>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Trinti dabar</string>
@@ -2277,7 +2277,7 @@
               <item>
                <widget class="QCheckBox" name="checkBox_2">
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Automatiškai tikrinti įjungiant programą kas  </string>
@@ -2322,7 +2322,7 @@
                  </sizepolicy>
                 </property>
                 <property name="focusPolicy">
-                 <enum>Qt::NoFocus</enum>
+                 <enum>Qt::StrongFocus</enum>
                 </property>
                 <property name="text">
                  <string>Tikrinti ir atsiųsti dabar</string>
@@ -2449,7 +2449,7 @@
                    </sizepolicy>
                   </property>
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Naudoti pdf.js. Lėtas ir kolkas kreivokai atvaizduoja su standartiniu webkit'u.</string>
@@ -2534,7 +2534,7 @@
                 <item>
                  <widget class="QPushButton" name="pushButton_10">
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Ištrinti paveikslėlius</string>
@@ -2577,7 +2577,7 @@
                 <item>
                  <widget class="QPushButton" name="pushButton_13">
                   <property name="focusPolicy">
-                   <enum>Qt::NoFocus</enum>
+                   <enum>Qt::StrongFocus</enum>
                   </property>
                   <property name="text">
                    <string>Pagalba</string>

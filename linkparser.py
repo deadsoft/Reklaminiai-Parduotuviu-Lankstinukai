@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 	ReklaminiaiParduotuviųLankstinukai
-	Copyright (C) <2011-2014> <Algirdas Butkus> <butkus.algirdas@gmail.com>
+	Copyright (C) <2011-2015> <Algirdas Butkus> <butkus.algirdas@gmail.com>
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU Affero General Public License as
@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.016
+version = 0.017
 
 from PyQt4 import QtCore
 
@@ -50,17 +50,15 @@ class LinkParser(QtCore.QThread):
         try:
             self.addtext.emit('Tikrinu ar Maxima turi atnaujinimų')
             pages = []
-            html_page = self.urlib.urlopen('http://www.maxima.lt/akcijos/', timeout = 5)
+            html_page = self.urlib.urlopen('http://www.maxima.lt/leidiniai/', timeout = 5)
             soup = self.bsoup(html_page)
-            for link in soup.findAll(attrs={'class': 'mainSubmenuLink'}):
-                if 'http://www.maxima.lt/akcijos/maxima-kaininis' in link['href'] or 'http://www.maxima.lt/akcijos/maxima-leidinys' in link['href']:
-                    pages.append(link['href'])
-            for link in pages:
-                html_page = self.urlib.urlopen(link, timeout = 5)
-                soup = self.bsoup(html_page)
-                for link in soup.findAll('a', href=True):
-                    if str(link['href']).endswith('pdf'):
-                        self.download_queue.append((label, link['href']))
+            for link in soup.findAll(attrs={'class': 'btn red '}):
+                self.download_queue.append((label, 'http://www.maxima.lt' + link['data-url']))
+            for link in soup.find(attrs={'class': 'in'}).findAll("a"):
+                self.download_queue.append((label, 'http://www.maxima.lt' + link['data-url']))
+            for link in soup.findAll(attrs={'class': 'swiper-slide'}):
+                self.download_queue.append((label, 'http://www.maxima.lt' + link.find('div')['data-url']))
+                
         except:
             pass
 
