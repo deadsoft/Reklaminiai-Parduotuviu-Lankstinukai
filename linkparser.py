@@ -16,7 +16,7 @@
 	You should have received a copy of the GNU Affero General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-version = 0.017
+version = 0.018
 
 from PyQt4 import QtCore
 
@@ -84,16 +84,13 @@ class LinkParser(QtCore.QThread):
     def Iki(self, label):
         try:
             self.addtext.emit('Tikrinu ar Iki turi atnaujinimų')
-            html_page = self.urlib.urlopen('http://www.iki.lt/lt.php/akcijos/kainu_leidinys', timeout = 5)
+            html_page = self.urlib.urlopen('https://www.iki.lt/', timeout = 5)
             soup = self.bsoup(html_page)
-            search = soup.findAll('div', attrs={'class': 'nomargin'})
-            self.download_queue.append((label, 'http://www.iki.lt/' + str(search[1].a).split('href="')[1].split('"')[0]))
-            
-            html_page = self.urlib.urlopen('http://iki.lt/lt.php/akcijos/savaitele-plius', timeout = 5)
-            soup = self.bsoup(html_page)
-            search = soup.findAll('div', attrs={'class': 'nomargin'})
-            self.download_queue.append((label, 'http://www.iki.lt/' + str(search[1].a).split('href="')[1].split('"')[0]))
-
+            search = soup.findAll('div', attrs={'class': 'jpc-data-btn'})
+            for link in search:
+				string = str(link.find('a')['href'])
+				if string.endswith('.pdf'):
+					self.download_queue.append((label, 'http://www.iki.lt' + str(link.find('a')['href'])))
         except:
             pass
 

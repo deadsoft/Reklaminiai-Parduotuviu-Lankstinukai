@@ -1,12 +1,12 @@
 [
     [
         "linkparser.py", 
-        0.017, 
+        0.018, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/linkparser.py"
     ], 
     [
         "pdf2images.py", 
-        0.010,
+        0.011,
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images.py"
     ], 
     [
@@ -46,7 +46,7 @@
     ], 
     [
         "pdf2images2.py", 
-        0.010, 
+        0.011, 
         "https://github.com/deadsoft/Reklaminiai-Parduotuviu-Lankstinukai/raw/master/pdf2images2.py"
     ]
 ]

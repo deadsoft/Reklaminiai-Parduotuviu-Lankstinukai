@@ -23,7 +23,7 @@ def SEP(path):
         path = path.replace('/', os.path.sep)
     return path
 
-version = 0.010
+version = 0.011
 
 import os, time, platform, shutil
 from PyQt4 import QtCore, QtGui
@@ -119,8 +119,7 @@ $('#gallery img').mouseover(function() {
                 for pagenum in range(numpages):
                     page = doc.page(pagenum)
                     image = page.renderToImage(self.dpi, self.dpi)
-                    pixmap = QtGui.QPixmap.fromImage(image)
-                    pixmap.save(path + SEP('/dir_') + self.url + SEP('/doc') + str(pagenum + 1) + '.jpg', format='JPG', quality = 80)
+                    image.save(path + SEP('/dir_') + self.url + SEP('/doc') + str(pagenum + 1) + '.jpg', 'JPG', quality=100)
                     htmlfp += '<img src="' + path + SEP('/dir_') + self.url + SEP('/doc') + str(pagenum + 1) + '.jpg"' + ' border="0" alt="" class="img-frame" id="' + str(idnum) + '" > \n'
                     idnum += 1
                 htmlfp += htmlsp
